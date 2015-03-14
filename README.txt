@@ -47,8 +47,6 @@ Software Architecture
 Flexmo___
 	|_ICT
 	|_FCT____
-	|	|_ADMIN
-	|	|_LOGIN
 	|	|_STATION SETUP
 	|	|_MONITOR
 	|	|_TICKET_
@@ -58,7 +56,6 @@ Flexmo___
 	|	|_GOALS
 	|	|_REPORT
 	|	|_FORMS_
-	|		|_USERS
 	|		|_PRODUCTS
 	|		|_ACTIONS-PROB-SOLU
 	|		|_PARTS
@@ -74,6 +71,8 @@ Flexmo___
 	|_IMAGES
 	|_JS
 	|_PASSLOG
-
-
+	|_FORMS_
+	|	|_USERS
+	|_ADMIN
+	|_LOGIN
 
