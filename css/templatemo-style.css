@@ -303,7 +303,7 @@ h6 {
 .main-header .logo h1 {
   margin: 4px 0 0 0;
   font-size: 3em;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 .main-header .main-menu {
   text-align: right;
