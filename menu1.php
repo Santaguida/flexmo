@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <div class="top-header-left">
-                            <a href="cadastro-user.html">Sign Up</a>
+                            <a href="user-register.php">Sign Up</a>
                             <a href="login.html">Sign In</a>
                         </div> <!-- /.top-header-left -->
                     </div> <!-- /.col-md-6 --><!-- /.col-md-6 -->
@@ -35,7 +35,7 @@
                             </a>
                             <ul class="menu">
                                 <li><a href="user-manager.html">Admin</a></li>
-                                <li><a href="cadastro-user.html">Users</a></li>
+                                <li><a href="user-register.php">Users</a></li>
                                 <li><a href="cadastro-produto.html">Products</a></li>
                                 <li><a href="cadastro-acoes.html">Actions</a></li>
                                 <li><a href="setup.html">Setup</a></li>
@@ -52,7 +52,7 @@
                     <div class="col-md-6 col-sm-7">
                         <div class="list-menu">
                             <ul>
-                                <li><a href="ict">link</a></li>
+                                <li><a href="user-register.php">User</a></li>
                                 <li><a href="fct">link</a></li>
                                 <li><a href="setup">link</a></li>
                                 <li><a href="team">link</a></li>
