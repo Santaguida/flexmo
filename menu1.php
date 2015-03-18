@@ -21,7 +21,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-8">
                         <div class="logo">
                             <h1>
-                                <a href="index.html">
+                                <a href="index.php">
                                     <img src="images/favicon.ico" alt="Logo" style="width:50px;height:50px">
                                     flexMo
                                 </a>
