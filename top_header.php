@@ -5,7 +5,7 @@ if(!isset($_SESSION["user"]))
 	}
 ?>
 
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 
 <div class="top_header_access">
 	<table id="top_header_table"  border="0" width="100%" height="24px" cellspacing="0" style="padding:0px; display:table; height:100%;">
