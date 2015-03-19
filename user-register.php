@@ -1,13 +1,11 @@
 <?php
 
-//require_once 'funcoes/verifica_login.inc.php';
 //require_once 'funcoes/codifica_senha.inc.php';
-// To create user name function
 
 if(isset($_POST['name'])){
     $name = $_POST['name'];
     $lastName = $_POST['lastName'];
-    $userName = ''; // To create user name function
+    $userName = 'sao';
     $extension = $_POST['extension'];
     $register = $_POST['register'];
     $badge = $_POST['badge'];
@@ -23,26 +21,60 @@ if(isset($_POST['name'])){
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
     $alert = '';
+        
+    //Testar função
+    function doUser($userName){
+        $userName .= substr($name, 0, 1);
+        $userName .= substr($lastName, 0, 4);
+        $userName = strtolower($userName);
+    }
     
-    require_once 'servidor.php';
+    $userName = doUser($userName);
+    
+    echo $userName;
+    //fim da função
+    require_once 'server.php';
     
     if(empty($name)){
-        $alert .= 'O nome é um campo obrigatório<br />';
+        $alert .= 'Por favor, preencha o campo NOME<br />';
     }
+    elseif(empty($lastName)){
+        $alert .= 'Por favor, preencha o campo SOBRENOME<br />';
+    }
+    elseif(empty($register)){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA<br />';
+    }
+    elseif(empty($phone)){
+        $alert .= 'Por favor, preencha o campo TELEFONE<br />';
+    }
+    elseif(empty($cell)){
+        $alert .= 'Por favor, preencha o campo CELULAR<br />';
+    }    
     elseif(empty($email)){
-        $aviso .= 'O email e um compo obrigatorio<br />';
+        $aviso .= 'Por favor, preencha o campo E-MAIL<br />';
     }
-    if(empty($login)){
-        $aviso .= 'O login e um compo obrigatorio<br />';
-    }elseif(verifica_login($login)){
-        $aviso .= 'O login ja existe <br />';
-        
+    elseif ($email != $checkEmail) {
+        $aviso .= 'O e-mail não foi confirmado corretamente';
+    }  
+    elseif(empty($adress)){
+        $aviso .= 'Por favor, preencha o campo ENDEREÇO<br />';
     }
-        
-    if(empty($senha)){
-        $aviso .= 'A senha e um compo obrigatorio<br />';
-    }elseif ($senha != $confirmaSenha) {
-        $aviso .= 'A confirmacao da senha esta errada';
+    elseif(empty($neigh)){
+        $aviso .= 'Por favor, preencha o campo BAIRRO<br />';
+    }
+    elseif(empty($city)){
+        $aviso .= 'Por favor, preencha o campo CIDADE<br />';
+    }
+    elseif(empty($password)){
+        $aviso .= 'Por favor, preencha o campo SENHA<br />';
+    }elseif ($password != $checkPassword) {
+        $aviso .= 'A senha não foi confirmada corretamente';
+    }
+    elseif ($occupation = 'informe') {
+        $aviso .= 'Por favor, informe sua função';
+    }
+    elseif ($shift = 'informe') {
+        $aviso .= 'Por favor, informe seu turno';
     }
     if(empty($aviso)){
         
@@ -150,7 +182,7 @@ if(isset($_POST['name'])){
                                     <h5 class="text-danger">Todos os dados serão verificados pelo administrador</h5>
                                 <p/>	
                                 <p>
-                                    <input type="submit" class="mainBtn" id="submit" value="Cadastrar" onclick="alert('O acesso será liberado após verificação ! Caso demore mais que 48 horas, entre em contato com o administrador')">
+                                    <input type="submit" class="mainBtn" id="submit" value="Cadastrar" >
                                 </p>                            
                             </form>
                         </div> <!-- /.contact-form -->
@@ -161,4 +193,3 @@ if(isset($_POST['name'])){
     <?php include_once 'menu2.php'; ?>             
 </body>
 </html>
-
