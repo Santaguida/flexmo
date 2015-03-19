@@ -8,7 +8,12 @@ define('DB_HOST', '127.0.0.1', true);
 define('DB_USER', 'root', true);
 define('DB_PASS', '', true);
 define('DB_BASE', 'flexmo_db', true);
-}
+}else   { // My personal server
+define('DB_HOST', '179.188.16.9', true);
+define('DB_USER', 'fernandohs41', true);
+define('DB_PASS', 'flextronics', true);
+define('DB_BASE', 'fernandohs41', true);
+        }
 $db_link = mysqli_connect(DB_HOST, DB_USER, DB_PASS) or die(mysql_error());
 mysqli_select_db($db_link, DB_BASE);
 
@@ -18,7 +23,7 @@ function consulta_dados($query){
     return $resultado;
 }
 
-// print_r($_SERVER);
+ print_r($_SERVER);
 
 /* Teste
 $query = consulta_dados('select * from tbl_user_name');
