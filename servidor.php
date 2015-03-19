@@ -9,9 +9,9 @@ define('DB_USER', 'root', true);
 define('DB_PASS', '', true);
 define('DB_BASE', 'flexmo_db', true);
 }else   { // My personal server
-define('DB_HOST', '179.188.16.9', true);
+define('DB_HOST', '179.188.16.12', true);
 define('DB_USER', 'fernandohs41', true);
-define('DB_PASS', 'flextronics', true);
+define('DB_PASS', 'flex123', true);
 define('DB_BASE', 'fernandohs41', true);
         }
 $db_link = mysqli_connect(DB_HOST, DB_USER, DB_PASS) or die(mysql_error());
