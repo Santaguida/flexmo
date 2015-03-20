@@ -17,18 +17,13 @@ define('DB_BASE', 'fernandohs41', true);
 $db_link = mysqli_connect(DB_HOST, DB_USER, DB_PASS) or die(mysql_error());
 mysqli_select_db($db_link, DB_BASE);
 
-function consulta_dados($query){
+function check_data($query){
     global $db_link;
-    $resultado = mysqli_query($db_link, $query);
-    return $resultado;
+    $result = mysqli_query($db_link, $query);
+    return $result;
 }
 
- print_r($_SERVER);
-
-/* Teste
-$query = consulta_dados('select * from tbl_user_name');
-
-while ($users = mysqli_fetch_array($query)){
-    echo $users['name'] . '<br />';
-}
-*/
+/*
+ * Test
+ * print_r($_SERVER);
+ */
