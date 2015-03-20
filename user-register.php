@@ -1,6 +1,6 @@
 <?php
 
-//require_once 'funcoes/codifica_senha.inc.php';
+require_once 'functions/encodesPassword.inc.php';
 
 if(isset($_POST['name'])){
     $name = $_POST['name'];
@@ -21,18 +21,15 @@ if(isset($_POST['name'])){
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
     $alert = '';
-        
-    //Testar função
-    function doUser($userName){
-        $userName .= substr($name, 0, 1);
-        $userName .= substr($lastName, 0, 4);
-        $userName = strtolower($userName);
-    }
-    
-    $userName = doUser($userName);
-    
-    echo $userName;
-    //fim da função
+    /**
+     * Função para criar userName
+     * @param type $name Description
+     * @param return $userName Description
+     */    
+    $userName .= substr($name, 0, 1);
+    $userName .= substr($lastName, 0, 4);
+    $userName = strtolower($userName);
+      
     require_once 'server.php';
     
     if(empty($name)){
@@ -51,48 +48,41 @@ if(isset($_POST['name'])){
         $alert .= 'Por favor, preencha o campo CELULAR<br />';
     }    
     elseif(empty($email)){
-        $aviso .= 'Por favor, preencha o campo E-MAIL<br />';
+        $alert .= 'Por favor, preencha o campo E-MAIL<br />';
     }
     elseif ($email != $checkEmail) {
-        $aviso .= 'O e-mail não foi confirmado corretamente';
+        $alert .= 'O e-mail não foi confirmado corretamente';
     }  
     elseif(empty($adress)){
-        $aviso .= 'Por favor, preencha o campo ENDEREÇO<br />';
+        $alert .= 'Por favor, preencha o campo ENDEREÇO<br />';
     }
     elseif(empty($neigh)){
-        $aviso .= 'Por favor, preencha o campo BAIRRO<br />';
+        $alert .= 'Por favor, preencha o campo BAIRRO<br />';
     }
     elseif(empty($city)){
-        $aviso .= 'Por favor, preencha o campo CIDADE<br />';
+        $alert .= 'Por favor, preencha o campo CIDADE<br />';
     }
     elseif(empty($password)){
-        $aviso .= 'Por favor, preencha o campo SENHA<br />';
+        $alert .= 'Por favor, preencha o campo SENHA<br />';
     }elseif ($password != $checkPassword) {
-        $aviso .= 'A senha não foi confirmada corretamente';
+        $alert .= 'A senha não foi confirmada corretamente';
     }
-    elseif ($occupation = 'informe') {
-        $aviso .= 'Por favor, informe sua função';
+    elseif ($occupation == 'informe') {
+        $alert .= 'Por favor, informe sua função';
     }
-    elseif ($shift = 'informe') {
-        $aviso .= 'Por favor, informe seu turno';
+    elseif ($shift == 'informe') {
+        $alert .= 'Por favor, informe seu turno';
     }
-    if(empty($aviso)){
+    if(empty($alert)){
+                
+        $encryptedPassword = encodes_password($password);
+                        
+        check_data("INSERT INTO `tbl_user_name`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `hood`, `city`, `password`, `occupation`, `shift`)
+            VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift')");
         
-        
-        $senhaCodificada = codifica_senha($senha);
-        
-        $token = md5($fraseSecreta . $email);
-        $body = 'Favor confirme o seu cadastro clicando no link abaixo\n';
-        $body .= 'http://localhost/phponline/sistema/confirmar-email.php?token=' .$token;
-        mail($email, 'Confirmacao de cadastro', $body);
-        
-        consulta_dados("insert into usuarios (nome, sobrenome, email, login, senha, token)
-                        values ('$nome', '$sobrenome','$email','$login','$senhaCodificada', '$token')");
-        
-        $aviso .= 'Sucesso<br />';
+        $alert .= 'Informações salvas com sucesso !<br />';
     }
 }
-
 
 ?>
 
@@ -112,12 +102,12 @@ if(isset($_POST['name'])){
                         <h3 class="widget-title">Cadastro de usuário</h3>
                         <h5 class="text-danger">Todos os campos são obrigatórios</h5></br>
                         <h5 class="text-danger">
-                            <?php if(!empty($aviso)): ?>
-                            <?php print $aviso; ?>
+                            <?php if(!empty($alert)): ?>
+                            <?php print $alert; ?>
                             <?php    endif; ?>
                         </h5>    
                         <div class="contact-form">
-                            <form name="contactform" id="contactform" action="#" method="post">
+                            <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
                                     <input name="name" type="text" id="name" placeholder="Digite seu nome" autofocus required>
                                 </p>
@@ -182,7 +172,7 @@ if(isset($_POST['name'])){
                                     <h5 class="text-danger">Todos os dados serão verificados pelo administrador</h5>
                                 <p/>	
                                 <p>
-                                    <input type="submit" class="mainBtn" id="submit" value="Cadastrar" >
+                                    <input type="submit" class="mainBtn" id="submit" value="SALVAR" >
                                 </p>                            
                             </form>
                         </div> <!-- /.contact-form -->
