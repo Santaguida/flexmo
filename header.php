@@ -1,10 +1,8 @@
         <!-- 
-    Developed by Fernando Henrique Santaguida
-                            and Gabriel Nazato
+    Developed by Fernando Henrique Santaguida and Gabriel Nazato
     http://www.fernandohs.com.br
     -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
-    <title>flexMo - Flexible Monitoring System</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
