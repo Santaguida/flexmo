@@ -99,8 +99,8 @@ if(isset($_POST['name'])){
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
-                        <h3 class="widget-title">Cadastro de usuário</h3>
-                        <h5 class="text-danger">Todos os campos são obrigatórios</h5></br>
+                        <h3 class="widget-title">Sign Up [Cadastro de usuário]</h3>
+                        <h5 class="text-danger">Forms required* [Campos obrigatórios*]</h5></br>
                         <h5 class="text-danger">
                             <?php if(!empty($alert)): ?>
                             <?php print $alert; ?>
@@ -109,68 +109,65 @@ if(isset($_POST['name'])){
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
-                                    <input name="name" type="text" id="name" placeholder="Digite seu nome" autofocus required>
+                                    <input name="name" type="text" id="name" placeholder="*Your first name [Seu Nome]" autofocus required>
                                 </p>
                                 <p>
-                                    <input name="lastName" type="text" id="lastName" placeholder="Sobrenome" required>
+                                    <input name="lastName" type="text" id="lastName" placeholder="*Last name [Sobrenome]" required>
                                 </p>
                                 <p>
-                                    <input name="extension" type="text" id="extension" placeholder="Ramal (4 digitos)" required>
+                                    <input name="extension" type="text" id="extension" placeholder="Company extension phone [Ramal]" >
                                 </p>
                                 <p>
-                                    <input name="register" type="text" id="register" placeholder="Matrícula" required>
+                                    <input name="register" type="text" id="register" placeholder="*Your register number [Matrícula]" required>
                                 </p>
                                 <p>
-                                    <input name="badge" type="text" id="badge" placeholder="Badge">
+                                    <input name="badge" type="text" id="badge" placeholder="Badge number [Número do cracha]">
                                 </p>
                                 <p>
-                                    <input name="phone" type="text" id="phone" placeholder="Telefone residencial: (XX) XXXX-XXXX" required>
+                                    <input name="phone" type="text" id="phone" placeholder="*Home phone - Only numbers [Telefone residencial - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="cell" type="text" id="cell" placeholder="Celular: (xx) 9XXXX-XXXX" required>
+                                    <input name="cell" type="text" id="cell" placeholder="*Cellphone - Only numbers [Celular - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="email" type="email" id="email" placeholder="Seu E-mail (Preferência @flextronics.com)" required> 
+                                    <input name="email" type="email" id="email" placeholder="*E-mail (Preference @flextronics.com)" required> 
                                 </p>
                                 <p>
-                                    <input name="checkEmail" type="email" id="checkEmail" placeholder="Confirme seu e-mail" required> 
+                                    <input name="checkEmail" type="email" id="checkEmail" placeholder="*Check e-mail[Confirme seu e-mail]" required> 
                                 </p>
                                 <p>
-                                    <input name="adress" type="text" id="adress" placeholder="Endereço (Rua XXXX, 123)" required>
+                                    <input name="adress" type="text" id="adress" placeholder="*Adress and number [Endereço com número]" required>
                                 </p>
                                 <p>
-                                    <input name="neigh" type="text" id="neigh" placeholder="Bairro" required>
+                                    <input name="neigh" type="text" id="neigh" placeholder="*Neighborhood [Bairro]" required>
                                 </p>
                                 <p>
-                                    <input name="city" type="text" id="city" placeholder="Cidade / Estado (Ex.Sorocaba-SP)" required>
+                                    <input name="city" type="text" id="city" placeholder="*City/State [Cidade / Estado]" required>
                                 </p>
                                 <p>
-                                    <input name="password" type="password" id="password" placeholder="Senha (Mínimo de 6 caracteres)" required> 
+                                    <input name="password" type="password" id="password" placeholder="*Password (As low 6 caracters)[Senha (Mínimo de 6 caracteres)]" required> 
                                 </p>
                                 <p>
-                                    <input name="checkPassword" type="password" id="checkPassword" placeholder="Confirme sua senha" required> 
+                                    <input name="checkPassword" type="password" id="checkPassword" placeholder="*Check password[Confirme a senha]" required> 
                                 </p>
                                 <p>
                                     <select name="occupation" id="occupation" >
-                                        <option value="informe" selected>Informe sua função</option>
-                                        <option value="supervisor">Supervisor</option>
-                                        <option value="coordenadorTecnico">Coordenador técnico</option>
-                                        <option value="coordenadorProducao">Coordenador de produção</option>
-                                        <option value="engenheiro">Engenheiro</option>
-                                        <option value="tecnico">Técnico</option>
+                                        <option value="informe" selected>*Enter your function [Informe sua função]</option>
+                                        <option value="supervisor">Manager [Supervisor]</option>
+                                        <option value="coordenadorTecnico">Technical coordinator [Coordenador técnico]</option>
+                                        <option value="coordenadorProducao">Production coordinator [Coordenador de produção]</option>
+                                        <option value="engenheiro">Engineer [Engenheiro]</option>
+                                        <option value="tecnico">Technician [Técnico]</option>
                                         <option value="quickrepair">Quick Repair</option>
                                     </select>
                                     <select name="shift" id="shift" >
-                                        <option value="informe" selected>Informe seu turno</option>
+                                        <option value="informe" selected>*Enter your shift [Informe seu turno]</option>
                                         <option value="1">1T</option>
                                         <option value="2">2T</option>
                                         <option value="3">3T</option>
                                         <option value="4">ADM</option>                            
                                     </select>
-                                <p/>
-                                <p>
-                                    <h5 class="text-danger">Todos os dados serão verificados pelo administrador</h5>
-                                <p/>	
+                                <p/>                                	
                                 <p>
                                     <input type="submit" class="mainBtn" id="submit" value="SALVAR" >
                                 </p>                            
