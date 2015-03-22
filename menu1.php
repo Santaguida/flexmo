@@ -2,19 +2,7 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->  
         
-    <header class="site-header">
-        <div class="top-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="top-header-left">
-                            <a href="user-register.php">Sign Up</a>
-                            <a href="login.html">Sign In</a>
-                        </div> <!-- /.top-header-left -->
-                    </div> <!-- /.col-md-6 --><!-- /.col-md-6 -->
-                </div> <!-- /.row -->
-            </div> <!-- /.container -->
-        </div> <!-- /.top-header -->
+    <?php // include_once 'top_header.php'; ?>
         <div class="main-header">
             <div class="container">
                 <div class="row">
