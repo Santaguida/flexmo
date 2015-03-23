@@ -9,9 +9,9 @@
                     <div class="col-md-4 col-sm-6 col-xs-8">
                         <div class="logo">
                             <h1>
-                                <a href="index.php">
-                                    <img src="images/favicon.ico" alt="Logo" style="width:50px;height:50px">
-                                    flexMo
+                                <a href="..\index.php">
+                                    <img src="..\images/favicon.ico" alt="Logo" style="width:50px;height:50px">
+                                    FlexmO
                                 </a>
                             </h1>
                         </div> <!-- /.logo -->
@@ -40,7 +40,7 @@
                     <div class="col-md-6 col-sm-7">
                         <div class="list-menu">
                             <ul>
-                                <li><a href="user-register.php">User</a></li>
+                                <li><a href="user-register">User</a></li>
                                 <li><a href="fct">link</a></li>
                                 <li><a href="setup">link</a></li>
                                 <li><a href="team">link</a></li>
