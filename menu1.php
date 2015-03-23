@@ -10,8 +10,7 @@
                         <div class="logo">
                             <h1>
                                 <a href="..\index.php">
-                                    <img src="..\images/favicon.ico" alt="Logo" style="width:50px;height:50px">
-                                    FlexmO
+                                    <img src="..\images/banner.png" alt="Logo" ">                                    
                                 </a>
                             </h1>
                         </div> <!-- /.logo -->
@@ -58,9 +57,9 @@
         </div> <!-- /.main-nav -->
     </header> <!-- /.site-header --><!-- /.content-section -->
     
-    <script src="js/vendor/jquery-1.10.1.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-    <script src="js/jquery.easing-1.3.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <script src="..\js/vendor/jquery-1.10.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="..\js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+    <script src="..\js/jquery.easing-1.3.js"></script>
+    <script src="..\js/bootstrap.js"></script>
+    <script src="..\js/plugins.js"></script>
+    <script src="..\js/main.js"></script>
