@@ -11,3 +11,8 @@
 </body>
 </html>
 
+<?php
+/* Test
+print_r($_SERVER);
+*/
+?>
