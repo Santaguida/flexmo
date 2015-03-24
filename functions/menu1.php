@@ -9,8 +9,8 @@
                     <div class="col-md-4 col-sm-6 col-xs-8">
                         <div class="logo">
                             <h1>
-                                <a href="..\index.php">
-                                    <img src="..\images/banner.png" alt="Logo" ">                                    
+                                <a href="http://10.112.0.210/flexmo">
+                                    <img src="..\images/banner.png" alt="Logo" ">                               
                                 </a>
                             </h1>
                         </div> <!-- /.logo -->
@@ -22,7 +22,7 @@
                             </a>
                             <ul class="menu">
                                 <li><a href="user-manager.html">Admin</a></li>
-                                <li><a href="user-register.php">Users</a></li>
+                                <li><a href="..\user-register">Users</a></li>
                                 <li><a href="cadastro-produto.html">Products</a></li>
                                 <li><a href="cadastro-acoes.html">Actions</a></li>
                                 <li><a href="setup.html">Setup</a></li>
@@ -39,7 +39,7 @@
                     <div class="col-md-6 col-sm-7">
                         <div class="list-menu">
                             <ul>
-                                <li><a href="user-register">User</a></li>
+                                <li><a href="..\user-register">User</a></li>
                                 <li><a href="fct">link</a></li>
                                 <li><a href="setup">link</a></li>
                                 <li><a href="team">link</a></li>

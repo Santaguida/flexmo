@@ -30,7 +30,7 @@ if(isset($_POST['name'])){
     $userName .= substr($lastName, 0, 4);
     $userName = strtolower($userName);
       
-    require_once '..\server.php';
+    require_once '..\functions/server.php';
     
     if(empty($name)){
         $alert .= 'Por favor, preencha o campo NOME<br />';
@@ -91,10 +91,10 @@ if(isset($_POST['name'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>User registration</title>
-    <?php include_once '..\header.php'; ?>
+    <?php include_once '..\functions/header.php'; ?>
 </head>
 <body>      
-    <?php include_once '..\menu1.php'; ?>
+    <?php include_once '..\functions/menu1.php'; ?>
         <div class="content-section">
             <div class="container">
                 <div class="row">
@@ -177,6 +177,6 @@ if(isset($_POST['name'])){
                 </div>
             </div>
 </div> <!-- /.content-section -->
-    <?php include_once '..\menu2.php'; ?>             
+    <?php include_once '..\functions/menu2.php'; ?>             
 </body>
 </html>
