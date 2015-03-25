@@ -23,6 +23,7 @@ if(isset($_POST['name'])){
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
     $alert = '';
+    $alert2 = '</br> Por favor, preencha denovo a Senha';
     /**
      * Função para criar userName
      * @param type $name Description
@@ -37,45 +38,46 @@ if(isset($_POST['name'])){
     
     // Validação de formulários
     if(empty($name)){
-        $alert .= 'Por favor, preencha o campo NOME<br />';
+        $alert .= 'Por favor, preencha o campo NOME corretamente<br />';
     }
-    elseif(empty($lastName)){
-        $alert .= 'Por favor, preencha o campo SOBRENOME<br />';
+    if(empty($lastName)){
+        $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
     }
-    elseif(empty($register)){
-        $alert .= 'Por favor, preencha o campo MATRÍCULA<br />';
+    if(empty($register)){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA corretamente<br />';
     }
-    elseif(empty($phone)){
-        $alert .= 'Por favor, preencha o campo TELEFONE<br />';
+    if(empty($phone)){
+        $alert .= 'Por favor, preencha o campo TELEFONE corretamente<br />';
     }
-    elseif(empty($cell)){
-        $alert .= 'Por favor, preencha o campo CELULAR<br />';
+    if(empty($cell)){
+        $alert .= 'Por favor, preencha o campo CELULAR corretamente<br />';
     }    
-    elseif(empty($email)){
-        $alert .= 'Por favor, preencha o campo E-MAIL<br />';
+    if(empty($email)){
+        $alert .= 'Por favor, preencha o campo E-MAIL corretamente<br />';
     }
-    elseif ($email != $checkEmail) {
-        $alert .= 'O e-mail não foi confirmado corretamente';
+    if ($email != $checkEmail) {
+        $alert .= 'O e-mail não foi confirmado corretamente<br />';
     }  
-    elseif(empty($adress)){
-        $alert .= 'Por favor, preencha o campo ENDEREÇO<br />';
+    if(empty($adress)){
+        $alert .= 'Por favor, preencha o campo ENDEREÇO corretamente<br />';
     }
-    elseif(empty($neigh)){
-        $alert .= 'Por favor, preencha o campo BAIRRO<br />';
+    if(empty($neigh)){
+        $alert .= 'Por favor, preencha o campo BAIRRO corretamente<br />';
     }
-    elseif(empty($city)){
-        $alert .= 'Por favor, preencha o campo CIDADE<br />';
+    if(empty($city)){
+        $alert .= 'Por favor, preencha o campo CIDADE corretamente<br />';
     }
-    elseif(empty($password)){
+    if(empty($password)){
         $alert .= 'Por favor, preencha o campo SENHA<br />';
-    }elseif ($password != $checkPassword) {
+    }
+    if ($password != $checkPassword) {
         $alert .= 'A senha não foi confirmada corretamente';
+    }    
+    if ($occupation == 'informe') {
+        $alert .= 'Por favor, preencha o campo FUNÇÃO<br />';
     }
-    elseif ($occupation == 'informe') {
-        $alert .= 'Por favor, informe sua função';
-    }
-    elseif ($shift == 'informe') {
-        $alert .= 'Por favor, informe seu turno';
+    if ($shift == 'informe') {
+        $alert .= 'Por favor, preencha o campo TURNO<br />';
     }
     if(empty($alert)){
         
@@ -128,7 +130,7 @@ if(isset($_POST['name'])){
                             // Caso exista um alerta, imprime na tela
                             // Caso não, mantem mensagem HTML
                             if(!empty($alert)){
-                                print '</br>' . $alert;
+                                print '</br>' . $alert . '</br>' . $alert2;
                                     }                            
                             else{
                                 print '</br>*Required field';
@@ -183,20 +185,20 @@ if(isset($_POST['name'])){
                                 </p>
                                 <p>
                                     <select name="occupation" id="occupation" >
-                                        <option value="informe" selected>*Enter your function [Informe sua função]</option>
-                                        <option value="supervisor">Manager [Supervisor]</option>
-                                        <option value="coordenadorTecnico">Technical coordinator [Coordenador técnico]</option>
-                                        <option value="coordenadorProducao">Production coordinator [Coordenador de produção]</option>
-                                        <option value="engenheiro">Engineer [Engenheiro]</option>
-                                        <option value="tecnico">Technician [Técnico]</option>
-                                        <option value="quickrepair">Quick Repair</option>
+                                        <option value="informe" <?php if (isset($occupation) == '') { echo 'selected'; } ?> >*Enter your function [Informe sua função]</option>
+                                        <option value="supervisor" <?php if (isset($occupation) && $occupation == 'supervisor') { echo 'selected'; } ?> >Manager [Supervisor]</option>
+                                        <option value="coordenadorTecnico" <?php if (isset($occupation) && $occupation == 'coordenadorTecnico') { echo 'selected'; } ?> >Technical coordinator [Coordenador técnico]</option>
+                                        <option value="coordenadorProducao" <?php if (isset($occupation) && $occupation == 'coordenadorProducao') { echo 'selected'; } ?> >Production coordinator [Coordenador de produção]</option>
+                                        <option value="engenheiro" <?php if (isset($occupation) && $occupation == 'engenheiro') { echo 'selected'; } ?> >Engineer [Engenheiro]</option>
+                                        <option value="tecnico" <?php if (isset($occupation) && $occupation == 'tecnico') { echo 'selected'; } ?> >Technician [Técnico]</option>
+                                        <option value="quickrepair" <?php if (isset($occupation) && $occupation == 'quickrepair') { echo 'selected'; } ?> >Quick Repair</option>
                                     </select>
                                     <select name="shift" id="shift" >
-                                        <option value="informe" selected>*Enter your shift [Informe seu turno]</option>
-                                        <option value="1">1T</option>
-                                        <option value="2">2T</option>
-                                        <option value="3">3T</option>
-                                        <option value="4">ADM</option>                            
+                                        <option value="informe" <?php if (isset($shift) == '') { echo 'selected'; } ?> >*Enter your shift [Informe seu turno]</option>
+                                        <option value="1" <?php if (isset($shift) && $shift == '1') { echo 'selected'; } ?> >1T</option>
+                                        <option value="2" <?php if (isset($shift) && $shift == '2') { echo 'selected'; } ?> >2T</option>
+                                        <option value="3" <?php if (isset($shift) && $shift == '3') { echo 'selected'; } ?> >3T</option>
+                                        <option value="4" <?php if (isset($shift) && $shift == '4') { echo 'selected'; } ?> >ADM</option>                            
                                     </select>
                                 <p/>                                	
                                 <p>
