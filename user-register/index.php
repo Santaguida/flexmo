@@ -140,43 +140,43 @@ if(isset($_POST['name'])){
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
-                                    <input name="name" type="text" id="name" placeholder="*Your first name [Seu Nome]" autofocus required>
+                                    <input name="name" type="text" id="name" value="<?php if (isset($name)) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>
                                 </p>
                                 <p>
-                                    <input name="lastName" type="text" id="lastName" placeholder="*Last name [Sobrenome]" required>
+                                    <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName)) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
                                 </p>
                                 <p>
-                                    <input name="extension" type="text" id="extension" placeholder="Company extension phone [Ramal]" >
+                                    <input name="extension" type="text" id="extension" value="<?php if (isset($extension)) { echo $extension; } ?>" placeholder="Company extension phone [Ramal]" >
                                 </p>
                                 <p>
-                                    <input name="register" type="text" id="register" placeholder="*Your register number [Matrícula]" required>
+                                    <input name="register" type="text" id="register" value="<?php if (isset($register)) { echo $register; } ?>" placeholder="*Your register number [Matrícula]" required>
                                 </p>
                                 <p>
-                                    <input name="badge" type="text" id="badge" placeholder="Badge number [Número do cracha]">
+                                    <input name="badge" type="text" id="badge" value="<?php if (isset($badge)) { echo $badge; } ?>" placeholder="Badge number [Número do cracha]">
                                 </p>
                                 <p>
-                                    <input name="phone" type="text" id="phone" placeholder="*Home phone - Only numbers [Telefone residencial - Apenas números]" required>
+                                    <input name="phone" type="text" id="phone" value="<?php if (isset($phone)) { echo $phone; } ?>" placeholder="*Home phone - Only numbers [Telefone residencial - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="cell" type="text" id="cell" placeholder="*Cellphone - Only numbers [Celular - Apenas números]" required>
+                                    <input name="cell" type="text" id="cell" value="<?php if (isset($cell)) { echo $cell; } ?>" placeholder="*Cellphone - Only numbers [Celular - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="email" type="email" id="email" placeholder="*E-mail (Preference @flextronics.com)" required> 
+                                    <input name="email" type="email" id="email" value="<?php if (isset($email)) { echo $email; } ?>" placeholder="*E-mail (Preference @flextronics.com)" required> 
                                 </p>
                                 <p>
-                                    <input name="checkEmail" type="email" id="checkEmail" placeholder="*Check e-mail[Confirme seu e-mail]" required> 
+                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email) { echo $checkEmail; } ?>" placeholder="*Check e-mail[Confirme seu e-mail]" required> 
                                 </p>
                                 <p>
-                                    <input name="adress" type="text" id="adress" placeholder="*Adress and number [Endereço com número]" required>
+                                    <input name="adress" type="text" id="adress" value="<?php if (isset($adress)) { echo $adress; } ?>" placeholder="*Adress and number [Endereço com número]" required>
                                 </p>
                                 <p>
-                                    <input name="neigh" type="text" id="neigh" placeholder="*Neighborhood [Bairro]" required>
+                                    <input name="neigh" type="text" id="neigh" value="<?php if (isset($neigh)) { echo $neigh; } ?>" placeholder="*Neighborhood [Bairro]" required>
                                 </p>
                                 <p>
-                                    <input name="city" type="text" id="city" placeholder="*City/State [Cidade / Estado]" required>
+                                    <input name="city" type="text" id="city" value="<?php if (isset($city)) { echo $city; } ?>" placeholder="*City/State [Cidade / Estado]" required>
                                 </p>
                                 <p>
-                                    <input name="password" type="password" id="password" placeholder="*Password (As low 6 caracters)[Senha (Mínimo de 6 caracteres)]" required> 
+                                    <input name="password" type="password" id="password"  placeholder="*Password (As low 6 caracters)[Senha (Mínimo de 6 caracteres)]" required> 
                                 </p>
                                 <p>
                                     <input name="checkPassword" type="password" id="checkPassword" placeholder="*Check password[Confirme a senha]" required> 
