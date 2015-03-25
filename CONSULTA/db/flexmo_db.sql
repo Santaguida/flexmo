@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2015 at 02:59 PM
+-- Generation Time: Mar 25, 2015 at 03:33 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -91,6 +91,77 @@ CREATE TABLE IF NOT EXISTS `tbl_ict_currently_skipped` (
   `devices` varchar(255) NOT NULL,
   `user_name_start` int(5) unsigned NOT NULL COMMENT 'FK to tbl_users',
   `date_time_start` int(14) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_action`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_action`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_action` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_step',
+  `action` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_actions',
+  `comment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_probe`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_probe`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_probe` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_action',
+  `failure_quadrant` varchar(50) NOT NULL,
+  `brc` varchar(50) NOT NULL,
+  `probe_type` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_skip`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_skip`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_skip` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_action',
+  `reason` varchar(255) NOT NULL,
+  `devices` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_step`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_step`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_step` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_history',
+  `step` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_steps'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_sw`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_sw`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_sw` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_failure_action',
+  `device_test` varchar(50) NOT NULL,
+  `parameters` varchar(50) NOT NULL,
+  `other_param` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -309,6 +380,36 @@ ALTER TABLE `tbl_ict_currently_skipped`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_ict_failure_action`
+--
+ALTER TABLE `tbl_ict_failure_action`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_probe`
+--
+ALTER TABLE `tbl_ict_failure_probe`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_skip`
+--
+ALTER TABLE `tbl_ict_failure_skip`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_step`
+--
+ALTER TABLE `tbl_ict_failure_step`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_sw`
+--
+ALTER TABLE `tbl_ict_failure_sw`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_ict_history`
 --
 ALTER TABLE `tbl_ict_history`
@@ -391,6 +492,31 @@ MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tbl_ict_currently_skipped`
 --
 ALTER TABLE `tbl_ict_currently_skipped`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_action`
+--
+ALTER TABLE `tbl_ict_failure_action`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_probe`
+--
+ALTER TABLE `tbl_ict_failure_probe`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_skip`
+--
+ALTER TABLE `tbl_ict_failure_skip`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_step`
+--
+ALTER TABLE `tbl_ict_failure_step`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_sw`
+--
+ALTER TABLE `tbl_ict_failure_sw`
 MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_ict_history`
