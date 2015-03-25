@@ -1,7 +1,9 @@
 <?php
 
+// Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
 
+// Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
     $name = $_POST['name'];
     $lastName = $_POST['lastName'];
@@ -29,9 +31,11 @@ if(isset($_POST['name'])){
     $userName .= substr($name, 0, 1);
     $userName .= substr($lastName, 0, 4);
     $userName = strtolower($userName);
-      
+    
+    // Chama função que conecta o server
     require_once '..\functions/server.php';
     
+    // Validação de formulários
     if(empty($name)){
         $alert .= 'Por favor, preencha o campo NOME<br />';
     }
@@ -74,12 +78,15 @@ if(isset($_POST['name'])){
         $alert .= 'Por favor, informe seu turno';
     }
     if(empty($alert)){
-                
+        
+        // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
-                        
+        
+        // Insere as informações no banco de dados
         check_data("INSERT INTO `tbl_user_name`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `hood`, `city`, `password`, `occupation`, `shift`)
             VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift')");
         
+        // Confirma operação com mensagem
         $alert .= 'Informações salvas com sucesso !<br />';
     }
 }
@@ -91,21 +98,45 @@ if(isset($_POST['name'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>User registration</title>
-    <?php include_once '..\functions/header.php'; ?>
+
+    <?php
+    
+    // Inclui cabeçario
+    include_once '..\functions/header.php';
+    
+    ?>
+
 </head>
-<body>      
-    <?php include_once '..\functions/menu1.php'; ?>
+<body> 
+    
+    <?php
+    
+    // Inclui menus superiores da pagina
+    include_once '..\functions/menu1.php';
+    
+    ?>
+    
         <div class="content-section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
                         <h3 class="widget-title">Sign Up [Cadastro de usuário]</h3>
-                        <h5 class="text-danger">Forms required* [Campos obrigatórios*]</h5></br>
-                        <h5 class="text-danger">
-                            <?php if(!empty($alert)): ?>
-                            <?php print $alert; ?>
-                            <?php    endif; ?>
-                        </h5>    
+                        <h4 class="text-danger">
+                        
+                            <?php
+                            
+                            // Caso exista um alerta, imprime na tela
+                            // Caso não, mantem mensagem HTML
+                            if(!empty($alert)){
+                                print '</br>' . $alert;
+                                    }                            
+                            else{
+                                print '</br>*Required field';
+                                }
+                                
+                            ?>
+                            
+                        </h4>    
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
@@ -172,11 +203,18 @@ if(isset($_POST['name'])){
                                     <input type="submit" class="mainBtn" id="submit" value="SALVAR" >
                                 </p>                            
                             </form>
-                        </div> <!-- /.contact-form -->
+                        </div>
                     </div>                
                 </div>
             </div>
-</div> <!-- /.content-section -->
-    <?php include_once '..\functions/menu2.php'; ?>             
+</div>
+    
+    <?php
+    
+    // Inclui rodapé da pagina
+    include_once '..\functions/menu2.php';
+    
+    ?> 
+    
 </body>
 </html>
