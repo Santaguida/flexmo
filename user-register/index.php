@@ -6,6 +6,7 @@ require_once '..\functions/encodesPassword.inc.php';
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
     $name = $_POST['name'];
+    $nameErr = '';    
     $lastName = $_POST['lastName'];
     $userName = 'sao';
     $extension = $_POST['extension'];
@@ -44,6 +45,12 @@ if(isset($_POST['name'])){
     // Validação de formulários
     if(empty($name)){
         $alert .= 'Por favor, preencha o campo NOME corretamente<br />';       
+    }else{
+        $name = test_input($_POST["name"]);
+        
+        if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+       $nameErr = "Pemitido apenas Letras !"; 
+     }
     }
     if(empty($lastName)){
         $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
@@ -84,7 +91,7 @@ if(isset($_POST['name'])){
     if ($shift == 'informe') {
         $alert .= 'Por favor, preencha o campo TURNO<br />';
     }
-    if(empty($alert)){      
+    if(empty($alert) && empty($nameErr)){      
         
         // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
@@ -149,6 +156,13 @@ if(isset($_POST['name'])){
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
                                     <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>
+                                        <h5 class="text-danger">
+                                            <?php
+                                                if(!empty($nameErr)){
+                                                    print $nameErr;
+                                                }
+                                            ?> 
+                                        </h5>   
                                 </p>
                                 <p>
                                     <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != MSG) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
