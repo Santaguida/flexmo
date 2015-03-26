@@ -24,6 +24,7 @@ if(isset($_POST['name'])){
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
     $alert = '';
+    //Define MSG como constante e recebe a mensagem a frente
     define('MSG', 'Informações salvas com sucesso !<br />');
     /**
      * Função para criar userName
@@ -34,36 +35,72 @@ if(isset($_POST['name'])){
     $userName .= substr($lastName, 0, 4);
     $userName = strtolower($userName);
     
-    // Trata dados
+    // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
     
     $name = test_input($_POST["name"]);
+    $lastName = test_input($_POST["lastName"]);
+    
     
     // Chama função que conecta o server
     require_once '..\functions/server.php';
     
     // Validação de formulários
     if(empty($name)){
-        $alert .= 'Por favor, preencha o campo NOME corretamente<br />';       
-    }else{
-        $name = test_input($_POST["name"]);
-        
-        if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-       $nameErr = "Pemitido apenas Letras !"; 
-     }
+        $alert .= 'Por favor, preencha o campo NOME corretamente.<br />';       
+    }
+    if(strlen($name)<=2){
+        $alert .= 'Por favor, preencha o campo NOME com no mínimo 3 caracteres.<br />';
     }
     if(empty($lastName)){
         $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
     }
+    if(strlen($lastName)<=2){
+        $alert .= 'Por favor, preencha o campo SOBRENOME com no mínimo 3 caracteres.<br />';
+    }
+    if(!empty($extension)){
+        if(!is_numeric($extension)){
+        $alert .= 'Por favor, preencha o campo RAMAL apenas com números<br />';
+        }
+        if(strlen($extension)!=4){
+        $alert .= 'Por favor, preencha o campo RAMAL com 4 dígitos.<br />';
+        }
+    }
     if(empty($register)){
         $alert .= 'Por favor, preencha o campo MATRÍCULA corretamente<br />';
+    }
+    if(!is_numeric($register)){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA apenas com números<br />';
+    }
+    if(strlen($register)>=7){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA com no máximo 6 dígitos.<br />';
+    }
+    if(!empty($badge)){
+        if(!is_numeric($badge)){
+        $alert .= 'Por favor, preencha o campo BADGE apenas com números<br />';
+        }
+        if(strlen($badge) >= 7){
+        $alert .= 'Por favor, preencha o campo BADGE com no máximo 6 dígitos.<br />';
+        }
     }
     if(empty($phone)){
         $alert .= 'Por favor, preencha o campo TELEFONE corretamente<br />';
     }
+    if(!is_numeric($phone)){
+        $alert .= 'Por favor, preencha o campo TELEFONE apenas com números e sem espaço.<br />';
+    }
+    if(strlen($phone) != 10){
+        $alert .= 'Por favor, preencha o campo TELEFONE com 10 dígitos. Ex: DDXXXXYYYY<br />';
+    }
     if(empty($cell)){
         $alert .= 'Por favor, preencha o campo CELULAR corretamente<br />';
-    }    
+    }
+    if(!is_numeric($cell)){
+        $alert .= 'Por favor, preencha o campo CELULAR apenas com números e sem espaço.<br />';
+    }
+    if(strlen($cell) != 11){
+        $alert .= 'Por favor, preencha o campo CELULAR com 11 dígitos. Ex: DD9XXXXYYYY<br />';
+    }
     if(empty($email)){
         $alert .= 'Por favor, preencha o campo E-MAIL corretamente<br />';
     }
@@ -82,6 +119,9 @@ if(isset($_POST['name'])){
     if(empty($password)){
         $alert .= 'Por favor, preencha o campo SENHA<br />';
     }
+    if(strlen($password) <= 5 ){
+        $alert .= 'Por favor, preencha o campo SENHA com no mínimo 6 caracteres.<br />';
+    }
     if ($password != $checkPassword) {
         $alert .= 'A senha não foi confirmada corretamente';
     }    
@@ -91,7 +131,7 @@ if(isset($_POST['name'])){
     if ($shift == 'informe') {
         $alert .= 'Por favor, preencha o campo TURNO<br />';
     }
-    if(empty($alert) && empty($nameErr)){      
+    if(empty($alert)){      
         
         // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
@@ -136,7 +176,7 @@ if(isset($_POST['name'])){
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
                         <h3 class="widget-title">Sign Up [Cadastro de usuário]</h3>
-                        <h4 class="text-danger">
+                        <h5 class="text-danger">
                         
                             <?php
                             
@@ -151,18 +191,11 @@ if(isset($_POST['name'])){
                                 
                             ?>
                             
-                        </h4>    
+                        </h5>    
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
-                                    <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>
-                                        <h5 class="text-danger">
-                                            <?php
-                                                if(!empty($nameErr)){
-                                                    print $nameErr;
-                                                }
-                                            ?> 
-                                        </h5>   
+                                    <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>                                       
                                 </p>
                                 <p>
                                     <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != MSG) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
