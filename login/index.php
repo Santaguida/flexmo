@@ -8,7 +8,7 @@
 		require_once '..\functions/server.php';
 		
 		//Query the user in the database
-		$query = "SELECT name, last_name FROM tbl_users WHERE user_name='" . $_POST["user"] ."' AND password='" . md5($_POST["pwd"]) . "'";
+		$query = "SELECT name, last_name, level_access FROM tbl_users WHERE user_name='" . $_POST["user"] ."' AND password='" . md5($_POST["pwd"]) . "'";
 		$result = check_data($query);
 		$result_array = mysqli_fetch_array($result);
 		
@@ -19,6 +19,7 @@
 			session_start();
 			$_SESSION["user"] = $_POST["user"];
 			$_SESSION["name"] = $result_array["name"] . " " . $result_array["last_name"];
+			$_SESSION["access_level"] = $result_array["level_access"];
 			
 			//In case there is no destination stablished, define destination as "..\home\index.php"
 			if(!isset($_SESSION["destination"]))
