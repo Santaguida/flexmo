@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 24, 2015 at 08:43 PM
+-- Generation Time: Mar 25, 2015 at 03:33 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -31,22 +31,228 @@ USE `flexmo_db`;
 DROP TABLE IF EXISTS `tbl_accounts`;
 CREATE TABLE IF NOT EXISTS `tbl_accounts` (
 `id` int(5) NOT NULL,
-  `account` varchar(35) NOT NULL
+  `account` varchar(35) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `tbl_accounts`
 --
 
-INSERT INTO `tbl_accounts` (`id`, `account`) VALUES
-(1, 'DELL'),
-(2, 'HP COMPUTING'),
-(3, 'COMPAQ'),
-(4, 'HP PRINTER'),
-(5, 'CISCO'),
-(6, 'HUAWEI'),
-(7, 'MOTOROLA'),
-(8, 'NOKIA');
+INSERT INTO `tbl_accounts` (`id`, `account`, `enabled`) VALUES
+(1, 'DELL', 0),
+(2, 'HP COMPUTING', 0),
+(3, 'COMPAQ', 0),
+(4, 'HP PRINTER', 0),
+(5, 'CISCO', 0),
+(6, 'HUAWEI', 0),
+(7, 'MOTOROLA', 0),
+(8, 'NOKIA', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_actions`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_actions`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_actions` (
+`id` int(5) NOT NULL,
+  `action` varchar(35) NOT NULL,
+  `enabled` varchar(5) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_config`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_config`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_config` (
+`id` int(5) unsigned NOT NULL,
+  `line` int(5) unsigned NOT NULL,
+  `product` int(5) unsigned NOT NULL,
+  `machine` int(5) unsigned NOT NULL,
+  `status` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_currently_skipped`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_currently_skipped`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_currently_skipped` (
+`id` int(5) unsigned NOT NULL,
+  `product` int(5) unsigned NOT NULL COMMENT 'FK to tbl_product',
+  `reason` varchar(255) NOT NULL,
+  `devices` varchar(255) NOT NULL,
+  `user_name_start` int(5) unsigned NOT NULL COMMENT 'FK to tbl_users',
+  `date_time_start` int(14) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_action`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_action`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_action` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_step',
+  `action` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_actions',
+  `comment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_probe`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_probe`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_probe` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_action',
+  `failure_quadrant` varchar(50) NOT NULL,
+  `brc` varchar(50) NOT NULL,
+  `probe_type` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_skip`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_skip`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_skip` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_failure_action',
+  `reason` varchar(255) NOT NULL,
+  `devices` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_step`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_step`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_step` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_history',
+  `step` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_steps'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_failure_sw`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_failure_sw`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_failure_sw` (
+`id` int(5) unsigned NOT NULL,
+  `father` int(5) unsigned NOT NULL COMMENT 'FK to tbl_failure_action',
+  `device_test` varchar(50) NOT NULL,
+  `parameters` varchar(50) NOT NULL,
+  `other_param` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_history`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_history`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_history` (
+`id` int(5) unsigned NOT NULL,
+  `date_time_start` int(14) unsigned NOT NULL,
+  `date_time_end` int(14) unsigned DEFAULT NULL,
+  `product` int(5) unsigned NOT NULL COMMENT 'FK to tbl_products',
+  `machine` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_machines',
+  `line` int(5) unsigned NOT NULL COMMENT 'FK to tbl_lines',
+  `user` int(5) unsigned NOT NULL COMMENT 'FK to tbl_users',
+  `comment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_machines`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_machines`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_machines` (
+`id` int(5) unsigned NOT NULL,
+  `machine` varchar(35) NOT NULL,
+  `model` varchar(35) DEFAULT NULL,
+  `serial_number` varchar(35) DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_skip_history`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_skip_history`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_skip_history` (
+`id` int(5) unsigned NOT NULL,
+  `product` int(5) unsigned NOT NULL COMMENT 'FK to tbl_products',
+  `reason` varchar(255) NOT NULL,
+  `devices` varchar(255) NOT NULL,
+  `user_name_start` int(5) unsigned NOT NULL COMMENT 'FK to tbl_users',
+  `user_name_end` int(5) unsigned NOT NULL COMMENT 'FK to tbl_users',
+  `date_time_start` int(14) unsigned NOT NULL COMMENT 'yyyyMMddhhmmss',
+  `date_time_end` int(14) unsigned NOT NULL COMMENT 'yyyyMMddhhmmss'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_steps`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_steps`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_steps` (
+`id` int(5) unsigned NOT NULL,
+  `step` varchar(35) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_sw_param`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_sw_param`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_sw_param` (
+`id` int(5) NOT NULL,
+  `parameter` varchar(35) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ict_trigger`
+--
+
+DROP TABLE IF EXISTS `tbl_ict_trigger`;
+CREATE TABLE IF NOT EXISTS `tbl_ict_trigger` (
+`id` int(5) unsigned NOT NULL,
+  `config` int(5) unsigned NOT NULL COMMENT 'FK to tbl_ict_config',
+  `status` varchar(35) NOT NULL COMMENT 'status update'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -57,7 +263,8 @@ INSERT INTO `tbl_accounts` (`id`, `account`) VALUES
 DROP TABLE IF EXISTS `tbl_lines`;
 CREATE TABLE IF NOT EXISTS `tbl_lines` (
 `id` int(5) NOT NULL,
-  `line` varchar(10) NOT NULL
+  `line` varchar(10) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -71,24 +278,17 @@ CREATE TABLE IF NOT EXISTS `tbl_products` (
 `id` int(5) NOT NULL,
   `product` varchar(35) NOT NULL,
   `account` int(5) NOT NULL,
-  `category` int(5) NOT NULL
+  `category` int(5) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- RELATIONS FOR TABLE `tbl_products`:
---   `account`
---       `tbl_accounts` -> `id`
---   `category`
---       `tbl_product_category` -> `id`
---
 
 --
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`id`, `product`, `account`, `category`) VALUES
-(1, 'Titan14', 1, 1),
-(2, 'Lati OAK', 1, 1);
+INSERT INTO `tbl_products` (`id`, `product`, `account`, `category`, `enabled`) VALUES
+(1, 'Titan14', 1, 1, 0),
+(2, 'Lati OAK', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -99,28 +299,29 @@ INSERT INTO `tbl_products` (`id`, `product`, `account`, `category`) VALUES
 DROP TABLE IF EXISTS `tbl_product_category`;
 CREATE TABLE IF NOT EXISTS `tbl_product_category` (
 `id` int(5) NOT NULL,
-  `category` varchar(35) NOT NULL
+  `category` varchar(35) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `tbl_product_category`
 --
 
-INSERT INTO `tbl_product_category` (`id`, `category`) VALUES
-(1, 'Consumer Notebook'),
-(2, 'Business Notebook'),
-(3, 'Consumer Desktop'),
-(4, 'Business Desktp'),
-(5, 'Graphic Card'),
-(6, 'Tablet'),
-(7, 'AIO'),
-(8, 'Printer Inkjet'),
-(9, 'Printer Laserjet'),
-(10, 'Cellphone'),
-(11, 'PSU'),
-(12, 'AC Adapter'),
-(13, 'Server'),
-(14, 'Wi-fi Card');
+INSERT INTO `tbl_product_category` (`id`, `category`, `enabled`) VALUES
+(1, 'Consumer Notebook', 0),
+(2, 'Business Notebook', 0),
+(3, 'Consumer Desktop', 0),
+(4, 'Business Desktp', 0),
+(5, 'Graphic Card', 0),
+(6, 'Tablet', 0),
+(7, 'AIO', 0),
+(8, 'Printer Inkjet', 0),
+(9, 'Printer Laserjet', 0),
+(10, 'Cellphone', 0),
+(11, 'PSU', 0),
+(12, 'AC Adapter', 0),
+(13, 'Server', 0),
+(14, 'Wi-fi Card', 0);
 
 -- --------------------------------------------------------
 
@@ -138,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user_name` (
   `register` int(10) unsigned NOT NULL COMMENT 'employee register namber',
   `badge` int(10) unsigned DEFAULT NULL COMMENT 'employee badge namber',
   `home_phone` int(10) unsigned NOT NULL COMMENT 'Home phone',
-  `molibe_phone` int(10) unsigned NOT NULL COMMENT 'Cellphone',
+  `molibe_phone` int(11) unsigned NOT NULL COMMENT 'Cellphone',
   `e-mail` varchar(255) NOT NULL COMMENT 'email',
   `home_adress` varchar(255) NOT NULL COMMENT 'street and number',
   `neighborhood` varchar(255) NOT NULL COMMENT 'neighborhood',
@@ -146,7 +347,8 @@ CREATE TABLE IF NOT EXISTS `tbl_user_name` (
   `password` varchar(255) NOT NULL COMMENT 'password encrypted',
   `occupation` varchar(255) NOT NULL COMMENT 'function in company',
   `shift` tinyint(3) unsigned NOT NULL COMMENT 'shift',
-  `level_access` tinyint(3) unsigned NOT NULL COMMENT 'level access'
+  `level_access` tinyint(3) unsigned NOT NULL COMMENT 'level access',
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -158,6 +360,90 @@ CREATE TABLE IF NOT EXISTS `tbl_user_name` (
 --
 ALTER TABLE `tbl_accounts`
  ADD PRIMARY KEY (`id`), ADD KEY `id` (`id`), ADD KEY `id_2` (`id`);
+
+--
+-- Indexes for table `tbl_ict_actions`
+--
+ALTER TABLE `tbl_ict_actions`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_config`
+--
+ALTER TABLE `tbl_ict_config`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_currently_skipped`
+--
+ALTER TABLE `tbl_ict_currently_skipped`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_action`
+--
+ALTER TABLE `tbl_ict_failure_action`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_probe`
+--
+ALTER TABLE `tbl_ict_failure_probe`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_skip`
+--
+ALTER TABLE `tbl_ict_failure_skip`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_step`
+--
+ALTER TABLE `tbl_ict_failure_step`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_failure_sw`
+--
+ALTER TABLE `tbl_ict_failure_sw`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_history`
+--
+ALTER TABLE `tbl_ict_history`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_machines`
+--
+ALTER TABLE `tbl_ict_machines`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `machine` (`machine`,`model`);
+
+--
+-- Indexes for table `tbl_ict_skip_history`
+--
+ALTER TABLE `tbl_ict_skip_history`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_steps`
+--
+ALTER TABLE `tbl_ict_steps`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_sw_param`
+--
+ALTER TABLE `tbl_ict_sw_param`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_ict_trigger`
+--
+ALTER TABLE `tbl_ict_trigger`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_lines`
@@ -192,6 +478,76 @@ ALTER TABLE `tbl_user_name`
 --
 ALTER TABLE `tbl_accounts`
 MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `tbl_ict_actions`
+--
+ALTER TABLE `tbl_ict_actions`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_config`
+--
+ALTER TABLE `tbl_ict_config`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_currently_skipped`
+--
+ALTER TABLE `tbl_ict_currently_skipped`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_action`
+--
+ALTER TABLE `tbl_ict_failure_action`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_probe`
+--
+ALTER TABLE `tbl_ict_failure_probe`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_skip`
+--
+ALTER TABLE `tbl_ict_failure_skip`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_step`
+--
+ALTER TABLE `tbl_ict_failure_step`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_failure_sw`
+--
+ALTER TABLE `tbl_ict_failure_sw`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_history`
+--
+ALTER TABLE `tbl_ict_history`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_machines`
+--
+ALTER TABLE `tbl_ict_machines`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_skip_history`
+--
+ALTER TABLE `tbl_ict_skip_history`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_steps`
+--
+ALTER TABLE `tbl_ict_steps`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_sw_param`
+--
+ALTER TABLE `tbl_ict_sw_param`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_ict_trigger`
+--
+ALTER TABLE `tbl_ict_trigger`
+MODIFY `id` int(5) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_lines`
 --

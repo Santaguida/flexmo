@@ -1,16 +1,39 @@
 <?php
-	$ivalid_login=false;
+	$invalid_login=false;
 
-	if(isset($_POST["user"]))
+	if(isset($_POST["user"]) && isset($_POST["pwd"]))
 	{		
 		
-		//Código para a verificar usuário e senha no Banco de dados
+		//Connects to the server
+		require_once '..\functions/server.php';
 		
+		//Query the user in the database
+		$query = "SELECT name, last_name FROM tbl_users WHERE user_name='" . $_POST["user"] ."' AND password='" . md5($_POST["pwd"]) . "'";
+		$result = check_data($query);
+		$result_array = mysqli_fetch_array($result);
 		
-		//Se o usuário não existir, seta a variável $ivalid_login=true
-		global $ivalid_login;
-		$ivalid_login = true;
-	}	
+		//Checks if the user exists
+		if(mysqli_num_rows($result) != 0)
+		{
+			//Start a new session
+			session_start();
+			$_SESSION["user"] = $_POST["user"];
+			$_SESSION["name"] = $result_array["name"] . " " . $result_array["last_name"];
+			
+			//In case there is no destination stablished, define destination as "..\home\index.php"
+			if(!isset($_SESSION["destination"]))
+			{
+				$_SESSION["destination"] = "..\home";
+			}
+			
+			//Go to destination
+			header("location: " . $_SESSION["destination"]);
+		}
+		
+		//If the user does not exists
+		global $invalid_login;
+		$invalid_login = true;
+	}
 ?>
 
 <html>
@@ -34,16 +57,16 @@
                     <input name="pwd" type="password" id="pwd" placeholder="Password" required>
                 </p>
                 
-                <?php				
-				if($ivalid_login==true)
+                <?php
+				//In case $invalid_login is set to "true", warns of wrong user
+				if($invalid_login==true)
 				{
 					echo "<h5 class='red_danger'>Username or password doesn't exist!</h5>";
 				}
 				else
 				{
 					echo "<br>";
-				}
-			
+				}			
 				?>
             
                 <p>

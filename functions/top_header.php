@@ -1,7 +1,10 @@
 <?php
 if(!isset($_SESSION["user"]))
 	{
-		header("location: login.php");
+		session_start();
+		$_SESSION["destination"] = $_SERVER['PHP_SELF'];
+		
+		header("location: ..\login");
 	}
 ?>
 
