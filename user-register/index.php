@@ -6,6 +6,7 @@ require_once '..\functions/encodesPassword.inc.php';
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
     $name = $_POST['name'];
+    $nameErr = '';    
     $lastName = $_POST['lastName'];
     $userName = 'sao';
     $extension = $_POST['extension'];
@@ -23,7 +24,8 @@ if(isset($_POST['name'])){
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
     $alert = '';
-    $alert2 = '</br> Por favor, preencha denovo a Senha';
+    //Define MSG como constante e recebe a mensagem a frente
+    define('MSG', 'Informações salvas com sucesso !<br />');
     /**
      * Função para criar userName
      * @param type $name Description
@@ -33,25 +35,72 @@ if(isset($_POST['name'])){
     $userName .= substr($lastName, 0, 4);
     $userName = strtolower($userName);
     
+    // Chama função que Trata dados
+    include_once '..\functions/testInput.inc.php';
+    
+    $name = test_input($_POST["name"]);
+    $lastName = test_input($_POST["lastName"]);
+    
+    
     // Chama função que conecta o server
     require_once '..\functions/server.php';
     
     // Validação de formulários
     if(empty($name)){
-        $alert .= 'Por favor, preencha o campo NOME corretamente<br />';
+        $alert .= 'Por favor, preencha o campo NOME corretamente.<br />';       
+    }
+    if(strlen($name)<=2){
+        $alert .= 'Por favor, preencha o campo NOME com no mínimo 3 caracteres.<br />';
     }
     if(empty($lastName)){
         $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
     }
+    if(strlen($lastName)<=2){
+        $alert .= 'Por favor, preencha o campo SOBRENOME com no mínimo 3 caracteres.<br />';
+    }
+    if(!empty($extension)){
+        if(!is_numeric($extension)){
+        $alert .= 'Por favor, preencha o campo RAMAL apenas com números<br />';
+        }
+        if(strlen($extension)!=4){
+        $alert .= 'Por favor, preencha o campo RAMAL com 4 dígitos.<br />';
+        }
+    }
     if(empty($register)){
         $alert .= 'Por favor, preencha o campo MATRÍCULA corretamente<br />';
+    }
+    if(!is_numeric($register)){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA apenas com números<br />';
+    }
+    if(strlen($register)>=7){
+        $alert .= 'Por favor, preencha o campo MATRÍCULA com no máximo 6 dígitos.<br />';
+    }
+    if(!empty($badge)){
+        if(!is_numeric($badge)){
+        $alert .= 'Por favor, preencha o campo BADGE apenas com números<br />';
+        }
+        if(strlen($badge) >= 7){
+        $alert .= 'Por favor, preencha o campo BADGE com no máximo 6 dígitos.<br />';
+        }
     }
     if(empty($phone)){
         $alert .= 'Por favor, preencha o campo TELEFONE corretamente<br />';
     }
+    if(!is_numeric($phone)){
+        $alert .= 'Por favor, preencha o campo TELEFONE apenas com números e sem espaço.<br />';
+    }
+    if(strlen($phone) != 10){
+        $alert .= 'Por favor, preencha o campo TELEFONE com 10 dígitos. Ex: DDXXXXYYYY<br />';
+    }
     if(empty($cell)){
         $alert .= 'Por favor, preencha o campo CELULAR corretamente<br />';
-    }    
+    }
+    if(!is_numeric($cell)){
+        $alert .= 'Por favor, preencha o campo CELULAR apenas com números e sem espaço.<br />';
+    }
+    if(strlen($cell) != 11){
+        $alert .= 'Por favor, preencha o campo CELULAR com 11 dígitos. Ex: DD9XXXXYYYY<br />';
+    }
     if(empty($email)){
         $alert .= 'Por favor, preencha o campo E-MAIL corretamente<br />';
     }
@@ -70,6 +119,9 @@ if(isset($_POST['name'])){
     if(empty($password)){
         $alert .= 'Por favor, preencha o campo SENHA<br />';
     }
+    if(strlen($password) <= 5 ){
+        $alert .= 'Por favor, preencha o campo SENHA com no mínimo 6 caracteres.<br />';
+    }
     if ($password != $checkPassword) {
         $alert .= 'A senha não foi confirmada corretamente';
     }    
@@ -79,7 +131,7 @@ if(isset($_POST['name'])){
     if ($shift == 'informe') {
         $alert .= 'Por favor, preencha o campo TURNO<br />';
     }
-    if(empty($alert)){
+    if(empty($alert)){      
         
         // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
@@ -89,7 +141,8 @@ if(isset($_POST['name'])){
             VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift')");
         
         // Confirma operação com mensagem
-        $alert .= 'Informações salvas com sucesso !<br />';
+        $alert .= 'Informações salvas com sucesso !<br />';        
+        
     }
 }
 
@@ -123,14 +176,14 @@ if(isset($_POST['name'])){
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
                         <h3 class="widget-title">Sign Up [Cadastro de usuário]</h3>
-                        <h4 class="text-danger">
+                        <h5 class="text-danger">
                         
                             <?php
                             
                             // Caso exista um alerta, imprime na tela
                             // Caso não, mantem mensagem HTML
                             if(!empty($alert)){
-                                print '</br>' . $alert . '</br>' . $alert2;
+                                print '</br>' . $alert;
                                     }                            
                             else{
                                 print '</br>*Required field';
@@ -138,44 +191,44 @@ if(isset($_POST['name'])){
                                 
                             ?>
                             
-                        </h4>    
+                        </h5>    
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <p>
-                                    <input name="name" type="text" id="name" value="<?php if (isset($name)) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>
+                                    <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>                                       
                                 </p>
                                 <p>
-                                    <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName)) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
+                                    <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != MSG) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
                                 </p>
                                 <p>
-                                    <input name="extension" type="text" id="extension" value="<?php if (isset($extension)) { echo $extension; } ?>" placeholder="Company extension phone [Ramal]" >
+                                    <input name="extension" type="text" id="extension" value="<?php if (isset($extension) && $alert != MSG) { echo $extension; } ?>" placeholder="Company extension phone [Ramal]" >
                                 </p>
                                 <p>
-                                    <input name="register" type="text" id="register" value="<?php if (isset($register)) { echo $register; } ?>" placeholder="*Your register number [Matrícula]" required>
+                                    <input name="register" type="text" id="register" value="<?php if (isset($register) && $alert != MSG) { echo $register; } ?>" placeholder="*Your register number [Matrícula]" required>
                                 </p>
                                 <p>
-                                    <input name="badge" type="text" id="badge" value="<?php if (isset($badge)) { echo $badge; } ?>" placeholder="Badge number [Número do cracha]">
+                                    <input name="badge" type="text" id="badge" value="<?php if (isset($badge) && $alert != MSG) { echo $badge; } ?>" placeholder="Badge number [Número do cracha]">
                                 </p>
                                 <p>
-                                    <input name="phone" type="text" id="phone" value="<?php if (isset($phone)) { echo $phone; } ?>" placeholder="*Home phone - Only numbers [Telefone residencial - Apenas números]" required>
+                                    <input name="phone" type="text" id="phone" value="<?php if (isset($phone) && $alert != MSG) { echo $phone; } ?>" placeholder="*Home phone - Only numbers [Telefone residencial - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="cell" type="text" id="cell" value="<?php if (isset($cell)) { echo $cell; } ?>" placeholder="*Cellphone - Only numbers [Celular - Apenas números]" required>
+                                    <input name="cell" type="text" id="cell" value="<?php if (isset($cell) && $alert != MSG) { echo $cell; } ?>" placeholder="*Cellphone - Only numbers [Celular - Apenas números]" required>
                                 </p>
                                 <p>
-                                    <input name="email" type="email" id="email" value="<?php if (isset($email)) { echo $email; } ?>" placeholder="*E-mail (Preference @flextronics.com)" required> 
+                                    <input name="email" type="email" id="email" value="<?php if (isset($email) && $alert != MSG) { echo $email; } ?>" placeholder="*E-mail (Preference @flextronics.com)" required> 
                                 </p>
                                 <p>
-                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email) { echo $checkEmail; } ?>" placeholder="*Check e-mail[Confirme seu e-mail]" required> 
+                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email && $alert != MSG) { echo $checkEmail; } ?>" placeholder="*Check e-mail[Confirme seu e-mail]" required> 
                                 </p>
                                 <p>
-                                    <input name="adress" type="text" id="adress" value="<?php if (isset($adress)) { echo $adress; } ?>" placeholder="*Adress and number [Endereço com número]" required>
+                                    <input name="adress" type="text" id="adress" value="<?php if (isset($adress) && $alert != MSG) { echo $adress; } ?>" placeholder="*Adress and number [Endereço com número]" required>
                                 </p>
                                 <p>
-                                    <input name="neigh" type="text" id="neigh" value="<?php if (isset($neigh)) { echo $neigh; } ?>" placeholder="*Neighborhood [Bairro]" required>
+                                    <input name="neigh" type="text" id="neigh" value="<?php if (isset($neigh) && $alert != MSG) { echo $neigh; } ?>" placeholder="*Neighborhood [Bairro]" required>
                                 </p>
                                 <p>
-                                    <input name="city" type="text" id="city" value="<?php if (isset($city)) { echo $city; } ?>" placeholder="*City/State [Cidade / Estado]" required>
+                                    <input name="city" type="text" id="city" value="<?php if (isset($city) && $alert != MSG) { echo $city; } ?>" placeholder="*City/State [Cidade / Estado]" required>
                                 </p>
                                 <p>
                                     <input name="password" type="password" id="password"  placeholder="*Password (As low 6 caracters)[Senha (Mínimo de 6 caracteres)]" required> 
@@ -186,19 +239,19 @@ if(isset($_POST['name'])){
                                 <p>
                                     <select name="occupation" id="occupation" >
                                         <option value="informe" <?php if (isset($occupation) == '') { echo 'selected'; } ?> >*Enter your function [Informe sua função]</option>
-                                        <option value="supervisor" <?php if (isset($occupation) && $occupation == 'supervisor') { echo 'selected'; } ?> >Manager [Supervisor]</option>
-                                        <option value="coordenadorTecnico" <?php if (isset($occupation) && $occupation == 'coordenadorTecnico') { echo 'selected'; } ?> >Technical coordinator [Coordenador técnico]</option>
-                                        <option value="coordenadorProducao" <?php if (isset($occupation) && $occupation == 'coordenadorProducao') { echo 'selected'; } ?> >Production coordinator [Coordenador de produção]</option>
-                                        <option value="engenheiro" <?php if (isset($occupation) && $occupation == 'engenheiro') { echo 'selected'; } ?> >Engineer [Engenheiro]</option>
-                                        <option value="tecnico" <?php if (isset($occupation) && $occupation == 'tecnico') { echo 'selected'; } ?> >Technician [Técnico]</option>
-                                        <option value="quickrepair" <?php if (isset($occupation) && $occupation == 'quickrepair') { echo 'selected'; } ?> >Quick Repair</option>
+                                        <option value="supervisor" <?php if (isset($occupation) && $occupation == 'supervisor' && $alert != MSG) { echo 'selected'; } ?> >Manager [Supervisor]</option>
+                                        <option value="coordenadorTecnico" <?php if (isset($occupation) && $occupation == 'coordenadorTecnico' && $alert != MSG) { echo 'selected'; } ?> >Technical coordinator [Coordenador técnico]</option>
+                                        <option value="coordenadorProducao" <?php if (isset($occupation) && $occupation == 'coordenadorProducao' && $alert != MSG) { echo 'selected'; } ?> >Production coordinator [Coordenador de produção]</option>
+                                        <option value="engenheiro" <?php if (isset($occupation) && $occupation == 'engenheiro' && $alert != MSG) { echo 'selected'; } ?> >Engineer [Engenheiro]</option>
+                                        <option value="tecnico" <?php if (isset($occupation) && $occupation == 'tecnico' && $alert != MSG) { echo 'selected'; } ?> >Technician [Técnico]</option>
+                                        <option value="quickrepair" <?php if (isset($occupation) && $occupation == 'quickrepair' && $alert != MSG) { echo 'selected'; } ?> >Quick Repair</option>
                                     </select>
                                     <select name="shift" id="shift" >
                                         <option value="informe" <?php if (isset($shift) == '') { echo 'selected'; } ?> >*Enter your shift [Informe seu turno]</option>
-                                        <option value="1" <?php if (isset($shift) && $shift == '1') { echo 'selected'; } ?> >1T</option>
-                                        <option value="2" <?php if (isset($shift) && $shift == '2') { echo 'selected'; } ?> >2T</option>
-                                        <option value="3" <?php if (isset($shift) && $shift == '3') { echo 'selected'; } ?> >3T</option>
-                                        <option value="4" <?php if (isset($shift) && $shift == '4') { echo 'selected'; } ?> >ADM</option>                            
+                                        <option value="1" <?php if (isset($shift) && $shift == '1' && $alert != MSG) { echo 'selected'; } ?> >1T</option>
+                                        <option value="2" <?php if (isset($shift) && $shift == '2' && $alert != MSG) { echo 'selected'; } ?> >2T</option>
+                                        <option value="3" <?php if (isset($shift) && $shift == '3' && $alert != MSG) { echo 'selected'; } ?> >3T</option>
+                                        <option value="4" <?php if (isset($shift) && $shift == '4' && $alert != MSG) { echo 'selected'; } ?> >ADM</option>                            
                                     </select>
                                 <p/>                                	
                                 <p>
