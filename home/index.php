@@ -10,9 +10,3 @@
     <?php include_once '..\functions/menu2.php'; ?>             
 </body>
 </html>
-
-<?php
-/* Test
-print_r($_SERVER);
-*/
-?>
