@@ -137,11 +137,17 @@ if(isset($_POST['name'])){
         $encryptedPassword = encodes_password($password);
         
         // Insere as informações no banco de dados
-        check_data("INSERT INTO `tbl_user_name`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `hood`, `city`, `password`, `occupation`, `shift`)
-            VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift')");
+        $result = check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
+            VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
         
+		if(!$result)
+		{
+			$alert .= mysql_error(); 
+		}
+		
         // Confirma operação com mensagem
-        $alert .= 'Informações salvas com sucesso !<br />';        
+		$alert .= 'Informações salvas com sucesso !<br />';
+             
         
     }
 }
@@ -183,7 +189,7 @@ if(isset($_POST['name'])){
                             // Caso exista um alerta, imprime na tela
                             // Caso não, mantem mensagem HTML
                             if(!empty($alert)){
-                                print '</br>' . $alert;
+                                print '</br>' . $alert; 
                                     }                            
                             else{
                                 print '</br>*Required field';
@@ -193,7 +199,7 @@ if(isset($_POST['name'])){
                             
                         </h5>    
                         <div class="contact-form">
-                            <form name="contactform" id="contactform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                            <form name="contactform" id="contactform" action="" method="post">
                                 <p>
                                     <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="*Your first name [Seu Nome]" autofocus required>                                       
                                 </p>

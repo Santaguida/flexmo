@@ -4,15 +4,10 @@
 <title>FleXmo</title>
     <?php include_once '..\functions/header.php'; ?>
 </head>
-<body>      
+<body>
+	<?php include_once '..\functions/top_header.php'; ?> 
     <?php include_once '..\functions/menu1.php'; ?>
     
     <?php include_once '..\functions/menu2.php'; ?>             
 </body>
 </html>
-
-<?php
-/* Test
-print_r($_SERVER);
-*/
-?>

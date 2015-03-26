@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2015 at 03:33 PM
+-- Generation Time: Mar 26, 2015 at 02:00 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -326,11 +326,11 @@ INSERT INTO `tbl_product_category` (`id`, `category`, `enabled`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user_name`
+-- Table structure for table `tbl_users`
 --
 
-DROP TABLE IF EXISTS `tbl_user_name`;
-CREATE TABLE IF NOT EXISTS `tbl_user_name` (
+DROP TABLE IF EXISTS `tbl_users`;
+CREATE TABLE IF NOT EXISTS `tbl_users` (
 `id` int(10) unsigned NOT NULL COMMENT 'Id',
   `name` varchar(255) NOT NULL COMMENT 'First name',
   `last_name` varchar(255) NOT NULL COMMENT 'last name',
@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user_name` (
   `register` int(10) unsigned NOT NULL COMMENT 'employee register namber',
   `badge` int(10) unsigned DEFAULT NULL COMMENT 'employee badge namber',
   `home_phone` int(10) unsigned NOT NULL COMMENT 'Home phone',
-  `molibe_phone` int(11) unsigned NOT NULL COMMENT 'Cellphone',
+  `molibe_phone` bigint(11) unsigned NOT NULL COMMENT 'Cellphone',
   `e-mail` varchar(255) NOT NULL COMMENT 'email',
   `home_adress` varchar(255) NOT NULL COMMENT 'street and number',
   `neighborhood` varchar(255) NOT NULL COMMENT 'neighborhood',
@@ -347,9 +347,16 @@ CREATE TABLE IF NOT EXISTS `tbl_user_name` (
   `password` varchar(255) NOT NULL COMMENT 'password encrypted',
   `occupation` varchar(255) NOT NULL COMMENT 'function in company',
   `shift` tinyint(3) unsigned NOT NULL COMMENT 'shift',
-  `level_access` tinyint(3) unsigned NOT NULL COMMENT 'level access',
+  `level_access` tinyint(3) unsigned NOT NULL DEFAULT '4' COMMENT 'level access',
   `enabled` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_users`
+--
+
+INSERT INTO `tbl_users` (`id`, `name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`, `level_access`, `enabled`) VALUES
+(2, 'Gabriel', 'Nazato', 'saognaza', 6842, 19897, 43893, 1532330653, 15991252732, 'Gabriel.Nazato@Flextronics.com', 'Rua Galileu Pasquinelli 1004, comp. 06', 'Vila Fiori', 'Sorocaba', '006661d40bec467b3d66b9eae6701f55b9eb6cf4bdfb3b210ed2ab9c595dbcf5653a4edbda4b9f5cd2f456274fc0c7f76f0f5dc186f27288e89aebe65eccc858', 'engenheiro', 4, 4, 1);
 
 --
 -- Indexes for dumped tables
@@ -464,9 +471,9 @@ ALTER TABLE `tbl_product_category`
  ADD PRIMARY KEY (`id`), ADD KEY `id` (`id`), ADD KEY `id_2` (`id`);
 
 --
--- Indexes for table `tbl_user_name`
+-- Indexes for table `tbl_users`
 --
-ALTER TABLE `tbl_user_name`
+ALTER TABLE `tbl_users`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -564,10 +571,10 @@ MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `tbl_product_category`
 MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT for table `tbl_user_name`
+-- AUTO_INCREMENT for table `tbl_users`
 --
-ALTER TABLE `tbl_user_name`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id';
+ALTER TABLE `tbl_users`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id',AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

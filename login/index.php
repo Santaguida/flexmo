@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 	$invalid_login=false;
 
 	if(isset($_POST["user"]) && isset($_POST["pwd"]))
@@ -6,9 +6,10 @@
 		
 		//Connects to the server
 		require_once '..\functions/server.php';
+		require_once '..\functions/encodesPassword.inc.php';
 		
 		//Query the user in the database
-		$query = "SELECT name, last_name, level_access FROM tbl_users WHERE user_name='" . $_POST["user"] ."' AND password='" . md5($_POST["pwd"]) . "'";
+		$query = "SELECT name, last_name, level_access FROM tbl_users WHERE user_name='" . $_POST["user"] ."' AND password='" . encodes_password($_POST["pwd"]) . "'";
 		$result = check_data($query);
 		$result_array = mysqli_fetch_array($result);
 		
@@ -16,7 +17,6 @@
 		if(mysqli_num_rows($result) != 0)
 		{
 			//Start a new session
-			session_start();
 			$_SESSION["user"] = $_POST["user"];
 			$_SESSION["name"] = $result_array["name"] . " " . $result_array["last_name"];
 			$_SESSION["access_level"] = $result_array["level_access"];
@@ -25,6 +25,7 @@
 			if(!isset($_SESSION["destination"]))
 			{
 				$_SESSION["destination"] = "..\home";
+
 			}
 			
 			//Go to destination
