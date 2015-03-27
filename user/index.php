@@ -8,7 +8,7 @@ if(isset($_POST['name'])){
     $name = $_POST['name'];
     $nameErr = '';    
     $lastName = $_POST['lastName'];
-    $userName = 'sao';
+    $user = $_POST['user'];
     $extension = $_POST['extension'];
     $register = $_POST['register'];
     $badge = $_POST['badge'];
@@ -27,13 +27,15 @@ if(isset($_POST['name'])){
     //Define MSG como constante e recebe a mensagem a frente
     define('MSG', 'Informações salvas com sucesso !<br />');
     /**
+     * Excluida
      * Função para criar userName
      * @param type $name Description
      * @param return $userName Description
-     */    
+        
     $userName .= substr($name, 0, 1);
     $userName .= substr($lastName, 0, 4);
     $userName = strtolower($userName);
+    */ 
     
     // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
@@ -51,6 +53,15 @@ if(isset($_POST['name'])){
     }
     if(strlen($name)<=2){
         $alert .= 'Por favor, preencha o campo NOME com no mínimo 3 caracteres.<br />';
+    }
+    if(empty($user)){
+        $alert .= 'Por favor, preencha o campo USER corretamente.<br />';       
+    }
+    if(substr($user, 0, 3) != 'sao' || substr($name, 0, 1) != substr($user, 3, 1)){
+        $alert .= 'Por favor, preencha o campo USER como o exemplo: saoNXXXX,'
+                . '<br/>onde \'sao\' é obrigatório no inínio, \'N\' é o'
+                . '<br/>primeiro caracter do seu nome e \'XXXX\' são os quatro'
+                . '<br/>primeiros digitos do seu sobrenome<br />';        
     }
     if(empty($lastName)){
         $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
@@ -133,12 +144,16 @@ if(isset($_POST['name'])){
     }
     if(empty($alert)){      
         
+        // Primeiro caracter maiusculo
+        $name = ucfirst($name);
+        $lastName = ucfirst($lastName);
+        
         // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
         
         // Insere as informações no banco de dados
         check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
-            VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
+            VALUES ('$name', '$lastName','$user','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
         
         // Confirma operação com mensagem
         $alert .= 'Informações salvas com sucesso !<br />';        
@@ -199,6 +214,9 @@ if(isset($_POST['name'])){
                                 </p>
                                 <p>
                                     <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != MSG) { echo $lastName; } ?>" placeholder="*Last name [Sobrenome]" required>
+                                </p>
+                                <p>
+                                    <input name="user" type="text" id="user" value="<?php if (isset($user) && $alert != MSG) { echo $user; } ?>" placeholder="*User name [Nome de usuário]" required>
                                 </p>
                                 <p>
                                     <input name="extension" type="text" id="extension" value="<?php if (isset($extension) && $alert != MSG) { echo $extension; } ?>" placeholder="Company extension phone [Ramal]" >
