@@ -5,9 +5,9 @@ $comm = array(
     'completed'     => 'Informações salvas com sucesso !<br />',
     'fieldError'    => 'Por favor, preencha',
     'name'          => ' SEU NOME*',
-    'name2'         => ' o campo NOME com no mínimo 3 caracteres.',        
+    'name2'         => ' o campo NOME [ mínimo 3 caracteres ]',        
     'lastName'      => ' SEU SOBRENOME*',
-    'lastName2'     => ' o campo SOBRENOME com no mínimo 3 caracteres.<br />',
+    'lastName2'     => ' o campo SOBRENOME [ mínimo 3 caracteres ]',
     'user'          => ' SEU NOME DE USUÁRIO* [ Ex: saoftron ]',
     'user2'         => " o campo USER como no exemplo: saoNXXXX,<br/>
                         onde 'sao' é obrigatório no inínio, 'N' é o<br/>
@@ -34,8 +34,8 @@ $comm = array(
     'pass'          => 'SUA SENHA*[ MÍNIMO DE 6 DIGITOS ]',
     'pass2'         => ' o campo SENHA com no mínimo 6 caracteres.<br />',
     'pass3'         => 'CONFIRME SUA SENHA*',
-    'func'          => 'SUA FUNÇÃO*',
-    'shift'         => 'SEU TURNO*',
+    'func'          => ' SUA FUNÇÃO*',
+    'shift'         => ' SEU TURNO*',
     'pgTitle'       => 'Controle de usuários',
     'alerted'       => 'Campo obrigatório*',    
     'manager'       => 'Supervisor',
@@ -98,95 +98,95 @@ if(isset($_POST['name'])){
     
     // Validação de formulários
     if(empty($name)){
-        $alert .= $comm['name'];       
+        $alert .= $comm['fieldError'] . $comm['name'] . '<br/>';       
     }
     if(strlen($name)<=2){
-        $alert .= $comm['name2'];
+        $alert .= $comm['fieldError'] . $comm['name2'] . '<br/>';
     }     
     if(empty($lastName)){
-        $alert .= $comm['lastName'];
+        $alert .= $comm['fieldError'] . $comm['lastName'] . '<br/>';
     }
     if(strlen($lastName)<=2){
-        $alert .= $comm['lastName2'];
+        $alert .= $comm['fieldError'] . $comm['lastName2'].'<br/>';
     }
     if(empty($user)){
-        $alert .= $comm['user'];       
+        $alert .= $comm['fieldError'] . $comm['user'].'<br/>';       
     }   
     if(substr($user, 0, 3) != 'sao' || substr($name, 0, 1) != substr($user, 3, 1)){
-        $alert .= $comm['user2'];        
+        $alert .= $comm['user2'].'<br/>';        
     }
     if(!empty($extension)){
         if(!is_numeric($extension)){
-        $alert .= $comm['ext'];
+        $alert .= $comm['fieldError'] . $comm['ext'].'<br/>';
         }
         if(strlen($extension)!=4){
-        $alert .= $comm['ext2'];
+        $alert .= $comm['fieldError'] . $comm['ext2'].'<br/>';
         }
     }
     if(empty($register)){
-        $alert .= $comm['register'];
+        $alert .= $comm['fieldError'] . $comm['register'].'<br/>';
     }
     if(!is_numeric($register)){
-        $alert .= $comm['register2'];
+        $alert .= $comm['fieldError'] . $comm['register2'].'<br/>';
     }
     if(strlen($register)>=7){
-        $alert .= $comm['register3'];
+        $alert .= $comm['fieldError'] . $comm['register3'].'<br/>';
     }
     if(!empty($badge)){
         if(!is_numeric($badge)){
-        $alert .= $comm['badge'];
+        $alert .= $comm['fieldError'] . $comm['badge'].'<br/>';
         }
         if(strlen($badge) >= 7){
-        $alert .= $comm['badge2'];
+        $alert .= $comm['fieldError'] . $comm['badge2'].'<br/>';
         }
     }
     if(empty($phone)){
-        $alert .= $comm['phone'];
+        $alert .= $comm['fieldError'] . $comm['phone'].'<br/>';
     }
     if(!is_numeric($phone)){
-        $alert .= $comm['phone2'];
+        $alert .= $comm['fieldError'] . $comm['phone2'].'<br/>';
     }
     if(strlen($phone) != 10){
-        $alert .= $comm['phone3'];
+        $alert .= $comm['fieldError'] . $comm['phone3'].'<br/>';
     }
     if(empty($cell)){
-        $alert .= $comm['cell'];
+        $alert .= $comm['fieldError'] . $comm['cell'].'<br/>';
     }
     if(!is_numeric($cell)){
-        $alert .= $comm['cell2'];
+        $alert .= $comm['fieldError'] . $comm['cell2'].'<br/>';
     }
     if(strlen($cell) != 11){
-        $alert .= $comm['cell3'];
+        $alert .= $comm['fieldError'] . $comm['cell3'].'<br/>';
     }
     if(empty($email)){
-        $alert .= $comm['email'];
+        $alert .= $comm['fieldError'] . $comm['email'].'<br/>';
     }
     if ($email != $checkEmail) {
-        $alert .= $comm['email2'];
+        $alert .= $comm['email2'].'<br/>';
     }  
     if(empty($adress)){
-        $alert .= $comm['adress'];
+        $alert .= $comm['fieldError'] . $comm['adress'].'<br/>';
     }
     if(empty($neigh)){
-        $alert .= $comm['neigh'];
+        $alert .= $comm['fieldError'] . $comm['neigh'].'<br/>';
     }
     if(empty($city)){
-        $alert .= $comm['city'];
+        $alert .= $comm['fieldError'] . $comm['city'].'<br/>';
     }
     if(empty($password)){
-        $alert .= $comm['pass'];
+        $alert .= $comm['fieldError'] . $comm['pass'].'<br/>';
     }
     if(strlen($password) <= 5 ){
-        $alert .= $comm['pass2'];
+        $alert .= $comm['fieldError'] . $comm['pass2'].'<br/>';
     }
     if ($password != $checkPassword) {
-        $alert .= $comm['pass3'];
+        $alert .= $comm['fieldError'] . $comm['pass3'].'<br/>';
     }    
     if ($occupation == 'informe') {
-        $alert .= $comm['func'];
+        $alert .= $comm['fieldError'] . $comm['func'].'<br/>';
     }
     if ($shift == 'informe') {
-        $alert .= $comm['shift'];
+        $alert .= $comm['fieldError'] . $comm['shift'].'<br/>';
     }
     if(empty($alert)){      
         
