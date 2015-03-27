@@ -1,13 +1,5 @@
 <?php
 
-// Variaveis multidioma
-$comm = array(
-    'completed' => 'Informações salvas com sucesso !<br />',
-    
-    
-    
-);
-
 // Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
 
@@ -33,7 +25,7 @@ if(isset($_POST['name'])){
     $shift = $_POST['shift'];
     $alert = '';
     //Define MSG como constante e recebe a mensagem a frente
-    define('MSG', $comm['completed']);
+    define('MSG', 'Informações salvas com sucesso !<br />');
     /**
      * Função para criar userName
      * @param type $name Description
@@ -55,13 +47,13 @@ if(isset($_POST['name'])){
     
     // Validação de formulários
     if(empty($name)){
-        $alert .= 'Por favor, preencha o campo NOME.<br />';       
+        $alert .= 'Por favor, preencha o campo NOME corretamente.<br />';       
     }
     if(strlen($name)<=2){
         $alert .= 'Por favor, preencha o campo NOME com no mínimo 3 caracteres.<br />';
     }
     if(empty($lastName)){
-        $alert .= 'Por favor, preencha o campo SOBRENOME.<br />';
+        $alert .= 'Por favor, preencha o campo SOBRENOME corretamente<br />';
     }
     if(strlen($lastName)<=2){
         $alert .= 'Por favor, preencha o campo SOBRENOME com no mínimo 3 caracteres.<br />';
@@ -75,7 +67,7 @@ if(isset($_POST['name'])){
         }
     }
     if(empty($register)){
-        $alert .= 'Por favor, preencha o campo MATRÍCULA.<br />';
+        $alert .= 'Por favor, preencha o campo MATRÍCULA corretamente<br />';
     }
     if(!is_numeric($register)){
         $alert .= 'Por favor, preencha o campo MATRÍCULA apenas com números<br />';
@@ -92,16 +84,16 @@ if(isset($_POST['name'])){
         }
     }
     if(empty($phone)){
-        $alert .= 'Por favor, preencha o campo TELEFONE.<br />';
+        $alert .= 'Por favor, preencha o campo TELEFONE corretamente<br />';
     }
     if(!is_numeric($phone)){
         $alert .= 'Por favor, preencha o campo TELEFONE apenas com números e sem espaço.<br />';
     }
     if(strlen($phone) != 10){
-        $alert .= 'Por favor, preencha o campo TELEFONE com 10 dígitos.<br /> Ex: DDXXXXYYYY<br />';
+        $alert .= 'Por favor, preencha o campo TELEFONE com 10 dígitos. Ex: DDXXXXYYYY<br />';
     }
     if(empty($cell)){
-        $alert .= 'Por favor, preencha o campo CELULAR.<br />';
+        $alert .= 'Por favor, preencha o campo CELULAR corretamente<br />';
     }
     if(!is_numeric($cell)){
         $alert .= 'Por favor, preencha o campo CELULAR apenas com números e sem espaço.<br />';
@@ -110,19 +102,19 @@ if(isset($_POST['name'])){
         $alert .= 'Por favor, preencha o campo CELULAR com 11 dígitos. Ex: DD9XXXXYYYY<br />';
     }
     if(empty($email)){
-        $alert .= 'Por favor, preencha o campo E-MAIL.<br />';
+        $alert .= 'Por favor, preencha o campo E-MAIL corretamente<br />';
     }
     if ($email != $checkEmail) {
         $alert .= 'O e-mail não foi confirmado corretamente<br />';
     }  
     if(empty($adress)){
-        $alert .= 'Por favor, preencha o campo ENDEREÇO.<br />';
+        $alert .= 'Por favor, preencha o campo ENDEREÇO corretamente<br />';
     }
     if(empty($neigh)){
-        $alert .= 'Por favor, preencha o campo BAIRRO.<br />';
+        $alert .= 'Por favor, preencha o campo BAIRRO corretamente<br />';
     }
     if(empty($city)){
-        $alert .= 'Por favor, preencha o campo CIDADE.<br />';
+        $alert .= 'Por favor, preencha o campo CIDADE corretamente<br />';
     }
     if(empty($password)){
         $alert .= 'Por favor, preencha o campo SENHA<br />';
@@ -149,7 +141,7 @@ if(isset($_POST['name'])){
             VALUES ('$name', '$lastName','$userName','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift')");
         
         // Confirma operação com mensagem
-        $alert .= MSG;        
+        $alert .= 'Informações salvas com sucesso !<br />';        
         
     }
 }
