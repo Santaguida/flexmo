@@ -39,10 +39,16 @@
 <html>
 	<head>
     	<title>
-        	flexMo - User Login
+        	FleXmo - User Login
         </title>
         
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <?php
+    
+            // Inclui cabeçario
+            include_once '..\functions/header.php';
+    
+        ?>
+            
     </head>
 
 	<body>
