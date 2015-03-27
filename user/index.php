@@ -4,36 +4,36 @@
 $comm = array(
     'completed'     => 'Informações salvas com sucesso !<br />',
     'fieldError'    => 'Por favor, preencha',
-    'name'          => ' SEU NOME.*',
+    'name'          => ' SEU NOME*',
     'name2'         => ' o campo NOME com no mínimo 3 caracteres.',        
-    'lastName'      => ' SEU SOBRENOME.*',
+    'lastName'      => ' SEU SOBRENOME*',
     'lastName2'     => ' o campo SOBRENOME com no mínimo 3 caracteres.<br />',
-    'user'          => ' SEU NOME DE USUÁRIO.*',
+    'user'          => ' SEU NOME DE USUÁRIO* [ Ex: saoftron ]',
     'user2'         => " o campo USER como no exemplo: saoNXXXX,<br/>
                         onde 'sao' é obrigatório no inínio, 'N' é o<br/>
                         primeiro caracter do seu nome e 'XXXX' são os quatro<br/>
                         primeiros digitos do seu sobrenome<br />",
-    'ext'           => 'SEU RAMAL apenas com números<br />',
-    'ext2'          => ' o campo RAMAL com 4 dígitos.<br />',
+    'ext'           => 'SEU RAMAL [apenas com números]',
+    'ext2'          => ' o campo RAMAL com 4 dígitos.',
     'register'      => 'SUA MATRÍCULA*',
-    'register2'     => ' o campo MATRÍCULA apenas com números<br />',
-    'register3'     => ' o campo MATRÍCULA com no máximo 6 dígitos.<br />',
-    'badge'         => 'SEU BADGE apenas com números<br />',
-    'badge2'        => ' o campo BADGE com no máximo 6 dígitos.<br />',
-    'phone'         => 'SEU TELEFONE*',
+    'register2'     => ' o campo MATRÍCULA [apenas com números]',
+    'register3'     => ' o campo MATRÍCULA [máximo 6 dígitos]',
+    'badge'         => 'SEU BADGE [apenas com números]',
+    'badge2'        => ' o campo BADGE [máximo 6 dígitos]',
+    'phone'         => 'SEU TELEFONE* [exemplo: 1540096200 ]',
     'phone2'        => ' o campo TELEFONE apenas com números e sem espaço.<br />',
     'phone3'        => ' o campo TELEFONE com 10 dígitos.<br />Ex: DDXXXXYYYY<br />',
-    'cell'          => 'SEU CELULAR*',
+    'cell'          => 'SEU CELULAR* [exemplo: 15996096200 ]',
     'cell2'         => ' o campo CELULAR apenas com números e sem espaço.<br />',
     'cell3'         => ' o campo CELULAR com 11 dígitos.<br />Ex: DD9XXXXYYYY<br />',
-    'email'         => 'SEU E-MAIL*',
-    'email2'        => 'O e-mail não foi confirmado<br />',
-    'adress'        => 'SEU ENDEREÇO*',
+    'email'         => 'SEU E-MAIL* [ ...@flextronics.com de preferência ]',
+    'email2'        => 'CONFIRME SEU EMAIL*',
+    'adress'        => 'SEU ENDEREÇO* [ Rua, número e compremento]',
     'neigh'         => 'SEU BAIRRO*',
-    'city'          => 'SUA CIDADE*',
-    'pass'          => 'SUA SENHA*',
+    'city'          => 'SUA CIDADE/ESTADO*',
+    'pass'          => 'SUA SENHA*[ MÍNIMO DE 6 DIGITOS ]',
     'pass2'         => ' o campo SENHA com no mínimo 6 caracteres.<br />',
-    'pass3'         => 'A senha não foi confirmada',
+    'pass3'         => 'CONFIRME SUA SENHA*',
     'func'          => 'SUA FUNÇÃO*',
     'shift'         => 'SEU TURNO*',
     'pgTitle'       => 'Controle de usuários',
@@ -283,7 +283,7 @@ if(isset($_POST['name'])){
                                     <input name="email" type="email" id="email" value="<?php if (isset($email) && $alert != MSG) { echo $email; } ?>" placeholder="<?php echo $comm['email']; ?>" required> 
                                 </p>
                                 <p>
-                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email && $alert != MSG) { echo $checkEmail; } ?>" placeholder="<?php echo $comm['checkEmail']; ?>" required> 
+                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email && $alert != MSG) { echo $checkEmail; } ?>" placeholder="<?php echo $comm['email2']; ?>" required> 
                                 </p>
                                 <p>
                                     <input name="adress" type="text" id="adress" value="<?php if (isset($adress) && $alert != MSG) { echo $adress; } ?>" placeholder="<?php echo $comm['adress']; ?>" required>
@@ -298,7 +298,7 @@ if(isset($_POST['name'])){
                                     <input name="password" type="password" id="password"  placeholder="<?php echo $comm['pass']; ?>" required> 
                                 </p>
                                 <p>
-                                    <input name="checkPassword" type="password" id="checkPassword" placeholder="<?php echo $comm['checkPss']; ?>" required> 
+                                    <input name="checkPassword" type="password" id="checkPassword" placeholder="<?php echo $comm['pass3']; ?>" required> 
                                 </p>
                                 <p>
                                     <select name="occupation" id="occupation" >
