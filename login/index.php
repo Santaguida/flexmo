@@ -76,7 +76,7 @@
 				?>
             
                 <p>
-                    <input type="submit" class="button_blue" id="submit" value="Entrar">
+                    <input type="submit" class="button_blue" id="submit" value="Enter">
                 </p> 
             </form>
         </div>

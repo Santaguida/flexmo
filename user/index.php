@@ -1,8 +1,7 @@
-<?php
+<?php session_start();
 
 // Define language
 $page = $_SERVER['PHP_SELF'];
-
 
         if (isset($_SESSION["language"])){
             if ($_SESSION["language"]=="portuguese"){
@@ -13,8 +12,7 @@ $page = $_SERVER['PHP_SELF'];
                 include_once 'eng.inc.php';
             }
         }
-        else {
-            $language = "english";
+        else {            
             include_once 'eng.inc.php';
         }
 
