@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>FleXmo</title>
-    <?php    
-        include_once '..\functions/top_header.php';
+    <?php   
         include_once '..\functions/header.php';    
     ?>
 </head>

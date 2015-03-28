@@ -3,7 +3,7 @@
 // Define language
 $page = $_SERVER['PHP_SELF'];
 
-session_start();
+
         if (isset($_SESSION["language"])){
             if ($_SESSION["language"]=="portuguese"){
                 $language = "portuguese";
@@ -15,6 +15,7 @@ session_start();
         }
         else {
             $language = "english";
+            include_once 'eng.inc.php';
         }
 
 // Chama função Codifica senha
