@@ -1,8 +1,21 @@
 <?php
 
 // Define language
+$page = $_SERVER['PHP_SELF'];
 
-include_once 'ptbr.inc.php';
+session_start();
+        if (isset($_SESSION["language"])){
+            if ($_SESSION["language"]=="portuguese"){
+                $language = "portuguese";
+                include_once 'ptbr.inc.php';
+            }elseif ($_SESSION["language"]== "english") {
+                $language = "english";
+                include_once 'eng.inc.php';
+            }
+        }
+        else {
+            $language = "english";
+        }
 
 // Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
@@ -184,12 +197,20 @@ if(isset($_POST['name'])){
     // Inclui menus superiores da pagina
     include_once '..\functions/menu1.php';
     
-    ?>
-    
-        <div class="content-section">
+    ?>     
+         <div class="content-section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
+                        <p>
+                            Language:    
+                        <a href="..\functions/language.php?language=portuguese&page=<?php echo $page; ?>">
+                            <img src="..\images/ptbr.png" alt="Portuiguês" style="width:20px;height:12px;border:0">
+                        </a>
+                        <a href="..\functions/language.php?language=english&page=<?php echo $page; ?>">
+                            <img src="..\images/eng.png" alt="English" style="width:20px;height:12px;border:0">
+                        </a>
+                        </p>  
                         <h3 class="widget-title"><?php echo $comm['pgTitle']; ?></h3>
                         <h5 class="text-danger">
                         
@@ -205,7 +226,7 @@ if(isset($_POST['name'])){
                                 }
                                 
                             ?>
-                            
+                        
                         </h5>    
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="" method="post">
@@ -273,7 +294,7 @@ if(isset($_POST['name'])){
                                     </select>
                                 <p/>                                	
                                 <p>
-                                    <input type="submit" class="mainBtn" id="submit" value="SALVAR" >
+                                    <input type="submit" class="mainBtn" id="submit" value="<?php echo $comm['save']; ?>" >
                                 </p>                            
                             </form>
                         </div>
