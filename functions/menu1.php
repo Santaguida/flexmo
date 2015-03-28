@@ -1,4 +1,8 @@
-<?php // include_once 'top_header.php'; ?>
+<?php
+
+include_once 'top_header.php';
+
+?>
 <div class="main-header">
     <div class="container">
         <div class="row">
@@ -18,7 +22,7 @@
                     </a>
                     <ul class="menu">
                         <li><a href="user-manager.html">Admin</a></li>
-                        <li><a href="..\user-register">Users</a></li>
+                        <li><a href="..\user">Users</a></li>
                         <li><a href="cadastro-produto.html">Products</a></li>
                         <li><a href="cadastro-acoes.html">Actions</a></li>
                         <li><a href="setup.html">Setup</a></li>
@@ -36,7 +40,7 @@
                 <div class="list-menu">
                     <ul>
                         <li><a href="http://10.112.0.210/flexmo">Home</a></li>
-                        <li><a href="..\user-register">User</a></li>                                
+                        <li><a href="..\user">User</a></li>                                
                         <li><a href="setup">link</a></li>
                         <li><a href="team">link</a></li>
                         <li><a href="preventive-maintenance">link</a></li>
