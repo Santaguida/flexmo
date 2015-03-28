@@ -203,15 +203,7 @@ if(isset($_POST['name'])){
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-sm-6">
-                        <p>
-                            Language:    
-                        <a href="..\functions/language.php?language=portuguese&page=<?php echo $page; ?>">
-                            <img src="..\images/ptbr.png" alt="Portuiguês" style="width:20px;height:12px;border:0">
-                        </a>
-                        <a href="..\functions/language.php?language=english&page=<?php echo $page; ?>">
-                            <img src="..\images/eng.png" alt="English" style="width:20px;height:12px;border:0">
-                        </a>
-                        </p>  
+                        
                         <h3 class="widget-title"><?php echo $comm['pgTitle']; ?></h3>
                         <h5 class="text-danger">
                         

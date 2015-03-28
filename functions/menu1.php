@@ -2,14 +2,6 @@
 
 include_once 'top_header.php';
 
-
-
-
-
-
-
-
-
 ?>
 <div class="main-header">
     <div class="container">
