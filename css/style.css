@@ -41,7 +41,8 @@ form input[type="text"],
 form input[type="password"],
 form input[type="email"],
 form input[type="number"],
-form input[type="submit"]
+form input[type="submit"],
+form input[type="button"]
 {
 	width:100%;
 	height:40px;
@@ -51,22 +52,55 @@ form input[type="submit"]
 	padding: 7px 10px;
 }
 
-form input:focus
+.side_button
 {
-	outline:none !important;
+	width:40px !important;
+	color:#a9a9a9;
+	border-left:0px !important;
 }
 
-form .button_blue
+.side_button:hover
+{
+	color:#2a80b9 !important;
+}
+
+.side_button:active
+{
+	color:#e84c3d !important;
+}
+
+select
+{
+	width:100%;
+	height:40px;
+	font:16px Calibri;
+	background:#ffffff;
+	border: 1px solid #ddd;
+	padding: 7px 10px;
+}
+
+.button_blue
 {
 	border:0px !important;
 	background:#2a80b9 !important;
-	color:#FFF;
+	color:#ddd;
 }
 
-.div_login
+.button_blue:hover
+{
+	color:#fff;
+}
+
+.button_blue:focus
+{
+	outline:solid thin #e84c3d;
+	color:#fff;
+}
+
+.form_div
 {
 	width:350px;
-	top:100px;
+	top:0px;
 	left:50%;
 	margin-left:-175px;
 	position:absolute;
@@ -85,4 +119,43 @@ form .button_blue
 	font:18px Calibri;
 	font-weight:600;
 	color:#a94442;
+}
+
+.green_success
+{
+	font:18px Calibri;
+	font-weight:600;
+	color:#360;
+}
+
+.clean_table
+{
+	border:0px;
+	padding:0px;
+}
+
+#main
+{
+	width:900px;
+	top:0px;
+	left:50%;
+	margin-left:-450px;
+	position:absolute;
+	z-index:1;
+	/*border:1px solid #000;*/
+}
+
+#div_left
+{
+	width:500px;
+	top:0px;
+	left:0px;
+	position:absolute;
+}
+#div_right
+{
+	width:350px;
+	top:0px;
+	left:550px;
+	position:absolute;
 }
