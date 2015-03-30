@@ -23,7 +23,7 @@ include_once 'top_header.php';
                     <ul class="menu">
                         <li><a href="user-manager.html">Admin</a></li>
                         <li><a href="..\user">Users</a></li>
-                        <li><a href="cadastro-produto.html">Products</a></li>
+                        <li><a href="..\team">Team</a></li>
                         <li><a href="cadastro-acoes.html">Actions</a></li>
                         <li><a href="setup.html">Setup</a></li>
                         <li><a href="relatorio.html">Reports</a></li>
@@ -41,7 +41,7 @@ include_once 'top_header.php';
                     <ul>
                         <li><a href="http://10.112.0.210/flexmo">Home</a></li>
                         <li><a href="..\user">User</a></li>                                
-                        <li><a href="setup">link</a></li>
+                        <li><a href="..\team">Team</a></li>
                         <li><a href="team">link</a></li>
                         <li><a href="preventive-maintenance">link</a></li>
                     </ul>
