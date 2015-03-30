@@ -49,7 +49,22 @@ include_once 'top_header.php';
             </div> <!-- /.col-md-6 -->
             <div class="col-md-6 col-sm-5">
                 <div class="notification">
-                    <span>Flextronics Test Engineering Support</span>
+                    <span><?php
+
+                    $trans = "
+                            Language | Idioma: 
+                            
+                            <a href='..\\functions/language.php?language=english&page=" . $page . "'>
+                                <img src='..\images/eng.png' alt='English' style='width:40px;height:25px;border:0'>
+                            </a>
+                            <a href='..\\functions/language.php?language=portuguese&page=" . $page . "'>
+                                <img src='..\images/ptbr.png' alt='Portuiguês' style='width:45px;height:25px;border:0'>
+                            </a>
+                    ";
+
+                    echo $trans;
+    
+                ?> </span>
                 </div>
             </div> <!-- /.col-md-6 -->
         </div> <!-- /.row -->
