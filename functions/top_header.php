@@ -1,8 +1,10 @@
 <?php
+
+$page = $_SERVER['PHP_SELF'];
+
 if(!isset($_SESSION["user"]))
-	{
-		session_start();
-		$_SESSION["destination"] = $_SERVER['PHP_SELF'];
+	{		
+		$_SESSION["destination"] = $page;
 		
 		header("location: ..\login");
 	}
@@ -18,29 +20,28 @@ if(!isset($_SESSION["user"]))
             
             <td style="white-space:nowrap;" class='top_header_link'>
             	<?php
-					//Defining heredoc for when there's a session established
-					$session_text = "
-						<a href='user_edit.php' alt='User data management' class='header_access_link'>"
-							. $_SESSION["name"] . " (" . $_SESSION["user"] . ")
-						</a>						
-						&nbsp;||&nbsp;						
-						<a href='logout.php' alt='User Logout' class='header_access_link'>
-							Logout
-						</a>";
+			
+                    $trans = "      
+                        <a href='..\\functions/language.php?language=portuguese&page=" . $page . "'>
+                            <img src='..\images/ptbr.png' alt='Portuiguês' style='width:20px;height:12px;border:0'>
+                        </a>
+                        <a href='..\\functions/language.php?language=english&page=" . $page . "'>
+                            <img src='..\images/eng.png' alt='English' style='width:20px;height:12px;border:0'>
+                        </a>
+                        ";
+                        //Defining string for when there's a session established
+                    $session_text = "
+                            <a href='user_edit.php' alt='User data management' class='headeraccess_link'>"
+                                    . $_SESSION["name"] . " (" . $_SESSION["user"] . ")
+                            </a>						
+                            &nbsp;||&nbsp;						
+                            <a href='..\login\logout.php' alt='User Logout' class='header_access_link'>
+                                    Logout
+                            </a>";					
 
-					//Defining heredoc for when there's a session established
-					$ok_session_text = "
-						<a href='user_edit.php' alt='User data management' class='header_access_link'>
-							Gabriel Nazato (saognaza)
-						</a>						
-						&nbsp;||&nbsp;						
-						<a href='logout.php' alt='User Logout' class='header_access_link'>
-							Logout
-						</a>";
-					
-						echo $ok_session_text;
+                    echo $session_text . " " . $trans;
 
-				?>
+                ?>
             </td>
             
             <td>
