@@ -1,7 +1,5 @@
 <?php
-
-include_once 'top_header.php';
-
+$page = $_SERVER['PHP_SELF'];
 ?>
 <div class="main-header">
     <div class="container">
