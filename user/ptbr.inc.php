@@ -49,5 +49,6 @@ $comm = array(
     's2'            => '[2T] Segundo turno',
     's3'            => '[3 T] Terceiro turno',
     's4'            => 'ADM',
-    'save'          => 'SALVAR'
+    'save'          => 'SALVAR',
+    'login'         => 'Nome de usuário já registrado'
 );
