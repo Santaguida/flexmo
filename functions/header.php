@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width">
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-
+    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link rel="shortcut icon" href="favicon.gif" type="image/gif">
+    
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
         
     <link rel="stylesheet" href="..\css/bootstrap.css">
