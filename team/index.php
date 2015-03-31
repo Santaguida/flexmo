@@ -1,88 +1,69 @@
+
+<div id="div_left">
+    	<h3 class="blue_title">Team View</h3>
+        
+        <table id="db_list">
+        	<tr>            	
+                <th>Name</th>
+                <th>User Name</th>
+                <th>Extension</th>
+                <th>Register</th>
+                <th>Badge</th>
+                <th>Home phone</th>
+                <th>Mobile phone</th>
+                <th>E-mail</th>
+                <th>Home adress</th>
+                <th>Occupation</th>
+                <th>Shift</th>
+                <th colspan="2">Manage</th>
+            </tr>
 <?php
 
-require_once '..\functions/server.php';
+    require_once '..\functions/server.php';
+                 
+                    $query="SELECT                                
+                                name,
+                                last_name,
+                                user_name,
+                                phone_ext,
+                                register,
+                                badge,
+                                home_phone,
+                                molibe_phone,
+                                email,
+                                home_adress,                                
+                                city,
+                                occupation,
+                                shift    
+                            FROM
+                                `tbl_users`
+                            WHERE 1";
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo $comm['pgTitle']; ?></title>
+                    $result = check_data($query);
+                    for($j=1;$row=mysqli_fetch_array($result);$j++)
+                    {
+                            $color="";
+                            if($j%2==0){ $color="#dddddd"; }
+                            else{ $color="#ffffff"; }
 
-    <?php
-    
-    // Inclui cabeçario
-    include_once '..\functions/header.php';
-    
-    ?>
-
-</head>
-<body> 
-    
-    <?php
-    
-    // Inclui menus superiores da pagina
-    include_once '..\functions/menu1.php';
-    
-    ?>     
-         <div class="content-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-sm-6">
-                        
-                        <h3 class="widget-title"><?php echo $comm['pgTitle']; ?></h3>
-                        <h5 class="text-danger">
-                        
-                         <?php                            
-$users_query = check_data("
-    SELECT    
-        id,
-        name,
-        last_name,
-        user_name,
-        phone_ext,
-        register,
-        badge,
-        home_phone,
-        molibe_phone,
-        email,
-        home_adress
-        neighborhood,
-        city
-        occupation,
-        shift    
-    FROM
-        `tbl_users`
-    WHERE 1
-");
-
-
-while ($users = mysqli_fetch_assoc($users_query)){
-    echo '<pre>';
-    print_r($users);    
-    echo '<pre>';
-}
-?>
-                        
-                        </h5>    
-                        <div class="contact-form">
-                            
-                        </div>
-                    </div>                
-                </div>
-            </div>
-</div>
-    
-    <?php
-    
-    // Inclui rodapé da pagina
-    include_once '..\functions/menu2.php';
-    
-    ?> 
-    
-</body>
-</html>  
-         
-                            
-
-                         
+                            echo "<tr style='background-color:" .  $color . ";'>                                            
+                                            <td>" . $row['name'] . " " . $row['last_name'] . "</td>
+                                            <td>" . $row['user_name'] . "</td>
+                                            <td>" . $row['phone_ext'] . "</td>
+                                            <td>" . $row['register'] . "</td>
+                                            <td>" . $row['badge'] . "</td>
+                                            <td>" . $row['home_phone'] . "</td>
+                                            <td>" . $row['molibe_phone'] . "</td>
+                                            <td>" . $row['email'] . "</td>
+                                            <td>" . $row['home_adress'] . ", " . $row['city'] . "</td>
+                                            <td>" . $row['occupation'] . "</td>
+                                            <td>" . $row['shift'] . "</td>
+                                            <td align='center'><a href='products.php?func=edit' title='Edit Entry'><img src='..\images\pencil.png' /></a></td>
+                                            <td align='center'><a href='' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
+                                      </tr>";
+                    }
+				
+				?>
+        </table>
+        
+    </div> <!-- div_left -->
