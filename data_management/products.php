@@ -81,7 +81,7 @@
                 <th colspan="2">Manage</th>
             </tr>
                 <?php
-					$query="SELECT p.product,a.account,c.category 
+					$query="SELECT p.product Product,a.account Account,c.category Category 
 					FROM tbl_accounts a 
 					JOIN tbl_products p ON (p.account=a.id) 
 					JOIN tbl_product_category c ON (c.id=p.category) 
@@ -89,12 +89,15 @@
 					$result = check_data($query);
 					for($j=1;$row=mysqli_fetch_array($result);$j++)
 					{
-						echo "<tr>
-								<td>" . $row['p.product'] . " [" . $row['a.account'] . "]</td>
-								<td>" . $row['c.category'] . "</td>
-								<td><a href='' title='Edit Entry'><img src='..\images\edit.png' /></a></td>
-								<td><a href='' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
-								<td></td>
+						$color="";
+						if($j%2==0){ $color="#dddddd"; }
+						else{ $color="#ffffff"; }
+						
+						echo "<tr style='background-color:" .  $color . ";'>
+								<td>" . $row['Product'] . " [" . $row['Account'] . "]</td>
+								<td>" . $row['Category'] . "</td>
+								<td align='center'><a href='products.php?func=edit' title='Edit Entry'><img src='..\images\pencil.png' /></a></td>
+								<td align='center'><a href='' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}
 				

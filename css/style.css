@@ -159,3 +159,22 @@ select
 	left:550px;
 	position:absolute;
 }
+
+#db_list
+{
+	width:100%;
+	border:0px;
+}
+
+#db_list th
+{
+	font:18px Calibri;
+	color:#ffffff;
+	background-color:#2a3f52;
+}
+
+#db_list td
+{
+	font:16px Calibri;
+	color:#000000;
+}
