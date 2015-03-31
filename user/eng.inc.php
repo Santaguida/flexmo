@@ -49,5 +49,6 @@ $comm = array(
     's2'            => '[2S] Second shift',
     's3'            => '[3S] Third shift',
     's4'            => 'ADM',
-    'save'          =>  'SAVE'
+    'save'          =>  'SAVE',
+    'login'         => 'Username already registered'
 );

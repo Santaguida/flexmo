@@ -18,6 +18,7 @@ $page = $_SERVER['PHP_SELF'];
 
 // Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
+require_once '..\functions/checkLogin.inc.php';
 
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
@@ -77,7 +78,10 @@ if(isset($_POST['name'])){
     }
     if(empty($user)){
         $alert .= $comm['fieldError'] . $comm['user'].'<br/>';       
-    }   
+    }
+    elseif(check_login($user)){
+        $alert .= $comm['login'].'<br/>';        
+    }
     if(substr($user, 0, 3) != 'sao' || substr($name, 0, 1) != substr($user, 3, 1)){
         $alert .= $comm['user2'].'<br/>';        
     }

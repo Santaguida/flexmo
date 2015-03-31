@@ -1,7 +1,5 @@
 <?php
-
-include_once 'top_header.php';
-
+$page = $_SERVER['PHP_SELF'];
 ?>
 <div class="main-header">
     <div class="container">
@@ -23,7 +21,7 @@ include_once 'top_header.php';
                     <ul class="menu">
                         <li><a href="user-manager.html">Admin</a></li>
                         <li><a href="..\user">Users</a></li>
-                        <li><a href="cadastro-produto.html">Products</a></li>
+                        <li><a href="..\team">Team</a></li>
                         <li><a href="cadastro-acoes.html">Actions</a></li>
                         <li><a href="setup.html">Setup</a></li>
                         <li><a href="relatorio.html">Reports</a></li>
@@ -41,7 +39,7 @@ include_once 'top_header.php';
                     <ul>
                         <li><a href="http://10.112.0.210/flexmo">Home</a></li>
                         <li><a href="..\user">User</a></li>                                
-                        <li><a href="setup">link</a></li>
+                        <li><a href="..\team">Team</a></li>
                         <li><a href="team">link</a></li>
                         <li><a href="preventive-maintenance">link</a></li>
                     </ul>
@@ -49,7 +47,22 @@ include_once 'top_header.php';
             </div> <!-- /.col-md-6 -->
             <div class="col-md-6 col-sm-5">
                 <div class="notification">
-                    <span>Flextronics Test Engineering Support</span>
+                    <span><?php
+
+                    $trans = "
+                            Language | Idioma: 
+                            
+                            <a href='..\\functions/language.php?language=english&page=" . $page . "'>
+                                <img src='..\images/eng.png' alt='English' style='width:40px;height:25px;border:0'>
+                            </a>
+                            <a href='..\\functions/language.php?language=portuguese&page=" . $page . "'>
+                                <img src='..\images/ptbr.png' alt='Portuiguês' style='width:45px;height:25px;border:0'>
+                            </a>
+                    ";
+
+                    echo $trans;
+    
+                ?> </span>
                 </div>
             </div> <!-- /.col-md-6 -->
         </div> <!-- /.row -->

@@ -2,7 +2,7 @@
 
 require_once 'servidor.php';
 
-// insert into
+// insert into (Simulando POSTs)
 /*
 $titulo = 'HTML5 + mobile';
 $autor = 'Fernando';
