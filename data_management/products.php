@@ -51,6 +51,7 @@
 
 <script type="text/javascript">
 	
+	//Function to switch color of text in select
 	function jsColorSwitch()
 	{
 		//List of <select> tags to be affected by the function

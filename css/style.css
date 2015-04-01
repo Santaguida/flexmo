@@ -69,6 +69,7 @@ form input[type="button"]
 	color:#e84c3d !important;
 }
 
+/* Essa configuração será aplicada a todas tags "select" */
 select
 {
 	width:100%;
@@ -79,6 +80,7 @@ select
 	padding: 7px 10px;
 }
 
+/* Essa é uma classe */
 .button_blue
 {
 	border:0px !important;
@@ -134,6 +136,7 @@ select
 	padding:0px;
 }
 
+/* Essa configuração se aplica a todas tags com id "Main" */
 #main
 {
 	width:900px;
@@ -142,6 +145,7 @@ select
 	margin-left:-450px;
 	position:relative;
 	z-index:1;
+	border:1px solid #000;
 	/*border:1px solid #000;*/
 }
 
