@@ -15,7 +15,7 @@
 	
 	//Mount the sql string with the variables
 	//$sql = "DELETE FROM " . $table . " WHERE " . $column . "=" . $value;
-	$sql = "UPDATE " . $table . " SET enabled=0 WHERE " . $column . "=" . $value;
+	$sql = "UPDATE " . $table . " SET enabled=1 WHERE " . $column . "=" . $value;
 	
 	//Execute the query
 	check_data($sql) or die("Erro: " . mysqli_error($db_link) . "<br><br><a href='javascript:history.go(-1)' title='Go back to last page'>Back</a>");

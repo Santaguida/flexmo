@@ -9,6 +9,7 @@
 	if(isset($_POST["product"]))
 	{
 		//Attribute POST values to variables
+		$id="";
 		$product = $_POST["product"];
 		$account = $_POST["account"];
 		$category = $_POST["category"];
@@ -25,14 +26,33 @@
 		}
 		else
 		{
-			$query = "SELECT product FROM tbl_products WHERE product='" . $product . "'";
+			$query = "SELECT id,enabled FROM tbl_products WHERE product='" . $product . "' AND account=" . $account;
 			$result = check_data($query) or die("Erro: " . mysqli_error($db_link));
 			
 			//Failure for existing product
 			//if(!is_null($result))
 			if(mysqli_num_rows($result)<>0)
 			{
-				$alert = "This product alredy exists<br>[Esse produto já existe]";
+				$row = mysqli_fetch_array($result);
+				if($row['enabled']==0)
+				{
+					$alert = "This product alreredy exists! But was deleted.
+					<br><br>
+					<table width='100%'>
+					<tr>
+					<td class='top_header_link' align='center'>
+					<a href='undelete.php?tbl=tbl_products&col=id&val=" . $row['id'] . "' title='Undelete'>
+					[Undelete Product]
+					</a>
+					</td>
+					</tr>
+					</table>";
+					$id = $row['id'];
+				}
+				else
+				{
+					$alert = "This product alredy exists<br>[Esse produto já existe]";
+				}				
 			}
 			else
 			{
@@ -105,8 +125,8 @@
 								<td>" . $row['Product'] . "</td>
 								<td>" . $row['Account'] . "</td>
 								<td>" . $row['Category'] . "</td>
-								<td align='center'><a href='product_edit.php' title='Edit Entry'><img src='..\images\pencil.png' /></a></td>
-								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='edit_product.php?id=" . $row['Id'] . "' title='Edit " . $row['Product'] . "'><img src='..\images\pencil.png' /></a></td>
+								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete " . $row['Product'] . "'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}				
 				?>
@@ -119,6 +139,7 @@
     
         <form name="product_registration" class="login_form" action="" method="post">
             <p>
+            	<input name="id" type="hidden" value"<?php if(isset($product) && $alert<>""){ echo $id; }?>" />
                 <input name="product" type="text" placeholder="Product Name" value="<?php if(isset($product) && $alert<>""){ echo $product; } ?>" autofocus required>
             </p>
             <p>
@@ -138,7 +159,7 @@
                                         $selected = "";
                                         if(isset($account))
                                         {
-                                            if($account==$query_account['id']){$selected="selected";}
+                                            if($account==$query_account['id']){ $selected="selected"; }
                                         }
                                         echo "<option value='" . $query_account['id'] . "' " . $selected . " style='color:#000000 !important;' >" . $query_account['account'] . "</option>";
                                     }					
@@ -168,7 +189,7 @@
                                         $selected = "";
                                         if(isset($category))
                                         {
-                                            if($category==$query_category['id']){$selected="selected";}
+                                            if($category==$query_category['id']){ $selected="selected"; }
                                         }
                                         
                                         echo "<option value='" . $query_category['id'] . "' " . $selected . " style='color:#000000 !important;' >" . $query_category['category'] . "</option>";

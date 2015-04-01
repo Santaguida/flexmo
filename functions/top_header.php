@@ -23,11 +23,11 @@
     
     //Defining string for when there's a session established
     $session_text = "
-        <a href='user_edit.php' alt='User data management' class='headeraccess_link'>"
+        <a href='user_edit.php' alt='User data management'>"
             . $_SESSION["name"] . " (" . $_SESSION["user"] . ")
         </a>						
             &nbsp;||&nbsp;						
-        <a href='..\login\logout.php' alt='User Logout' class='header_access_link'>
+        <a href='..\login\logout.php' alt='User Logout'>
             Logout
         </a>";					
 
