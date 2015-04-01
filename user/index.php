@@ -273,19 +273,19 @@ if(isset($_POST['name'])){
                                 <p>
                                     <select name="occupation" id="occupation" >
                                         <option value="informe" <?php if (isset($occupation) == '') { echo 'selected'; } ?> ><?php echo $comm['func']; ?></option>
-                                        <option value="supervisor" <?php if (isset($occupation) && $occupation == 'supervisor' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['manager']; ?></option>
-                                        <option value="coordenadorTecnico" <?php if (isset($occupation) && $occupation == 'coordenadorTecnico' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tecCoo']; ?></option>
-                                        <option value="coordenadorProducao" <?php if (isset($occupation) && $occupation == 'coordenadorProducao' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['prodCoo']; ?></option>
-                                        <option value="engenheiro" <?php if (isset($occupation) && $occupation == 'engenheiro' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['engineer']; ?></option>
-                                        <option value="tecnico" <?php if (isset($occupation) && $occupation == 'tecnico' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tech']; ?></option>
-                                        <option value="quickrepair" <?php if (isset($occupation) && $occupation == 'quickrepair' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['quick']; ?></option>
+                                        <option value="Manager" <?php if (isset($occupation) && $occupation == 'Manager' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['manager']; ?></option>
+                                        <option value="Technical coordinator" <?php if (isset($occupation) && $occupation == 'Technical coordinator' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tecCoo']; ?></option>
+                                        <option value="Production coordinator" <?php if (isset($occupation) && $occupation == 'Production coordinator' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['prodCoo']; ?></option>
+                                        <option value="Engineer" <?php if (isset($occupation) && $occupation == 'Engineer' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['engineer']; ?></option>
+                                        <option value="Technician" <?php if (isset($occupation) && $occupation == 'Technician' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tech']; ?></option>
+                                        <option value="Quick Repair" <?php if (isset($occupation) && $occupation == 'Quick Repair' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['quick']; ?></option>
                                     </select>
                                     <select name="shift" id="shift" >
                                         <option value="informe" <?php if (isset($shift) == '') { echo 'selected'; } ?> ><?php echo $comm['shift']; ?></option>
-                                        <option value="1" <?php if (isset($shift) && $shift == '1' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s1']; ?></option> 
-                                        <option value="2" <?php if (isset($shift) && $shift == '2' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s2']; ?></option>
-                                        <option value="3" <?php if (isset($shift) && $shift == '3' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s3']; ?></option>
-                                        <option value="4" <?php if (isset($shift) && $shift == '4' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s4']; ?></option>                            
+                                        <option value="1st" <?php if (isset($shift) && $shift == '1st' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s1']; ?></option> 
+                                        <option value="2sd" <?php if (isset($shift) && $shift == '2sd' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s2']; ?></option>
+                                        <option value="3th" <?php if (isset($shift) && $shift == '3th' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s3']; ?></option>
+                                        <option value="ADM" <?php if (isset($shift) && $shift == 'ADM' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s4']; ?></option>                            
                                     </select>
                                 <p/>                                	
                                 <p>
