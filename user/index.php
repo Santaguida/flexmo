@@ -168,7 +168,7 @@ if(isset($_POST['name'])){
         $encryptedPassword = encodes_password($password);
         
         // Insere as informações no banco de dados
-        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `e-mail`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
+        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `email`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
             VALUES ('$name', '$lastName','$user','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
         
         // Confirma operação com mensagem
@@ -280,6 +280,8 @@ if(isset($_POST['name'])){
                                         <option value="Technician" <?php if (isset($occupation) && $occupation == 'Technician' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tech']; ?></option>
                                         <option value="Quick Repair" <?php if (isset($occupation) && $occupation == 'Quick Repair' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['quick']; ?></option>
                                     </select>
+                                    <p/>                                	
+                                    <p>
                                     <select name="shift" id="shift" >
                                         <option value="informe" <?php if (isset($shift) == '') { echo 'selected'; } ?> ><?php echo $comm['shift']; ?></option>
                                         <option value="1st" <?php if (isset($shift) && $shift == '1st' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s1']; ?></option> 
