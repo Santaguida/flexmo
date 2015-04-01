@@ -26,7 +26,7 @@
 		else
 		{
 			$query = "SELECT product FROM tbl_products WHERE product='" . $product . "'";
-			$result = check_data($query);
+			$result = check_data($query) or die("Erro: " . mysqli_error($db_link));
 			
 			//Failure for existing product
 			//if(!is_null($result))
@@ -38,7 +38,7 @@
 			{
 				//Insert new product
 				$query = "INSERT INTO tbl_products(product,account,category,enabled) VALUES ('" . $product . "','" . $account . "','" . $category . "','1')";
-				check_data($query) or die("Erro: " . mysql_error());
+				check_data($query) or die("Erro: " . mysqli_error($db_link));
 				
 				//Refresh the page
 				header("Location: products.php?success=yes");
@@ -76,31 +76,38 @@
         
         <table id="db_list">
         	<tr>
-            	<th>Product/Account</th>
+            	<th>Product</th>
+                <th>Account</th>
                 <th>Category</th>
                 <th colspan="2">Manage</th>
             </tr>
                 <?php
-					$query="SELECT p.product Product,a.account Account,c.category Category 
+					$query="SELECT p.id Id, p.product Product,a.account Account,c.category Category 
 					FROM tbl_accounts a 
 					JOIN tbl_products p ON (p.account=a.id) 
 					JOIN tbl_product_category c ON (c.id=p.category) 
-					WHERE p.enabled=1";
-					$result = check_data($query);
+					WHERE p.enabled=1 ORDER BY Product ASC";
+					$result = check_data($query) or die("Erro: " . mysqli_error($db_link));
+					
+					$tbl="tbl_products";
+					$col="id";
+					
 					for($j=1;$row=mysqli_fetch_array($result);$j++)
 					{
 						$color="";
 						if($j%2==0){ $color="#dddddd"; }
-						else{ $color="#ffffff"; }
+						else{ $color="#ffffff"; }					
+						
+						$get_info="tbl=" . $tbl . "&col=" . $col . "&val=" . $row['Id'];
 						
 						echo "<tr style='background-color:" .  $color . ";'>
-								<td>" . $row['Product'] . " [" . $row['Account'] . "]</td>
+								<td>" . $row['Product'] . "</td>
+								<td>" . $row['Account'] . "</td>
 								<td>" . $row['Category'] . "</td>
-								<td align='center'><a href='products.php?func=edit' title='Edit Entry'><img src='..\images\pencil.png' /></a></td>
-								<td align='center'><a href='' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='product_edit.php' title='Edit Entry'><img src='..\images\pencil.png' /></a></td>
+								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete Entry'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
-					}
-				
+					}				
 				?>
         </table>
         
@@ -122,7 +129,7 @@
                                 <?php
                                     //Query info for account <select>
                                     $query = "SELECT * FROM tbl_accounts WHERE enabled=1 ORDER BY account ASC";
-                                    $result = check_data($query);
+                                    $result = check_data($query) or die("Erro: " . mysqli_error($db_link));
                                                         
                                     for($i=1; $query_account = mysqli_fetch_array($result); $i++)
                                     {
@@ -152,7 +159,7 @@
                                 <?php
                                     //Query info for category <select>
                                     $query = "SELECT * FROM tbl_product_category WHERE enabled=1 ORDER BY category ASC";
-                                    $result = check_data($query);
+                                    $result = check_data($query) or die("Erro: " . mysqli_error($db_link));
                                                         
                                     for($i=1; $query_category = mysqli_fetch_array($result); $i++)
                                     {

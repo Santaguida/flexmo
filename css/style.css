@@ -137,10 +137,10 @@ select
 #main
 {
 	width:900px;
-	top:0px;
+	/*top:0px;*/
 	left:50%;
 	margin-left:-450px;
-	position:absolute;
+	position:relative;
 	z-index:1;
 	/*border:1px solid #000;*/
 }
