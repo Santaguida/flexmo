@@ -61,7 +61,7 @@
 				check_data($query) or die("Erro: " . mysqli_error($db_link));
 				
 				//Refresh the page
-				header("Location: products.php?success=yes");
+				header("Location: products.php");
 			}
 		}
 	}
@@ -130,6 +130,16 @@
 							  </tr>";
 					}				
 				?>
+        	<tr>
+            	<th colspan="3">
+                	<?php 
+						echo "Quantity: " . mysqli_num_rows($result);
+					?>
+                </th>
+                <th colspan="2">
+                	<?php echo "<a href='' title='Export list to Excel'><img src='..\images/excel.gif' /></a>"; ?>
+                </th>
+            </tr>
         </table>
         
     </div> <!-- div_left -->
@@ -140,7 +150,7 @@
         <form name="product_registration" class="login_form" action="" method="post">
             <p>
             	<input name="id" type="hidden" value"<?php if(isset($product) && $alert<>""){ echo $id; }?>" />
-                <input name="product" type="text" placeholder="Product Name" value="<?php if(isset($product) && $alert<>""){ echo $product; } ?>" autofocus required>
+                <input name="product" type="text" placeholder="Product Name" value="<?php if(isset($id) && $alert<>""){ echo $product; } ?>" autofocus required>
             </p>
             <p>
                 <table class="clean_table" cellspacing="0" cellpadding="0" border="0">
@@ -205,7 +215,7 @@
             </p>
             
             <?php
-                    //In case $invalid_login is set to "true", warns of wrong user
+                    //In case ther is an alert
                     if($alert <> "")
                     {
                         echo "<h5 class='red_danger'>" . $alert . "</h5>";

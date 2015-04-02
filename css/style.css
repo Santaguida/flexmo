@@ -174,10 +174,40 @@ select
 	font:18px Calibri;
 	color:#ffffff;
 	background-color:#2a3f52;
+	padding-left:3px;
+	padding-right:3px;
 }
 
 #db_list td
 {
 	font:16px Calibri;
 	color:#000000;
+	padding-left:3px;
+	padding-right:3px;
+}
+
+#main_small
+{
+	width:750px;
+	/*top:0px;*/
+	left:50%;
+	margin-left:-375px;
+	position:relative;
+	z-index:1;
+	/*border:1px solid #000;*/
+}
+
+#div_left_small
+{
+	width:350px;
+	top:0px;
+	left:0px;
+	position:absolute;
+}
+#div_right_small
+{
+	width:350px;
+	top:0px;
+	left:400px;
+	position:absolute;
 }
