@@ -30,7 +30,6 @@
 			$result = check_data($query) or die("Erro: " . mysqli_error($db_link));
 			
 			//Failure for existing product
-			//if(!is_null($result))
 			if(mysqli_num_rows($result)<>0)
 			{
 				$row = mysqli_fetch_array($result);
@@ -137,7 +136,47 @@
 					?>
                 </th>
                 <th colspan="2">
-                	<?php echo "<a href='' title='Export list to Excel'><img src='..\images/excel.gif' /></a>"; ?>
+                	<?php
+						//Sets the query to be exported to excel
+						$query="SELECT p.product Product,a.account Account,c.category Category 
+								FROM tbl_accounts a 
+								JOIN tbl_products p ON (p.account=a.id) 
+								JOIN tbl_product_category c ON (c.id=p.category) 
+								WHERE p.enabled=1 ORDER BY Product ASC";
+								
+						$query = str_replace("=","%3D",$query); //Encode reserved chars to avoid URL errors
+						$query = str_replace(" ","%20",$query); //Encode reserved chars to avoid URL errors
+						
+						//Define the header for each column and mount the string
+						$headings_array = array('Product','Account','Category');
+						$headings = "";
+						for($k=0; $k<count($headings_array); $k++)
+						{
+							if($k==0)
+							{
+								$headings .= $headings_array[$k];
+							}
+							else
+							{
+								$headings .= "." . $headings_array[$k];
+							}
+						}
+						
+						//Define the name of the sheet
+						$sheetname = "Product List";
+						$sheetname = str_replace(" ","%20",$sheetname); //Encode reserved chars to avoid URL errors
+						
+						//Define the file name
+						$filetype = "ProductList"; //file name --> goes between 'flexmo' and 'datetime'
+						$filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G:i:s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
+						$filename = str_replace(":","%3A",$filename); //Encode reserved chars to avoid URL errors
+						
+						//Mount the $_GET info to send in the link
+						$excel_get_info = "query=" . $query . "&headings=" . $headings . "&sheetname=" . $sheetname . "&filename=" . $filename;
+						
+						//The actual link
+						echo "<a target='_blank' href='../functions/export_excel.php?" . $excel_get_info . "' title='Export list to Excel'><img src='../images/excel.gif' /></a>";
+					?>
                 </th>
             </tr>
         </table>
