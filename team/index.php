@@ -1,36 +1,42 @@
+<?php session_start(); ?>
+
+<!-- 
+    Developed by Fernando Henrique Santaguida and Gabriel Nazato
+    			http://www.fernandohs.com.br
+-->    
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php //echo $comm['pgTitle']; ?></title>
-
-    <?php
     
-    // Inclui cabeçario
-    include_once '..\functions/header.php';
+    <!--
+    include head start
+    -->
     
-    ?>
+    <?php include_once '..\functions/header.php'; ?>   
+        
+	<!--
+    include head end
+    -->
+    
+	<title>FleXmo</title>
 
 </head>
-<body> 
-    
-    <?php
-    
-    // Inclui menus superiores da pagina
-    //include_once '..\functions/menu1.php';
-    
-    ?>     
-                                 
-                        <h3><?php //echo $comm['pgTitle']; ?></h3>
 
-<div id="div_left">
-    	<h3 class="blue_title">Team View</h3>
+<body>
+
+<!-- include menu1 start -->
+
+<?php include_once '..\functions/menu1.php'; ?>
+
+    <!-- include menu1 end -->
         
-        <table id="db_list">
+        
+        <h3 class="blue_title">Team View</h3>
+        <div id="list_us">
+        <table id="db_list_us">
             <tr>            	
-            <th>Name</th>
-            <th>User</th>
+            <th>Name</th>            
             <th>Ext</th>
             <th>Register</th>
             <th>Badge</th>
@@ -49,8 +55,7 @@
         $query="SELECT
                     id,
                     name,
-                    last_name,
-                    user_name,
+                    last_name,                    
                     phone_ext,
                     register,
                     badge,
@@ -79,8 +84,7 @@
             $get_info="tbl=" . $tbl . "&col=" . $col . "&val=" . $row['id'];
 
             echo "<tr style='background-color:" .  $color . ";'>                                            
-                            <td>" . $row['name'] . " " . $row['last_name'] . "</td>
-                            <td>" . $row['user_name'] . "</td>
+                            <td>" . $row['name'] . " " . $row['last_name'] . "</td>                            
                             <td>" . $row['phone_ext'] . "</td>
                             <td>" . $row['register'] . "</td>
                             <td>" . $row['badge'] . "</td>
@@ -90,31 +94,29 @@
                             <td>" . $row['home_adress'] . ", " . $row['city'] . "</td>
                             <td>" . $row['occupation'] . "</td>
                             <td>" . $row['shift'] . "</td>
-                            <td align='center'><a href='edit_product.php?id=" . $row['id'] . "' title='Edit " . $row['name'] . "'><img src='..\images\pencil.png' /></a></td>
+                            <td align='center'><a href='edit_user.php?id=" . $row['id'] . "' title='Edit " . $row['name'] . "'><img src='..\images\pencil.png' /></a></td>
                             <td align='center'><a href='..\\functions/delete.php?" . $get_info . "' title='Delete " . $row['name'] . "'><img src='..\images\delete.png' /></a></td>
                     </tr>";
         }
 				
 ?>
             <tr>
-            	<th colspan="11" align="left">
+            	<th colspan="10" >
                 	<?php 
 						echo "Quantity: " . mysqli_num_rows($result);
 					?>
                 </th>
-                <th colspan="2">
+                <th colspan="2" align="center">
                 	<?php echo "<a href='' title='Export list to Excel'><img src='..\images/excel.gif' /></a>"; ?>
                 </th>
             </tr>
         </table>
-        
-</div>
-<?php
+       </div>    
+	<!-- include menu2 start -->
     
-    // Inclui rodapé da pagina
-    include_once '..\functions/menu2.php';
-    
-    ?>
+<?php include_once '..\functions/menu2.php'; ?>   
+
+	<!-- include menu2 end -->
     
 </body>
 </html>

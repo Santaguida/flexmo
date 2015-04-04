@@ -24,6 +24,12 @@ $page = $_SERVER['PHP_SELF'];
         else {            
             include_once 'eng.inc.php';
         }
+		
+		//In case there's no GET info
+	if(!isset($_GET['id']) && !isset($_POST['id']))
+	{
+		die("Error: GET or POST info not set! <br><br><a href='javascript:history.go(-1)' title='Go back to last page'>Back</a>");
+	}
 
 // Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
@@ -51,17 +57,7 @@ if(isset($_POST['name'])){
     $alert = '';
     //Define MSG como constante e recebe a mensagem a frente
     define('MSG', $comm['completed']);
-    /**
-     * Excluida
-     * Função para criar userName
-     * @param type $name Description
-     * @param return $userName Description
         
-    $userName .= substr($name, 0, 1);
-    $userName .= substr($lastName, 0, 4);
-    $userName = strtolower($userName);
-    */ 
-    
     // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
     
