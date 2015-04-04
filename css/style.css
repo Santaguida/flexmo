@@ -153,20 +153,23 @@ select
 	width:500px;
 	top:0px;
 	left:0px;
-	position:absolute;
+	position:relative;
+        
 }
 #div_right
 {
 	width:350px;
 	top:0px;
 	left:550px;
-	position:absolute;
+	position:relative;
 }
 
 #db_list
 {
 	width:100%;
 	border:0px;
+    white-space: nowrap;
+
 }
 
 #db_list th
@@ -211,3 +214,4 @@ select
 	left:400px;
 	position:absolute;
 }
+

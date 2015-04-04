@@ -95,7 +95,7 @@
     	<h3 class="blue_title">Manage Existing Products</h3>
         
         <table id="db_list">
-        	<tr>
+            <tr>
             	<th>Product</th>
                 <th>Account</th>
                 <th>Category</th>

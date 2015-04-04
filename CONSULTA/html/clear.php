@@ -1,3 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- 
+    Developed by Fernando Henrique Santaguida and Gabriel Nazato
+    http://www.fernandohs.com.br
+    -->
+    
+    <!--
+    include head start
+    -->
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link rel="shortcut icon" href="favicon.gif" type="image/gif">
+    
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
+        
+    <link rel="stylesheet" href="..\css/bootstrap.css">
+    <link rel="stylesheet" href="..\css/normalize.min.css">
+    <link rel="stylesheet" href="..\css/font-awesome.min.css">
+    <link rel="stylesheet" href="..\css/animate.css">
+    <link rel="stylesheet" href="..\css/templatemo-misc.css">
+    <link rel="stylesheet" href="..\css/templatemo-style.css">
+    <link rel="stylesheet" type="text/css" href="..\css/style.css">
+
+    <script src="..\js/vendor/modernizr-2.6.2.min.js"></script>
+    
+	<!--
+    include head end
+    -->
+    
+	<title>FleXmo</title>
+
+</head>
+
+<body>
+
+<!-- include menu1 start -->
+
 <?php $page = $_SERVER['PHP_SELF']; ?>
     
     <header class="site-header">
@@ -59,7 +105,7 @@
 
                     				echo $trans;
     
-                				?>
+                			?>
                             </span>
                         </div>
                     </div>
@@ -69,5 +115,35 @@
     </header>
 
     <div class="content-section">
+    <!-- include menu1 end -->
+        Container
+	<!-- include menu2 start -->
+</div>
+
+<footer class="site-footer">
+        <div class="our-partner">
+        </div>
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span>Flexible Monitoring System - Version 1.0 @ 2015</span>
+                        <p>Developed by: Fernando Santaguida, Gabriel Nazato e Test Support team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     
+    <script src="..\js/vendor/jquery-1.10.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="..\js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+    <script src="..\js/jquery.easing-1.3.js"></script>
+    <script src="..\js/bootstrap.js"></script>
+    <script src="..\js/plugins.js"></script>
+    <script src="..\js/main.js"></script>
+
+	<!-- include menu2 end -->
     
+</body>
+</html>
