@@ -181,13 +181,34 @@ if(isset($_POST['name'])){
                 . "`home_adress`=" . $adress . ",`neighborhood`=" . $neigh . ","
                 . "`city`=" . $city . ",`password`=" . $password . ","
                 . "`occupation`=" . $occupation . ",`shift`=" . $shift . ","
-                . " WHERE id=" . $id ."");
+                . " WHERE id=" . $id . "");
         
-        // Confirma operação com mensagem
-        $alert .= MSG;        
+                header("Location: index.php");       
         
     }
 }
+else
+{
+    $name_id = $_GET['id'];
+}
+
+check_data("SELECT
+                    id,
+                    name,
+                    last_name,                    
+                    phone_ext,
+                    register,
+                    badge,
+                    home_phone,
+                    molibe_phone,
+                    email,
+                    home_adress,                                
+                    city,
+                    occupation,
+                    shift    
+                FROM
+                    `tbl_users`
+                WHERE enabled=1 ORDER BY shift ASC");
 
 ?>
 
