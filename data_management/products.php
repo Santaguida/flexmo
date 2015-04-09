@@ -9,7 +9,6 @@
 	if(isset($_POST["product"]))
 	{
 		//Attribute POST values to variables
-		$id="";
 		$product = $_POST["product"];
 		$account = $_POST["account"];
 		$category = $_POST["category"];
@@ -46,7 +45,6 @@
 					</td>
 					</tr>
 					</table>";
-					$id = $row['id'];
 				}
 				else
 				{
@@ -188,8 +186,8 @@
     
         <form name="product_registration" class="login_form" action="" method="post">
             <p>
-            	<input name="id" type="hidden" value"<?php if(isset($product) && $alert<>""){ echo $id; }?>" />
-                <input name="product" type="text" placeholder="Product Name" value="<?php if(isset($id) && $alert<>""){ echo $product; } ?>" autofocus required>
+            	<!-- <input name="id" type="hidden" value"<?php //if(isset($product) && $alert<>""){ echo $id; }?>" /> -->
+                <input name="product" type="text" placeholder="Product Name" value="<?php if(isset($product) && $alert<>""){ echo $product; } ?>" autofocus required>
             </p>
             <p>
                 <table class="clean_table" cellspacing="0" cellpadding="0" border="0">
@@ -201,7 +199,7 @@
                                     //Query info for account <select>
                                     $query = "SELECT * FROM tbl_accounts WHERE enabled=1 ORDER BY account ASC";
                                     $result = check_data($query) or die("Erro: " . mysqli_error($db_link));
-                                                        
+                                    
                                     for($i=1; $query_account = mysqli_fetch_array($result); $i++)
                                     {
                                         echo $query_account['id'];
@@ -211,7 +209,7 @@
                                             if($account==$query_account['id']){ $selected="selected"; }
                                         }
                                         echo "<option value='" . $query_account['id'] . "' " . $selected . " style='color:#000000 !important;' >" . $query_account['account'] . "</option>";
-                                    }					
+                                    }
                                 ?>
                             </select>
                         </td>
@@ -219,7 +217,7 @@
                             <input type="button" class="side_button" name="add_account" value="+" title="Add new account" alt="Add new account" onClick="window.location='accounts.php'" />
                         </td>
                     </tr>
-                </table>           
+                </table>
             </p>
             <p>
                 <table class="clean_table" cellspacing="0" cellpadding="0" border="0">
