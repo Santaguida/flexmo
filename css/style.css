@@ -153,7 +153,7 @@ select
 	width:500px;
 	top:0px;
 	left:0px;
-	position:relative;
+	position:absolute;
         
 }
 #div_right
@@ -161,7 +161,7 @@ select
 	width:350px;
 	top:0px;
 	left:550px;
-	position:relative;
+	position:absolute;
 }
 
 #div_center

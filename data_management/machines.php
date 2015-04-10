@@ -95,10 +95,10 @@
                 <th colspan="2">Manage</th>
             </tr>
                 <?php
-					$query="SELECT m.id Id, m.machine Machine, m.serial Serial,mo.model Model
-					FROM tbl_ict_machine_models mo 
-					JOIN tbl_ict_machines m ON (m.model=mo.id) 
-					WHERE m.enabled=1 ORDER BY Machine ASC";
+					$query="SELECT m.id Id, m.machine Machine, m.serial Serial, mo.model Model
+							FROM tbl_ict_machine_models mo 
+							JOIN tbl_ict_machines m ON (m.model=mo.id) 
+							WHERE m.enabled=1 ORDER BY Machine ASC";
 					$result = check_data($query) or die("Erro: " . mysqli_error($db_link));
 					
 					$tbl="tbl_ict_machines";
@@ -130,7 +130,7 @@
                 <th colspan="2">
                 	<?php
 						//Sets the query to be exported to excel
-						$query="SELECT m.machine Machine, m.serial Serial,mo.model Model
+						$query="SELECT m.machine Machine, m.serial Serial, mo.model Model 
 								FROM tbl_ict_machine_models mo 
 								JOIN tbl_ict_machines m ON (m.model=mo.id) 
 								WHERE m.enabled=1 ORDER BY Machine ASC";
@@ -159,7 +159,7 @@
 						
 						//Define the file name
 						$filetype = "MachineList"; //file name --> goes between 'flexmo' and 'datetime'
-						$filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G:i:s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
+						$filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G.i.s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
 						$filename = str_replace(":","%3A",$filename); //Encode reserved chars to avoid URL errors
 						
 						//Mount the $_GET info to send in the link
