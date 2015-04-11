@@ -37,6 +37,7 @@ require_once '..\functions/checkLogin.inc.php';
 
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
+    $name_id = $_GET['id'];
     $name = $_POST['name'];    
     $lastName = $_POST['lastName'];
     $user = $_POST['user'];
@@ -181,7 +182,7 @@ if(isset($_POST['name'])){
                 . "`home_adress`=" . $adress . ",`neighborhood`=" . $neigh . ","
                 . "`city`=" . $city . ",`password`=" . $password . ","
                 . "`occupation`=" . $occupation . ",`shift`=" . $shift . ","
-                . " WHERE id=" . $id . "");
+                . " WHERE id=" . $name_id . "");
         
                 header("Location: index.php");       
         
@@ -192,23 +193,51 @@ else
     $name_id = $_GET['id'];
 }
 
-check_data("SELECT
-                    id,
-                    name,
-                    last_name,                    
-                    phone_ext,
-                    register,
-                    badge,
-                    home_phone,
-                    molibe_phone,
-                    email,
-                    home_adress,                                
-                    city,
-                    occupation,
-                    shift    
-                FROM
-                    `tbl_users`
-                WHERE enabled=1 ORDER BY shift ASC");
+        $sql = "SELECT
+                        id,
+                        name,
+                        last_name,
+                        user_name,
+                        phone_ext,
+                        register,
+                        badge,
+                        home_phone,
+                        molibe_phone,
+                        email,                        
+                        home_adress,
+                        neighborhood,
+                        city,
+                        password,
+                        occupation,
+                        shift    
+                    FROM
+                        `tbl_users`
+                    WHERE enabled=1 AND id=" . $name_id;
+
+//Execute query
+	$result = check_data($sql) or die("Erro: " . mysqli_error($db_link));
+        
+        $row = mysqli_fetch_array($result);        
+	
+	$id = $row['id'];
+	$name = $row['name'];    
+        $lastName = $row['last_name'];
+        $user = $row['user_name'];
+        $extension = $row['phone_ext'];
+        $register = $row['register'];
+        $badge = $row['badge'];
+        $phone = $row['home_phone'];
+        $cell = $row['molibe_phone'];
+        $email = $row['email'];        
+        $adress = $row['home_adress'];
+        $neigh = $row['neighborhood'];
+        $city = $row['city'];
+        $password = $row['password'];        
+        $occupation = $row['occupation'];
+        $shift = $row['shift'];
+        $alert = '';
+        //Define MSG como constante e recebe a mensagem a frente
+        define('MSG', $comm['completed']);
 
 ?>
 
