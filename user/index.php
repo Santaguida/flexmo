@@ -31,6 +31,7 @@ require_once '..\functions/checkLogin.inc.php';
 
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
+    $id = $_POST['id'];
     $name = $_POST['name'];    
     $lastName = $_POST['lastName'];
     $user = $_POST['user'];
@@ -48,19 +49,8 @@ if(isset($_POST['name'])){
     $checkPassword = $_POST['checkPassword'];
     $occupation = $_POST['occupation'];
     $shift = $_POST['shift'];
-    $alert = '';
-    //Define MSG como constante e recebe a mensagem a frente
-    define('MSG', $comm['completed']);
-    /**
-     * Excluida
-     * Função para criar userName
-     * @param type $name Description
-     * @param return $userName Description
-        
-    $userName .= substr($name, 0, 1);
-    $userName .= substr($lastName, 0, 4);
-    $userName = strtolower($userName);
-    */ 
+    $alert = '';    
+    $Msg = $comm['completed'];
     
     // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
@@ -88,7 +78,7 @@ if(isset($_POST['name'])){
     if(empty($user)){
         $alert .= $comm['fieldError'] . $comm['user'].'<br/>';       
     }
-    elseif(check_login($user)){
+    elseif(check_login($user) && empty ($_GET['id'])){
         $alert .= $comm['login'].'<br/>';        
     }
     if(substr($user, 0, 3) != 'sao' || substr($name, 0, 1) != substr($user, 3, 1)){
@@ -174,18 +164,60 @@ if(isset($_POST['name'])){
         $lastName = ucfirst($lastName);
         
         // Recebe senha codificada
-        $encryptedPassword = encodes_password($password);
+        $encryptedPassword = encodes_password($password);        
         
-        // Insere as informações no banco de dados
-        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `email`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
+        if(!empty($id)){
+        // Atualiza as informações no banco de dados
+        check_data("UPDATE `tbl_users` SET `name` = '$name',"
+                . " `last_name` = '$lastName', `user_name` = '$user',
+                    `phone_ext` = '$extension', `register` = '$register',
+                    `badge` = '$badge', `home_phone` = '$phone',
+                    `mobile_phone` = '$cell', `email`= '$email',
+                    `home_adress`= '$adress', `neighborhood`= '$neigh',
+                    `city` = '$city', `password` = '$encryptedPassword',
+                    `occupation` = '$occupation', `shift` = '$shift'
+                WHERE id = '$id'");
+        
+        header("location: ..\\team/index.php");
+        
+        }else{
+        //Insere as informações no banco de dados
+        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `mobile_phone`, `email`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
             VALUES ('$name', '$lastName','$user','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
         
+        }
         // Confirma operação com mensagem
-        $alert .= MSG;        
+        $alert .= $Msg;        
         
     }
 }
-
+if(isset($_GET['id'])){
+    
+    $infoUser = check_data("SELECT * FROM `tbl_users` WHERE id =". $_GET['id']."");
+    
+    $userData = mysqli_fetch_array($infoUser);
+    
+    $id = (int)$userData['id'];
+    $name = $userData['name'];    
+    $lastName = $userData['last_name'];
+    $user = $userData['user_name'];
+    $extension = $userData['phone_ext'];
+    $register = $userData['register'];
+    $badge = $userData['badge'];
+    $phone = $userData['home_phone'];
+    $cell = $userData['mobile_phone'];
+    $email = $userData['email'];
+    $checkEmail = $email;
+    $adress = $userData['home_adress'];
+    $neigh = $userData['neighborhood'];
+    $city = $userData['city'];
+    $password = $userData['password'];
+    $checkPassword = $password;
+    $occupation = $userData['occupation'];
+    $shift = $userData['shift'];
+    $alert = '';    
+    $Msg = $comm['completed'];
+}
 ?>
 
 <head>
@@ -233,43 +265,46 @@ if(isset($_POST['name'])){
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="" method="post">
                                 <p>
-                                    <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="<?php echo $comm['name']; ?>" autofocus required>                                       
+                                    <input name="id" type="hidden" id="id" value="<?php if (isset($id) && $alert != $Msg) { echo $id; } ?>">                                       
                                 </p>
                                 <p>
-                                    <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != MSG) { echo $lastName; } ?>" placeholder="<?php echo $comm['lastName']; ?>" required>
+                                    <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != $Msg) { echo $name; } ?>" placeholder="<?php echo $comm['name']; ?>" autofocus required>                                       
                                 </p>
                                 <p>
-                                  <input name="user" type="text" id="user" value="<?php if (isset($user) && $alert != MSG) { echo $user; } ?>" placeholder="<?php echo $comm['user']; ?>" required />
+                                    <input name="lastName" type="text" id="lastName" value="<?php if (isset($lastName) && $alert != $Msg) { echo $lastName; } ?>" placeholder="<?php echo $comm['lastName']; ?>" required>
                                 </p>
                                 <p>
-                                    <input name="extension" type="text" id="extension" value="<?php if (isset($extension) && $alert != MSG) { echo $extension; } ?>" placeholder="<?php echo $comm['ext']; ?>" >
+                                  <input name="user" type="text" id="user" value="<?php if (isset($user) && $alert != $Msg) { echo $user; } ?>" placeholder="<?php echo $comm['user']; ?>" required />
                                 </p>
                                 <p>
-                                    <input name="register" type="text" id="register" value="<?php if (isset($register) && $alert != MSG) { echo $register; } ?>" placeholder="<?php echo $comm['register']; ?>" required>
+                                    <input name="extension" type="text" id="extension" value="<?php if (isset($extension) && $alert != $Msg) { echo $extension; } ?>" placeholder="<?php echo $comm['ext']; ?>" >
                                 </p>
                                 <p>
-                                    <input name="badge" type="text" id="badge" value="<?php if (isset($badge) && $alert != MSG) { echo $badge; } ?>" placeholder="<?php echo $comm['badge']; ?>">
+                                    <input name="register" type="text" id="register" value="<?php if (isset($register) && $alert != $Msg) { echo $register; } ?>" placeholder="<?php echo $comm['register']; ?>" required>
                                 </p>
                                 <p>
-                                    <input name="phone" type="text" id="phone" value="<?php if (isset($phone) && $alert != MSG) { echo $phone; } ?>" placeholder="<?php echo $comm['phone']; ?>" required>
+                                    <input name="badge" type="text" id="badge" value="<?php if (isset($badge) && $alert != $Msg) { echo $badge; } ?>" placeholder="<?php echo $comm['badge']; ?>">
                                 </p>
                                 <p>
-                                    <input name="cell" type="text" id="cell" value="<?php if (isset($cell) && $alert != MSG) { echo $cell; } ?>" placeholder="<?php echo $comm['cell']; ?>" required>
+                                    <input name="phone" type="text" id="phone" value="<?php if (isset($phone) && $alert != $Msg) { echo $phone; } ?>" placeholder="<?php echo $comm['phone']; ?>" required>
                                 </p>
                                 <p>
-                                    <input name="email" type="email" id="email" value="<?php if (isset($email) && $alert != MSG) { echo $email; } ?>" placeholder="<?php echo $comm['email']; ?>" required> 
+                                    <input name="cell" type="text" id="cell" value="<?php if (isset($cell) && $alert != $Msg) { echo $cell; } ?>" placeholder="<?php echo $comm['cell']; ?>" required>
                                 </p>
                                 <p>
-                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email && $alert != MSG) { echo $checkEmail; } ?>" placeholder="<?php echo $comm['email2']; ?>" required> 
+                                    <input name="email" type="email" id="email" value="<?php if (isset($email) && $alert != $Msg) { echo $email; } ?>" placeholder="<?php echo $comm['email']; ?>" required> 
                                 </p>
                                 <p>
-                                    <input name="adress" type="text" id="adress" value="<?php if (isset($adress) && $alert != MSG) { echo $adress; } ?>" placeholder="<?php echo $comm['adress']; ?>" required>
+                                    <input name="checkEmail" type="email" id="checkEmail" value="<?php if (isset($checkEmail) && $checkEmail == $email && $alert != $Msg) { echo $checkEmail; } ?>" placeholder="<?php echo $comm['email2']; ?>" required> 
                                 </p>
                                 <p>
-                                    <input name="neigh" type="text" id="neigh" value="<?php if (isset($neigh) && $alert != MSG) { echo $neigh; } ?>" placeholder="<?php echo $comm['neigh']; ?>" required>
+                                    <input name="adress" type="text" id="adress" value="<?php if (isset($adress) && $alert != $Msg) { echo $adress; } ?>" placeholder="<?php echo $comm['adress']; ?>" required>
                                 </p>
                                 <p>
-                                    <input name="city" type="text" id="city" value="<?php if (isset($city) && $alert != MSG) { echo $city; } ?>" placeholder="<?php echo $comm['city']; ?>" required>
+                                    <input name="neigh" type="text" id="neigh" value="<?php if (isset($neigh) && $alert != $Msg) { echo $neigh; } ?>" placeholder="<?php echo $comm['neigh']; ?>" required>
+                                </p>
+                                <p>
+                                    <input name="city" type="text" id="city" value="<?php if (isset($city) && $alert != $Msg) { echo $city; } ?>" placeholder="<?php echo $comm['city']; ?>" required>
                                 </p>
                                 <p>
                                     <input name="password" type="password" id="password"  placeholder="<?php echo $comm['pass']; ?>" required> 
@@ -280,21 +315,21 @@ if(isset($_POST['name'])){
                                 <p>
                                     <select name="occupation" id="occupation" >
                                         <option value="informe" <?php if (isset($occupation) == '') { echo 'selected'; } ?> ><?php echo $comm['func']; ?></option>
-                                        <option value="Manager" <?php if (isset($occupation) && $occupation == 'Manager' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['manager']; ?></option>
-                                        <option value="Technical coordinator" <?php if (isset($occupation) && $occupation == 'Technical coordinator' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tecCoo']; ?></option>
-                                        <option value="Production coordinator" <?php if (isset($occupation) && $occupation == 'Production coordinator' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['prodCoo']; ?></option>
-                                        <option value="Engineer" <?php if (isset($occupation) && $occupation == 'Engineer' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['engineer']; ?></option>
-                                        <option value="Technician" <?php if (isset($occupation) && $occupation == 'Technician' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['tech']; ?></option>
-                                        <option value="Quick Repair" <?php if (isset($occupation) && $occupation == 'Quick Repair' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['quick']; ?></option>
+                                        <option value="Manager" <?php if (isset($occupation) && $occupation == 'Manager' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['manager']; ?></option>
+                                        <option value="Technical coordinator" <?php if (isset($occupation) && $occupation == 'Technical coordinator' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['tecCoo']; ?></option>
+                                        <option value="Production coordinator" <?php if (isset($occupation) && $occupation == 'Production coordinator' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['prodCoo']; ?></option>
+                                        <option value="Engineer" <?php if (isset($occupation) && $occupation == 'Engineer' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['engineer']; ?></option>
+                                        <option value="Technician" <?php if (isset($occupation) && $occupation == 'Technician' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['tech']; ?></option>
+                                        <option value="Quick Repair" <?php if (isset($occupation) && $occupation == 'Quick Repair' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['quick']; ?></option>
                                     </select>
                                     <p/>                                	
                                     <p>
                                     <select name="shift" id="shift" >
                                         <option value="informe" <?php if (isset($shift) == '') { echo 'selected'; } ?> ><?php echo $comm['shift']; ?></option>
-                                        <option value="1st" <?php if (isset($shift) && $shift == '1st' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s1']; ?></option> 
-                                        <option value="2sd" <?php if (isset($shift) && $shift == '2sd' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s2']; ?></option>
-                                        <option value="3th" <?php if (isset($shift) && $shift == '3th' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s3']; ?></option>
-                                        <option value="ADM" <?php if (isset($shift) && $shift == 'ADM' && $alert != MSG) { echo 'selected'; } ?> ><?php echo $comm['s4']; ?></option>                            
+                                        <option value="1st" <?php if (isset($shift) && $shift == '1st' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['s1']; ?></option> 
+                                        <option value="2sd" <?php if (isset($shift) && $shift == '2sd' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['s2']; ?></option>
+                                        <option value="3th" <?php if (isset($shift) && $shift == '3th' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['s3']; ?></option>
+                                        <option value="ADM" <?php if (isset($shift) && $shift == 'ADM' && $alert != $Msg) { echo 'selected'; } ?> ><?php echo $comm['s4']; ?></option>                            
                                     </select>
                                 <p/>                                	
                                 <p>
