@@ -107,7 +107,48 @@
 					?>
                 </th>
                 <th colspan="2" align="center">
-                	<?php echo "<a href='' title='Export list to Excel'><img src='..\images/excel.gif' /></a>"; ?>
+                	<?php
+                            //Sets the query to be exported to excel
+                            $query="SELECT * FROM `tbl_users` WHERE enabled=1";
+
+                            $query = str_replace("=","%3D",$query); //Encode reserved chars to avoid URL errors
+                            $query = str_replace(" ","%20",$query); //Encode reserved chars to avoid URL errors
+
+                            //Define the header for each column and mount the string
+                            $headings_array = array('ID','Name','Last Name',
+                                'User name','Extension','Register','Badge',
+                                'Home phone', 'Mobile phone', 'E-mail','Adress',
+                                'Hood', 'City', 'Password', 'Occupation', 'Shift',
+                                'Level access', 'Enable'
+                                );
+                            $headings = "";
+                            for($k=0; $k<count($headings_array); $k++)
+                            {
+                                    if($k==0)
+                                    {
+                                            $headings .= $headings_array[$k];
+                                    }
+                                    else
+                                    {
+                                            $headings .= "." . $headings_array[$k];
+                                    }
+                            }
+
+                            //Define the name of the sheet
+                            $sheetname = "User List";
+                            $sheetname = str_replace(" ","%20",$sheetname); //Encode reserved chars to avoid URL errors
+
+                            //Define the file name
+                            $filetype = "UserList"; //file name --> goes between 'flexmo' and 'datetime'
+                            $filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G:i:s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
+                            $filename = str_replace(":","%3A",$filename); //Encode reserved chars to avoid URL errors
+
+                            //Mount the $_GET info to send in the link
+                            $excel_get_info = "query=" . $query . "&headings=" . $headings . "&sheetname=" . $sheetname . "&filename=" . $filename;
+
+                            //The actual link
+                            echo "<a target='_blank' href='../functions/export_excel.php?" . $excel_get_info . "' title='Export list to Excel'><img src='../images/excel.gif' /></a>";
+                        ?>
                 </th>
             </tr>
         </table>
