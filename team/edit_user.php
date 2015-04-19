@@ -24,6 +24,12 @@ $page = $_SERVER['PHP_SELF'];
         else {            
             include_once 'eng.inc.php';
         }
+		
+		//In case there's no GET info
+	if(!isset($_GET['id']) && !isset($_POST['id']))
+	{
+		die("Error: GET or POST info not set! <br><br><a href='javascript:history.go(-1)' title='Go back to last page'>Back</a>");
+	}
 
 // Chama função Codifica senha
 require_once '..\functions/encodesPassword.inc.php';
@@ -31,6 +37,7 @@ require_once '..\functions/checkLogin.inc.php';
 
 // Se o nome for setado, variaveis recebem posts
 if(isset($_POST['name'])){
+    $name_id = $_GET['id'];
     $name = $_POST['name'];    
     $lastName = $_POST['lastName'];
     $user = $_POST['user'];
@@ -51,17 +58,7 @@ if(isset($_POST['name'])){
     $alert = '';
     //Define MSG como constante e recebe a mensagem a frente
     define('MSG', $comm['completed']);
-    /**
-     * Excluida
-     * Função para criar userName
-     * @param type $name Description
-     * @param return $userName Description
         
-    $userName .= substr($name, 0, 1);
-    $userName .= substr($lastName, 0, 4);
-    $userName = strtolower($userName);
-    */ 
-    
     // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
     
@@ -177,14 +174,70 @@ if(isset($_POST['name'])){
         $encryptedPassword = encodes_password($password);
         
         // Insere as informações no banco de dados
-        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `email`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
-            VALUES ('$name', '$lastName','$user','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
+        check_data("UPDATE `tbl_users` SET `name`=" . $name . ","
+                . "`last_name`=" . $lastName . ",`user_name`=" . $user . ","
+                . "`phone_ext`=" . $extension . ",`register`=" . $register . ","
+                . "`badge`=" . $badge . ",`home_phone`=" . $phone . ","
+                . "`molibe_phone`=" . $cell . ",`email`=" . $email . ","
+                . "`home_adress`=" . $adress . ",`neighborhood`=" . $neigh . ","
+                . "`city`=" . $city . ",`password`=" . $password . ","
+                . "`occupation`=" . $occupation . ",`shift`=" . $shift . ","
+                . " WHERE id=" . $name_id . "");
         
-        // Confirma operação com mensagem
-        $alert .= MSG;        
+                header("Location: index.php");       
         
     }
 }
+else
+{
+    $name_id = $_GET['id'];
+}
+
+        $sql = "SELECT
+                        id,
+                        name,
+                        last_name,
+                        user_name,
+                        phone_ext,
+                        register,
+                        badge,
+                        home_phone,
+                        molibe_phone,
+                        email,                        
+                        home_adress,
+                        neighborhood,
+                        city,
+                        password,
+                        occupation,
+                        shift    
+                    FROM
+                        `tbl_users`
+                    WHERE enabled=1 AND id=" . $name_id;
+
+//Execute query
+	$result = check_data($sql) or die("Erro: " . mysqli_error($db_link));
+        
+        $row = mysqli_fetch_array($result);        
+	
+	$id = $row['id'];
+	$name = $row['name'];    
+        $lastName = $row['last_name'];
+        $user = $row['user_name'];
+        $extension = $row['phone_ext'];
+        $register = $row['register'];
+        $badge = $row['badge'];
+        $phone = $row['home_phone'];
+        $cell = $row['molibe_phone'];
+        $email = $row['email'];        
+        $adress = $row['home_adress'];
+        $neigh = $row['neighborhood'];
+        $city = $row['city'];
+        $password = $row['password'];        
+        $occupation = $row['occupation'];
+        $shift = $row['shift'];
+        $alert = '';
+        //Define MSG como constante e recebe a mensagem a frente
+        define('MSG', $comm['completed']);
 
 ?>
 

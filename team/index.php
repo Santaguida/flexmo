@@ -60,7 +60,7 @@
                     register,
                     badge,
                     home_phone,
-                    mobile_phone,
+                    molibe_phone,
                     email,
                     home_adress,                                
                     city,
@@ -89,12 +89,12 @@
                             <td>" . $row['register'] . "</td>
                             <td>" . $row['badge'] . "</td>
                             <td>" . $row['home_phone'] . "</td>
-                            <td>" . $row['mobile_phone'] . "</td>
+                            <td>" . $row['molibe_phone'] . "</td>
                             <td>" . $row['email'] . "</td>
                             <td>" . $row['home_adress'] . ", " . $row['city'] . "</td>
                             <td>" . $row['occupation'] . "</td>
                             <td>" . $row['shift'] . "</td>
-                            <td align='center'><a href='..\\user/index.php?id=" . $row['id'] . "' title='Edit " . $row['name'] . "'><img src='..\images\pencil.png' /></a></td>
+                            <td align='center'><a href='edit_user.php?id=" . $row['id'] . "' title='Edit " . $row['name'] . "'><img src='..\images\pencil.png' /></a></td>
                             <td align='center'><a href='..\\functions/delete.php?" . $get_info . "' title='Delete " . $row['name'] . "'><img src='..\images\delete.png' /></a></td>
                     </tr>";
         }
