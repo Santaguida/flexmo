@@ -29,8 +29,9 @@ $page = $_SERVER['PHP_SELF'];
 require_once '..\functions/encodesPassword.inc.php';
 require_once '..\functions/checkLogin.inc.php';
 
-// Se o nome for setado, variaveis recebem posts
+// Se o nome estiver setado, as variaveis recebem os valores via POST
 if(isset($_POST['name'])){
+    $id = (int)$_POST['id'];
     $name = $_POST['name'];    
     $lastName = $_POST['lastName'];
     $user = $_POST['user'];
@@ -51,22 +52,42 @@ if(isset($_POST['name'])){
     $alert = '';
     //Define MSG como constante e recebe a mensagem a frente
     define('MSG', $comm['completed']);
-    /**
-     * Excluida
-     * Função para criar userName
-     * @param type $name Description
-     * @param return $userName Description
-        
-    $userName .= substr($name, 0, 1);
-    $userName .= substr($lastName, 0, 4);
-    $userName = strtolower($userName);
-    */ 
+}
+// Se o id estiver setado, as variaveis recebem os valores via SELECT
+elseif(isset($_GET['id'])){
     
+    $userSelect = check_data("SELECT * FROM `tbl_users` WHERE id=" . $_GET['id'] . "");
+    
+    $userData = mysqli_fetch_array($userSelect);
+    
+    $id = (int)$userData['id'];
+    $name = $userData['name'];    
+    $lastName = $userData['last_name'];
+    $user = $userData['user_name'];
+    $extension = $userData['phone_ext'];
+    $register = $userData['register'];
+    $badge = $userData['badge'];
+    $phone = $userData['home_phone'];
+    $cell = $userData['mobile_phone'];
+    $email = $userData['email'];
+    $checkEmail = $email;
+    $adress = $userData['home_adress'];
+    $neigh = $userData['neighborhood'];
+    $city = $userData['city'];
+    $password = $userData['password'];
+    $checkPassword = $password;
+    $occupation = $userData['occupation'];
+    $shift = $userData['shift'];
+    $alert = '';
+    //Define MSG como constante e recebe a mensagem a frente
+    define('MSG', $comm['completed']);
+}
+if(isset($_POST['name'])){
     // Chama função que Trata dados
     include_once '..\functions/testInput.inc.php';
     
-    $name = test_input($_POST["name"]);
-    $lastName = test_input($_POST["lastName"]);
+    $name = test_input($name);
+    $lastName = test_input($lastName);
     
     
     // Chama função que conecta o server
@@ -88,7 +109,7 @@ if(isset($_POST['name'])){
     if(empty($user)){
         $alert .= $comm['fieldError'] . $comm['user'].'<br/>';       
     }
-    elseif(check_login($user)){
+    elseif(check_login($user) && !isset($_GET['id'])){
         $alert .= $comm['login'].'<br/>';        
     }
     if(substr($user, 0, 3) != 'sao' || substr($name, 0, 1) != substr($user, 3, 1)){
@@ -166,7 +187,7 @@ if(isset($_POST['name'])){
     }
     if ($shift == 'informe') {
         $alert .= $comm['fieldError'] . $comm['shift'].'<br/>';
-    }
+    }   
     if(empty($alert)){      
         
         // Primeiro caracter maiusculo
@@ -175,17 +196,39 @@ if(isset($_POST['name'])){
         
         // Recebe senha codificada
         $encryptedPassword = encodes_password($password);
+ 
+        // Atualiza as informações no banco de dados
+        if(!empty($id)){
+        check_data("UPDATE `tbl_users` SET `name`='$name',"
+                . "`last_name`='$lastName',`user_name`='$user',"
+                . "`phone_ext`='$extension',`register`='$register',`badge`='$badge',"
+                . "`home_phone`='$phone',`molibe_phone`='$cell',"
+                . "`email`='$email',`home_adress`='$adress',"
+                . "`neighborhood`='$neigh',`city`='$city',"
+                . "`password`='$encryptedPassword',`occupation`='$occupation',"
+                . "`shift`='$shift' WHERE id= $id");
+          
         
+        // Confirma operação com mensagem
+        $alert .= MSG;    
+        
+        }
+        else{
         // Insere as informações no banco de dados
-        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`, `phone_ext`, `register`, `badge`, `home_phone`, `molibe_phone`, `email`, `home_adress`, `neighborhood`, `city`, `password`, `occupation`, `shift`,`enabled`)
-            VALUES ('$name', '$lastName','$user','$extension','$register','$badge','$phone','$cell','$email','$adress','$neigh','$city','$encryptedPassword', '$occupation','$shift','1')");
+        check_data("INSERT INTO `tbl_users`(`name`, `last_name`, `user_name`,
+            `phone_ext`, `register`, `badge`, `home_phone`, `mobile_phone`,
+            `email`, `home_adress`, `neighborhood`, `city`, `password`,
+            `occupation`, `shift`)
+            VALUES ('$name', '$lastName','$user','$extension','$register',"
+                . "'$badge','$phone','$cell','$email','$adress','$neigh',"
+                . "'$city','$encryptedPassword', '$occupation','$shift')");
         
         // Confirma operação com mensagem
         $alert .= MSG;        
         
     }
 }
-
+}
 ?>
 
 <head>
@@ -232,6 +275,9 @@ if(isset($_POST['name'])){
                         </h5>    
                         <div class="contact-form">
                             <form name="contactform" id="contactform" action="" method="post">
+                                <p>
+                                    <input name="id" type="text" id="id" value="<?php if (isset($id) && $alert != MSG) { echo $id; } ?>" >                                       
+                                </p>
                                 <p>
                                     <input name="name" type="text" id="name" value="<?php if (isset($name) && $alert != MSG) { echo $name; } ?>" placeholder="<?php echo $comm['name']; ?>" autofocus required>                                       
                                 </p>
