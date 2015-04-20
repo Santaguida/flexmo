@@ -56,7 +56,7 @@ Flexmo___
 	|	|_GOALS
 	|	|_REPORT
 	|	|_FORMS_
-	|		|_PRODUCTS
+	|		|_PRODUCTS <<GOING
 	|		|_ACTIONS-PROB-SOLU
 	|		|_PARTS
 	|_SETUP
@@ -64,7 +64,7 @@ Flexmo___
 	|_STRAIN GAGE
 	|_GOLDEN BOARDS
 	|_PROBES
-	|_TEAM <<<<<<<<< Next action
+	|_TEAM <<DONE
 	|_HDD CTRL
 	|_CSS
 	|_FONTS
@@ -72,7 +72,7 @@ Flexmo___
 	|_JS
 	|_PASSLOG
 	|_FORMS_
-	|	|_USERS <<<<<<<<< Improviment
+	|	|_USERS <<DONE
 	|_ADMIN
-	|_LOGIN
+	|_LOGIN <<DONE
 

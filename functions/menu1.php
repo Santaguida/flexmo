@@ -36,6 +36,7 @@
                                 <li><a href="http://10.112.0.210/flexmo">Home</a></li>
                                 <li><a href="..\user">User</a></li>                                
                                 <li><a href="..\team">Team</a></li>
+                                <li><a href="..\fct/FCT_Products.php">FCT</a></li>
                             </ul>
                         </div>
                     </div>

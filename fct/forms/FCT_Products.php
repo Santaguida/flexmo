@@ -1,39 +1,36 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
+<?php session_start(); ?>
+
 <!-- 
-Kool Store Template
-http://www.templatemo.com/preview/templatemo_428_kool_store
--->
-    <meta charset="utf-8">
-    <title>Double TS - Test Support Ticket System</title>
+    Developed by Fernando Henrique Santaguida and Gabriel Nazato
+    			http://www.fernandohs.com.br
+-->    
 
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/templatemo-misc.css">
-    <link rel="stylesheet" href="css/templatemo-style.css">
-
-    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <!--
+    include head start
+    -->
+    
+    <?php include_once '..\functions/header.php'; ?>   
+        
+	<!--
+    include head end
+    -->
+    
+	<title>FleXmo</title>
 
 </head>
-<body>
-    <!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
 
-    
-   
-<div class="content-section">
+<body>
+
+<!-- include menu1 start -->
+
+<?php include_once '..\functions/menu1.php'; ?>
+
+    <!-- include menu1 end -->
+        <div class="content-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-6">
@@ -112,6 +109,12 @@ http://www.templatemo.com/preview/templatemo_428_kool_store
                 
             </div>
         </div>
-    </div> <!-- /.content-section -->
+    </div>
+	<!-- include menu2 start -->
+    
+<?php include_once '..\functions/menu2.php'; ?>   
+
+	<!-- include menu2 end -->
+    
 </body>
 </html>
