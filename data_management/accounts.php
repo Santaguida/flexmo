@@ -36,7 +36,7 @@
 			}
 			else
 			{
-				$alert = "This product alredy exists<br>[Esse produto já existe]";
+				$alert = "This account alredy exists<br>[Essa conta já existe]";
 			}				
 		}
 		else
@@ -120,7 +120,7 @@
 						
 						//Define the file name
 						$filetype = "AccountList"; //file name --> goes between 'flexmo' and 'datetime'
-						$filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G:i:s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
+						$filename = "FleXmo_" . $filetype . "_" . date('d.m.Y_G.i.s'); //Example: FleXmo_ProductList_02.04.2015_15:08:2015.xls
 						$filename = str_replace(":","%3A",$filename); //Encode reserved chars to avoid URL errors
 						
 						//Mount the $_GET info to send in the link
