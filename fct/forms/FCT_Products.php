@@ -3,17 +3,44 @@
 <!-- 
     Developed by Fernando Henrique Santaguida and Gabriel Nazato
     			http://www.fernandohs.com.br
--->    
+-->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<?php
+
+if(isset($_POST['project'])){
+    $project = $_POST['project'];
+    $jigaid = $_POST['jigaid'];    
+    $numberJig = $_POST['numberJig'];    
+    $alert = '';
+
+    if(empty($project)){
+        $alert .= 'Nome do projeto invalido !';       
+    }
+    if(empty($jigaid)){
+        $alert .= 'Jiga ID invalida !';       
+    }
+    /*if(is_numeric($jigaid)){
+        $alert .= 'Favor inserir apenas letras.';
+    }*/
+    if(empty($alert)){
+        check_data("INSERT INTO `tbl_fct_jigs`(`product`, `jigid`, `jigQnt`)
+            VALUES ('$project', '$jigaid','$numberJig)");
+    }
+    $alert .= 'Salvo com sucesso !';
+}
+
+?>
+    
 <head>
     
     <!--
     include head start
     -->
     
-    <?php include_once '..\functions/header.php'; ?>   
+    <?php include_once '..\..\functions/header.php'; ?>   
         
 	<!--
     include head end
@@ -27,25 +54,38 @@
 
 <!-- include menu1 start -->
 
-<?php include_once '..\functions/menu1.php'; ?>
+<?php include_once '..\..\functions/menu1.php'; ?>
 
     <!-- include menu1 end -->
         <div class="content-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-6">
-                    <h3 class="widget-title">Cadastro de produto</h3>                   
+                    <h3 class="widget-title">Cadastro de produto</h3>
+                     <?php
+                            
+                        // Caso exista um alerta, imprime na tela
+                        // Caso não, mantem mensagem HTML
+                        if(!empty($alert)){
+                            print '</br>' . $alert;
+                                }                            
+                        else{
+                            print 'Campo obrigatório*';
+                            }                           
+                            
+                    ?>
+                    
                     <div class="contact-form">
-                      <form name="contactform" id="contactform" action="#" method="post">
+                      <form name="contactform" id="contactform" action="" method="post">
                             <p>
-                                <input name="projeto" type="text" id="projeto" placeholder="Nome do projeto">
+                                <input name="project" type="text" id="project" placeholder="Nome do projeto" value="<?php if (isset($project)) { echo $project; } ?>" required>
                             </p>
                             <p>
-                                <input name="jigaid" type="text" id="jigaid" placeholder="Digite apenas as letras da Jiga ID">
+                                <input name="jigaid" type="text" id="jigaid" placeholder="Digite apenas as letras da Jiga ID" value="<?php if (isset($jigaid)) { echo $jigaid; } ?>" required>
                             </p>
                             <p>
-                              <label for="numeroJigas"></label>
-                              <select name="numeroJigas" id="numeroJigas">
+                              <label for="numberJig"></label>
+                              <select name="numberJig" id="numberJig">
                                 <option value="numJigas">Informe a quantidade de Jigas</option>
                                 <option value="1">01</option>
                                 <option value="2">02</option>
@@ -97,12 +137,21 @@
                                 <option value="48">48</option>
                                 <option value="49">49</option>
                                 <option value="50">50</option>
+                                <option value="41">51</option>
+                                <option value="42">52</option>
+                                <option value="43">53</option>
+                                <option value="44">54</option>
+                                <option value="45">55</option>
+                                <option value="46">56</option>
+                                <option value="47">57</option>
+                                <option value="48">58</option>
+                                <option value="49">59</option>
+                                <option value="50">60</option>
                               </select>
                             </p>
                             <p>
-                              <input type="submit" class="mainBtn" id="submit" value="Cadastrar">
-                            </p>
-                            <p><a href="index.html">Voltar</a> </p>
+                              <input type="submit" class="mainBtn" id="submit" value="Salvar">
+                            </p>                            
                       </form>
                     </div> <!-- /.contact-form -->
                 </div>
@@ -112,7 +161,7 @@
     </div>
 	<!-- include menu2 start -->
     
-<?php include_once '..\functions/menu2.php'; ?>   
+<?php include_once '..\..\functions/menu2.php'; ?>   
 
 	<!-- include menu2 end -->
     
