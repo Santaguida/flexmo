@@ -10,14 +10,17 @@
     
 <?php
 
-if(isset($_POST['project'])){
-    $project = $_POST['project'];
+// Chama função que conecta o server
+require_once '..\..\functions/server.php';
+
+if(isset($_POST['product'])){
+    $project = $_POST['product'];
     $jigaid = $_POST['jigaid'];    
     $numberJig = $_POST['numberJig'];    
     $alert = '';
 
     if(empty($project)){
-        $alert .= 'Nome do projeto invalido !';       
+        $alert .= 'Nome do produto invalido !';       
     }
     if(empty($jigaid)){
         $alert .= 'Jiga ID invalida !';       
@@ -27,7 +30,7 @@ if(isset($_POST['project'])){
     }*/
     if(empty($alert)){
         check_data("INSERT INTO `tbl_fct_jigs`(`product`, `jigid`, `jigQnt`)
-            VALUES ('$project', '$jigaid','$numberJig)");
+            VALUES ('$project', '$jigaid','$numberJig')");
     }
     $alert .= 'Salvo com sucesso !';
 }
@@ -56,12 +59,11 @@ if(isset($_POST['project'])){
 
 <?php include_once '..\..\functions/menu1.php'; ?>
 
-    <!-- include menu1 end -->
-        <div class="content-section">
+    <!-- include menu1 end -->       
         <div class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-6">
-                    <h3 class="widget-title">Cadastro de produto</h3>
+                    <h3 class="widget-title">Cadastro de jigas</h3>
                      <?php
                             
                         // Caso exista um alerta, imprime na tela
@@ -78,10 +80,28 @@ if(isset($_POST['project'])){
                     <div class="contact-form">
                       <form name="contactform" id="contactform" action="" method="post">
                             <p>
-                                <input name="project" type="text" id="project" placeholder="Nome do projeto" value="<?php if (isset($project)) { echo $project; } ?>" required>
+                                <select name="product" id="product" onChange="jsColorSwitch();">
+                                <option value="0" <?php if(!isset($product)){ echo "selected"; } ?> style="color:#a9a9a9;" >Product [Produto]</option>
+                                <?php
+                                    //Query info for account <select>
+                                    $query = "SELECT * FROM tbl_products WHERE enabled=1 ORDER BY product ASC";
+                                    $result = check_data($query) or die("Error: " . mysqli_error($db_link));
+                                    
+                                    for($i=1; $query_product = mysqli_fetch_array($result); $i++)
+                                    {
+                                        //echo $query_product['id'];
+                                        $selected = "";
+                                        if(isset($product))
+                                        {
+                                            if($product==$query_product['id']){ $selected="selected"; }
+                                        }
+                                        echo "<option value='" . $query_product['id'] . "' " . $selected . " style='color:#000000 !important;' >" . $query_product['product'] . "</option>";
+                                    }
+                                ?>
+                                </select>
                             </p>
                             <p>
-                                <input name="jigaid" type="text" id="jigaid" placeholder="Digite apenas as letras da Jiga ID" value="<?php if (isset($jigaid)) { echo $jigaid; } ?>" required>
+                                <input name="jigaid" type="text" id="jigaid" placeholder="Digite apenas as letras da Jiga ID" value="<?php if(isset($jigaid) && $alert != 'Salvo com sucesso !') { echo $jigaid; } ?>" required>
                             </p>
                             <p>
                               <label for="numberJig"></label>
@@ -158,7 +178,6 @@ if(isset($_POST['project'])){
                 
             </div>
         </div>
-    </div>
 	<!-- include menu2 start -->
     
 <?php include_once '..\..\functions/menu2.php'; ?>   
