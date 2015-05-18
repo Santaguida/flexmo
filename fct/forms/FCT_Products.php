@@ -25,14 +25,16 @@ if(isset($_POST['product'])){
     if(empty($jigaid)){
         $alert .= 'Jiga ID invalida !';       
     }
-    /*if(is_numeric($jigaid)){
-        $alert .= 'Favor inserir apenas letras.';
-    }*/
+    if( preg_match( '/[0-9]/' , $jigaid ) ){
+    $alert .= 'No campo Jiga ID, digite apenas letras !';
+
+    }
     if(empty($alert)){
         check_data("INSERT INTO `tbl_fct_jigs`(`product`, `jigid`, `jigQnt`)
             VALUES ('$project', '$jigaid','$numberJig')");
-    }
-    $alert .= 'Salvo com sucesso !';
+        
+        $alert .= 'Salvo com sucesso !';
+    }    
 }
 
 ?>
