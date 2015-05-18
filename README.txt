@@ -56,9 +56,10 @@ Flexmo___
 	|	|_GOALS
 	|	|_REPORT
 	|	|_FORMS_
-	|		|_PRODUCTS <<GOING
-	|		|_ACTIONS-PROB-SOLU
-	|		|_PARTS
+	|		|_PRODUCTS <<DONE
+	|		|_PROB <<GOING
+	|		|_SOLU
+	|		|_PARTS <<DONE
 	|_SETUP
 	|_PREVENTIVE MAINTENANCE
 	|_STRAIN GAGE
