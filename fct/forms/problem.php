@@ -77,11 +77,9 @@ $itensQuery = check_data("select * from tbl_problem order by id asc");
 <!-- include menu1 start -->
 
 <?php include_once '..\..\functions/menu1.php'; ?>
-
+<div id="main">
     <!-- include menu1 end -->       
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5 col-sm-6">
+        
                     <h3 class="widget-title">Cadastro de problemas</h3>
                      <?php
                             
@@ -96,7 +94,7 @@ $itensQuery = check_data("select * from tbl_problem order by id asc");
                             
                     ?>
                     
-                    <table>
+<table class="clean_table" cellspacing="0" cellpadding="0" border="0">
     <tr>      
       <th>Problemas</th>      
       <th>Ações</th>
@@ -104,9 +102,9 @@ $itensQuery = check_data("select * from tbl_problem order by id asc");
     <?php // mostra os registros do banco ?>  
     <?php while($itens = mysqli_fetch_array($itensQuery)): ?>  
         <tr>
-            <form action="problem.php" method="get" >
+            <form class="login_form" action="problem.php" method="get" >
                 <input type="hidden" name="id" value="<?php print $itens['id']; ?>"/>
-                <td><input type="text" name="prob" value="<?php print $itens['problem']; ?>"/></td>                
+                <td><input type="text" name="prob" value="<?php print $itens['id'].'- '. $itens['problem']; ?>"/></td>                
                 <td>
                     <input type="submit" value="Editar"/>
                     <input type="button"  value="deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
@@ -124,11 +122,9 @@ $itensQuery = check_data("select * from tbl_problem order by id asc");
       </td>
     </form>
         </tr>
-  </table>
-                </div>
+</table>
                 
-            </div>
-        </div>
+</div>    
 	<!-- include menu2 start -->
     
 <?php include_once '..\..\functions/menu2.php'; ?>   
