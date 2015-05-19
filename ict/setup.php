@@ -149,7 +149,7 @@
 								<td>" . $row['Product'] . "</td>
 								<td title='Model: " . $row['Model'] . "'>" . $row['Machine'] . "</td>
 								<td align='center'><a href='edit_setup.php?id=" . $row['Id'] . "' title='Edit " . $row['Line'] . " [" . $row['Product'] . "]'><img src='..\images\pencil.png' /></a></td>
-								<td align='center'><a href='real_delete.php?" . $get_info . "' title='Delete " . $row['Line'] . " [" . $row['Product'] . "]'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='../data_management/delete.php?" . $get_info . "' title='Delete " . $row['Line'] . " [" . $row['Product'] . "]'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}
 				?>

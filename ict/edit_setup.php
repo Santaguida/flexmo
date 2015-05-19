@@ -43,7 +43,7 @@
 			FROM tbl_ict_config c 
 			JOIN tbl_lines l ON (c.line=l.id) 
 			JOIN tbl_products p ON (c.product=p.id)
- 			JOIN tbl_ict_machines m ON (c.machine=m.id)  
+  			JOIN tbl_ict_machines m ON (c.machine=m.id) 
 			WHERE c.id=" . $setup_id . 
 			" ORDER BY Line ASC";
 			

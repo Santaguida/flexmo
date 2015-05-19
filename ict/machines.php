@@ -34,7 +34,7 @@
 					<table width='100%'>
 					<tr>
 					<td class='top_header_link' align='center'>
-					<a href='undelete.php?tbl=tbl_ict_machines&col=id&val=" . $row['id'] . "' title='Undelete'>
+					<a href='enable.php?tbl=tbl_ict_machines&col=id&val=" . $row['id'] . "' title='Undelete'>
 					[Undelete Machine]
 					</a>
 					</td>
@@ -117,7 +117,7 @@
 								<td>" . $row['Model'] . "</td>
 								<td>" . $row['Serial'] . "</td>
 								<td align='center'><a href='edit_ict_machine.php?id=" . $row['Id'] . "' title='Edit " . $row['Machine'] . "'><img src='..\images\pencil.png' /></a></td>
-								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete " . $row['Machine'] . "'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='disable.php?" . $get_info . "' title='Delete " . $row['Machine'] . "'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}
 				?>

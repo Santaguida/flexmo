@@ -39,7 +39,7 @@
 					<table width='100%'>
 					<tr>
 					<td class='top_header_link' align='center'>
-					<a href='undelete.php?tbl=tbl_products&col=id&val=" . $row['id'] . "' title='Undelete'>
+					<a href='enable.php?tbl=tbl_products&col=id&val=" . $row['id'] . "' title='Undelete'>
 					[Undelete Product]
 					</a>
 					</td>
@@ -123,7 +123,7 @@
 								<td>" . $row['Account'] . "</td>
 								<td>" . $row['Category'] . "</td>
 								<td align='center'><a href='edit_product.php?id=" . $row['Id'] . "' title='Edit " . $row['Product'] . "'><img src='..\images\pencil.png' /></a></td>
-								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete " . $row['Product'] . "'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='disable.php?" . $get_info . "' title='Delete " . $row['Product'] . "'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}				
 				?>

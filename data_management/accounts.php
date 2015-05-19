@@ -26,7 +26,7 @@
 				<table width='100%'>
 				<tr>
 				<td class='top_header_link' align='center'>
-				<a href='undelete.php?tbl=tbl_accounts&col=id&val=" . $row['id'] . "' title='Undelete'>
+				<a href='enable.php?tbl=tbl_accounts&col=id&val=" . $row['id'] . "' title='Undelete'>
 				[Undelete Account]
 				</a>
 				</td>
@@ -81,7 +81,7 @@
 						
 						echo "<tr style='background-color:" .  $color . ";'>
 								<td>" . $row['account'] . "</td>
-								<td align='center'><a href='delete.php?" . $get_info . "' title='Delete " . $row['account'] . "'><img src='..\images\delete.png' /></a></td>
+								<td align='center'><a href='disable.php?" . $get_info . "' title='Delete " . $row['account'] . "'><img src='..\images\delete.png' /></a></td>
 							  </tr>";
 					}				
 				?>
