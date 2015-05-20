@@ -95,8 +95,9 @@ $itensQuery = check_data("select * from tbl_fct_problem order by id asc");
                     ?>
                     
 <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>      
-      <th width="80%">Problemas</th>      
+    <tr>
+      <th width="05%">ID</th>  
+      <th width="75%">Problemas</th>      
       <th width="20%" style="text-align:center;">Ações</th>
     </tr>
 </table>
@@ -107,17 +108,17 @@ $itensQuery = check_data("select * from tbl_fct_problem order by id asc");
     <p>
         <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%"> 
             <tr>
-            	<td>
-                	<input type="hidden" name="id" value="<?php print $itens['id']; ?>"/>
+            	<td width="05%">
+                	<input type="text" name="id" value="<?php print $itens['id']; ?>"/>
                 </td>                
-                <td width="80%">
-                	<input type="text" name="prob" value="<?php print $itens['id'].'- '. $itens['problem']; ?>"/>
+                <td width="75%">
+                	<input type="text" name="prob" value="<?php print $itens['problem']; ?>"/>
                 </td>                
                 <td width="10%">
                     <input type="submit" value="Editar"/>
                 </td>
                 <td width="10%">
-                    <input type="button"  value="deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
+                    <input type="button"  value="Deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
                 </td>            
         	</tr>
         </table>
@@ -131,10 +132,10 @@ $itensQuery = check_data("select * from tbl_fct_problem order by id asc");
       <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
           <tr>    
 			 <td width="80%">
-             	<input type="text" name="prob" />
+             	<input type="text" name="prob" placeholder="Novo cadastro de problema" required/>
              </td>         
       		 <td width="20%">
-          		<input type="submit" value="Novo cadastro" />
+          		<input type="submit" value="Cadastrar" />
       		 </td>    
            </tr>
 	   </table>
