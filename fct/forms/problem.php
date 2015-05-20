@@ -77,7 +77,7 @@ $itensQuery = check_data("select * from tbl_fct_problem order by id asc");
 <!-- include menu1 start -->
 
 <?php include_once '..\..\functions/menu1.php'; ?>
-<div id="main">
+<div id="main_small">
     <!-- include menu1 end -->       
         
                     <h3 class="widget-title">Cadastro de problemas</h3>
@@ -94,35 +94,52 @@ $itensQuery = check_data("select * from tbl_fct_problem order by id asc");
                             
                     ?>
                     
-<table class="clean_table" cellspacing="0" cellpadding="0" border="0">
+<table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
     <tr>      
-      <th>Problemas</th>      
-      <th>Ações</th>
+      <th width="80%">Problemas</th>      
+      <th width="20%" style="text-align:center;">Ações</th>
     </tr>
+</table>
     <?php // mostra os registros do banco ?>  
-    <?php while($itens = mysqli_fetch_array($itensQuery)): ?>  
-        <tr>
-            <form class="login_form" action="problem.php" method="get" >
-                <input type="hidden" name="id" value="<?php print $itens['id']; ?>"/>
-                <td><input type="text" name="prob" value="<?php print $itens['id'].'- '. $itens['problem']; ?>"/></td>                
-                <td>
+    <?php while($itens = mysqli_fetch_array($itensQuery)): ?> 
+    
+    <form class="login_form" action="problem.php" method="get" >
+    <p>
+        <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%"> 
+            <tr>
+            	<td>
+                	<input type="hidden" name="id" value="<?php print $itens['id']; ?>"/>
+                </td>                
+                <td width="80%">
+                	<input type="text" name="prob" value="<?php print $itens['id'].'- '. $itens['problem']; ?>"/>
+                </td>                
+                <td width="10%">
                     <input type="submit" value="Editar"/>
-                    <input type="button"  value="deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
                 </td>
-            </form>
-        </tr>
+                <td width="10%">
+                    <input type="button"  value="deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
+                </td>            
+        	</tr>
+        </table>
+        </p>
+    </form>
     <?php endwhile; ?>
       
       <?php // formulario para cadastro de novo item ?> 
-        <tr>
-    <form action="problem.php" method="get" >
-      <td><input type="text" name="prob" /></td>         
-      <td>
-          <input type="submit" value="Novo cadastro" />
-      </td>
-    </form>
-        </tr>
-</table>
+      <form action="problem.php" method="get" >
+      <p>
+      <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>    
+			 <td width="80%">
+             	<input type="text" name="prob" />
+             </td>         
+      		 <td width="20%">
+          		<input type="submit" value="Novo cadastro" />
+      		 </td>    
+           </tr>
+	   </table>
+       </p>
+	</form>
                 
 </div>    
 	<!-- include menu2 start -->

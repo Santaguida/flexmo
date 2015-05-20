@@ -148,6 +148,15 @@ select
 	/*border:1px solid #000;*/
 }
 
+#main_small
+{
+	width:400px;
+	left:50%;
+	margin-left:-200px;
+	position:relative;
+	z-index:1;
+}
+
 #div_left
 {
 	width:500px;
