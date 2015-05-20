@@ -17,7 +17,7 @@ require_once '..\..\functions/server.php';
 if(isset($_GET['acao'])){
     if($_GET['acao'] == 'deletar'){
         $id = (int)$_GET['id'];
-        check_data("delete from tbl_problem where id = $id");
+        check_data("delete from tbl_fct_problem where id = $id");
         header("Location: problem.php");
     }
 }
@@ -36,9 +36,9 @@ if(isset($_GET['prob'])){
         // se nao cadastra novo registro
         if(!empty($_GET['id'])){
         $id = (int)$_GET['id'];
-        check_data("update tbl_problem set problem = '$prob' where id = $id");
+        check_data("update tbl_fct_problem set problem = '$prob' where id = $id");
     }else{
-        check_data("insert into tbl_problem(problem)
+        check_data("insert into tbl_fct_problem(problem)
                         values ('$prob')");
     }
             header("location: problem.php");
@@ -46,7 +46,7 @@ if(isset($_GET['prob'])){
 }
 
 // busca itens cadastrados para mostrar na tela
-$itensQuery = check_data("select * from tbl_problem order by id asc");
+$itensQuery = check_data("select * from tbl_fct_problem order by id asc");
 
 ?>
     
