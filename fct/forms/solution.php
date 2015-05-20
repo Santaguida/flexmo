@@ -1,0 +1,154 @@
+<?php session_start(); ?>
+
+<!-- 
+    Developed by Fernando Henrique Santaguida and Gabriel Nazato
+    			http://www.fernandohs.com.br
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+<?php
+
+// Chama função que conecta o server
+require_once '..\..\functions/server.php';
+
+// deleta um item do menu
+if(isset($_GET['acao'])){
+    if($_GET['acao'] == 'deletar'){
+        $id = (int)$_GET['id'];
+        check_data("delete from tbl_fct_solution where id = $id");
+        header("Location: solution.php");
+    }
+}
+
+// recebe os dados do formulario
+if(isset($_GET['sol'])){
+    $sol = $_GET['sol'];    
+    $aviso = '';
+    
+    if(empty($sol)){
+        $aviso .= 'A solução é obrigatoria<br />';
+    }    
+    if(empty($aviso)){
+        // verifica se esta recebendo o id do formulario
+        // se tiver edita
+        // se nao cadastra novo registro
+        if(!empty($_GET['id'])){
+        $id = (int)$_GET['id'];
+        check_data("update tbl_fct_solution set sol = '$sol' where id = $id");
+    }else{
+        check_data("insert into tbl_fct_solution(sol)
+                        values ('$sol')");
+    }
+            header("location: solution.php");
+    }
+}
+
+// busca itens cadastrados para mostrar na tela
+$itensQuery = check_data("select * from tbl_fct_solution order by id asc");
+
+?>
+    
+<head>
+    
+    <!--
+    include head start
+    -->
+    
+    <?php include_once '..\..\functions/header.php'; ?>   
+        
+	<!--
+    include head end
+    -->
+    
+	<title>FleXmo</title>
+<script type="text/javascript">
+        function deletar(id){
+            if(confirm("Voce tem certeza que quer deletar este registro ?")){
+                window.location = "solution.php?acao=deletar&id=" + id;
+            }
+        }
+</script>
+</head>
+
+<body>
+
+<!-- include menu1 start -->
+
+<?php include_once '..\..\functions/menu1.php'; ?>
+<div id="main_small">
+    <!-- include menu1 end -->       
+        
+                    <h3 class="widget-title">Cadastro de soluções</h3>
+                     <?php
+                            
+                        // Caso exista um alerta, imprime na tela
+                        // Caso não, mantem mensagem HTML
+                        if(!empty($alert)){
+                            print '</br>' . $alert;
+                                }                            
+                        else{
+                            print 'Campo obrigatório*';
+                            }                           
+                            
+                    ?>
+                    
+<table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+      <th width="05%">ID</th>  
+      <th width="75%">Soluções</th>      
+      <th width="20%" style="text-align:center;">Ações</th>
+    </tr>
+</table>
+    <?php // mostra os registros do banco ?>  
+    <?php while($itens = mysqli_fetch_array($itensQuery)): ?> 
+    
+    <form class="login_form" action="solution.php" method="get" >
+    <p>
+        <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%"> 
+            <tr>
+            	<td width="05%">
+                	<input type="text" name="id" value="<?php print $itens['id']; ?>"/>
+                </td>                
+                <td width="75%">
+                	<input type="text" name="sol" value="<?php print $itens['sol']; ?>"/>
+                </td>                
+                <td width="10%">
+                    <input type="submit" value="Editar"/>
+                </td>
+                <td width="10%">
+                    <input type="button"  value="Deletar" onclick="deletar(<?php print $itens['id']; ?>)"/>
+                </td>            
+        	</tr>
+        </table>
+        </p>
+    </form>
+    <?php endwhile; ?>
+      
+      <?php // formulario para cadastro de novo item ?> 
+      <form action="solution.php" method="get" >
+      <p>
+      <table class="clean_table" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>    
+			 <td width="80%">
+             	<input type="text" name="sol" placeholder="Novo cadastro de solução" required/>
+             </td>         
+      		 <td width="20%">
+          		<input type="submit" value="Cadastrar" />
+      		 </td>    
+           </tr>
+	   </table>
+       </p>
+	</form>
+                
+</div>    
+	<!-- include menu2 start -->
+    
+<?php include_once '..\..\functions/menu2.php'; ?>   
+
+	<!-- include menu2 end -->
+    
+</body>
+</html>
+
