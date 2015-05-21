@@ -47,7 +47,7 @@ Software Architecture
 Flexmo___
 	|_ICT
 	|_FCT____
-	|	|_STATION SETUP <<GOING
+	|	|_SETUP <<GOING
 	|	|_MONITOR
 	|	|_TICKET_
 	|	|	|_OPEN
