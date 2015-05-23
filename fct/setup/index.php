@@ -17,7 +17,7 @@ if(isset($_POST['product'])){
     $project = $_POST['product'];
     $line = $_POST['line'];    
     $station = $_POST['station'];
-    $jigid = $_POST['jigid'];
+    $jigid = $_POST['jigid'];    
     $alert = '';
 
     if($project == "0"){
