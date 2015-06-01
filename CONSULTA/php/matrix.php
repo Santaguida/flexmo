@@ -20,22 +20,19 @@ X
 </form>
 <table width="100%" height="600" border="1">
     
-	<?php
+    <?php
+    
     	$nRow = $_POST['nRow'];
         $nCol = $_POST['nCol'];
     	$content =  '';
         $matrix =   '';
-    	$tdIn =     '<td>';
-        $tdOut =    '</td>';
-        $trIn =     '<tr>';
-        $trOut =    '</tr>';
         
         for($i = 1; $i <= $nRow; $i++){
-            $matrix .= $trOut . $trIn;
+            $matrix .= '</tr><tr>';
             for($j = 1; $j <= $nCol; $j++){
-                $matrix .= $tdOut . $tdIn;                
+                $matrix .= '</td><td>';
             }
-        }        
+        }
         
         echo $matrix;
         

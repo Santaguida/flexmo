@@ -16,7 +16,7 @@ for($variavel = 0; $variavel < 10; $variavel++){ // declara i = 0; testa i; incr
 echo '<br><hr><br>';
 echo 'for 3<br>';
 
-for($variavel = 10; $variavel > 0; $variavel--){ // declara i = 0; testa i; incrementa
+for($variavel = 10; $variavel > 0; $variavel--){ // declara i = 0; testa i; decrementa
     echo 'i é igual a ' . $variavel . '<br>';
 }
 
