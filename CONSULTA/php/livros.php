@@ -40,4 +40,3 @@ while ($livros = mysqli_fetch_assoc($livros_query)){
     print_r($livros);
     echo '<pre>';
 }
-

@@ -40,70 +40,77 @@
 
     require_once '..\..\functions/server.php';
                  
-        $query="SELECT
-                    s.id Id,
-                    s.jigid Jigid,
-                    s.station Station,
-                    p.product Product
-                FROM
-                    `tbl_fct_setup` s
-                JOIN
-                    `tbl_products` p ON (s.product=p.id)
-                WHERE 1";
+    $result = check_data("SELECT
+                            s.id Id,
+                            s.jigid Jigid,
+                            s.station Station,
+                            p.product Product
+                        FROM
+                            `tbl_fct_setup` s
+                        JOIN
+                            `tbl_products` p ON (s.product=p.id)
+                        WHERE 1");
 
-        $result = check_data($query);        
-                                        
-        $row=mysqli_fetch_array($result);        
-				
+        
+    for($j=1;$row=mysqli_fetch_array($result);$j++)
+    {
+    
+    $id[] = $row['Id'];
+    $product[] = $row['Product'];
+    $station[] = $row['Station'];
+    $jigid[] = $row['Jigid'];
+    
+    }    
+       
 ?>
             
         </table>
        </div>
         
-    <form id="form1" name="form1" method="post" action="">
-  <table width="425" border="1">
-    <tr>
-      <td width="100" height="100"><?php echo "<p>$row[Product]</p><p>WS: $row[Station]</p><p>$row[Jigid]</p>"; ?></td>
-      <td width="100" height="100"><?php echo "<p>$row[Product]</p><p>WS: $row[Station]</p><p>$row[Jigid]</p>"; ?></td>
-      <td rowspan="7">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+<form id="form1" name="form1" method="post" action="">
+  <table width="425" border="1" align="center">
+    <tr>   
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[1] . "' title='Edit " . $jigid[1] . "'>Station: " . $station[1] . "</br>" . $product[1] . "</br>" . $jigid[1] . "</a>"; ?></td>
+      <td rowspan="7" align="center" valign="middle">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[2] . "' title='Edit " . $jigid[2] . "'>Station: " . $station[2] . "</br>" . $product[2] . "</br>" . $jigid[2] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[3] . "' title='Edit " . $jigid[3] . "'>Station: " . $station[3] . "</br>" . $product[3] . "</br>" . $jigid[3] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[1] . "' title='Edit " . $jigid[1] . "'>Station: " . $station[1] . "</br>" . $product[1] . "</br>" . $jigid[1] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
     <tr>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
-      <td width="100" height="100">&nbsp;</td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
+      <td width="100" height="100" align="center" valign="middle"><?php echo "<a href='update.php?id=" . $id[0] . "' title='Edit " . $jigid[0] . "'>Station: " . $station[0] . "</br>" . $product[0] . "</br>" . $jigid[0] . "</a>"; ?></td>
     </tr>
   </table>
 </form>
