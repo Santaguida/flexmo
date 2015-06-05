@@ -32,7 +32,7 @@
     <!-- include menu1 end -->
         
         
-        <h3 class="blue_title">Setup</h3>
+        <h3 align="center" class="widget-title">Setup</h3>
         <div id="list_us">
         <table id="db_list_us">
             
